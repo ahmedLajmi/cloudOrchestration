@@ -18,3 +18,7 @@ def workspace(request):
 	
 	return render(request , 'workspace.html')
 
+def formu(request):
+	print (request.FILES)
+	return render(request , 'workspace.html')
+
