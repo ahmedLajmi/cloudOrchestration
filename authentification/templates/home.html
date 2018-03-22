@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Cloud orchestration</title>
+{% load staticfiles %}
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+
+  </head>
+  <body  data-spy="scroll" data-target=".navbar-fixed-top" >
+
+
+<!-- NAvigation -->
+
+<div id="myNavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container navbar-header1">
+    <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a href="#" class="navbar-brand page-scroll">CloudOrchestrator</a>
+
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbarResponsive">
+
+
+            <ul class="nav lang navbar-nav navbar-right pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      <img id="imgBtnSel" src="{% static 'images/fr.jpeg' %}" alt="..." class="img-thumbnail icon-medium">  
+                       Fr <span  id="lanBtnSel" class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a id="btnEng" href="indexEn.html" class="language"><img id="imgBtnEng" src="{% static 'images/en.png' %}" alt="..." class="img-thumbnail icon-small">  <span id="lanBtnEng">En</span></a></li>
+                  </ul>
+                </li>
+            </ul>
+
+
+      <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#services">services</a></li>
+            
+            <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#contact">contact</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+</div>
+
+
+<!--- End Navigation ---->
+
+
+  <!--- Header ---->
+
+ <div id="header" class="header">
+     <div class="container">
+         <div class="row">
+             <div class="col-lg-12 col-md-12 ban  wow zoomIn"  data-wow-delay="1s">
+               <div class="">
+
+
+                 <h1>Orchestration of cloud services</h1>
+                 <p class="pg">Given its rapid growth, cloud computing is the new form of 21st century data storage. It provides networked access to a shared pool of configurable computing resources. These resources are characterized by elasticity, high availability, and reduced costs through the pay-per-use model. This allows business processes to be run at a high level of performance and low cost of operation.
+                 </p>
+                 </p>
+                 <p>Operationalization of business processes on the cloud requires consistent coordination and precise understanding of a set of interacting cloud services. These services are said orchestrated to satisfy the business process.</p>
+                 <p>Cloud resource orchestration is about managing interactions between resources and automating business processes.</p>
+   </div>
+                   <button class="btn btn-lg btn-primary"  onclick="location.href = '{% url 'login' %}';"><i class="fa fa-sign-in" ></i>  Sign in  </button>
+                   <button class="btn btn-lg btn-success"  onclick="location.href = '{% url 'register' %}';"><i class="fa fa-user-plus"></i>  Join Now</button>
+             </div>
+
+         </div>
+     </div>
+ </div>
+
+<!---- End Header ---->
+
+
+<!--- Services ---->
+
+ <section id="services" class="services">
+     <div class="container">
+          <div class="col-lg-12 tat">
+         <h2 class="wow fadeInUp">At your service</h2>
+          <center> <hr class="separator"> </center>
+         <p class="wow fadeInUp" data-wow-delay="0.4">
+           Our site offers you several services:</p>
+        </div>
+         <div class="row">
+             <div class="col-lg-3 col-md-3 wow fadeInLeft" data-wow-delay="1.8s">
+                <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
+                 <h4>Orchestration of Cloud Services</h4>
+                 <p>Our site allows you to orchestrate cloud services of many types and even add new ones.</p>
+
+             </div>
+             <div class="col-lg-3 col-md-3 wow fadeInLeft" data-wow-delay="1.4s">
+                 <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                 <h4>Evaluation of the orchestration plan</h4>
+                 <p> We can evaluate the orchestration plan by calculating the overall estimated QoS of the plan and then the overall QoS of the plan and comparing the two
+                 </p>
+             </div>
+             <div class="col-lg-3 col-md-3 wow fadeInLeft" data-wow-delay="0.8s">
+                  <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                  <h4>Quality of service calculation</h4>
+                 <p>The application calculates the quality of services and uses it for evaluation. </p>
+                </div>
+            <div class="col-lg-3 col-md-3 wow fadeInLeft" data-wow-delay="0.4s">
+                 <i class="fa fa-clock-o" aria-hidden="true"></i>
+                 <h4>Adaptation of an orchestration plan/h4>
+                 <p>The application makes it possible to adapt an orchestration plan corresponding to users' needs. </p>
+             </div>
+         </div>
+     </div>
+ </section>
+
+<!---- End Services ---->
+
+
+ <!--- Portfolio ---->
+
+ <section id="portfolio" class="bg-light-gray">
+     <div class="container">
+         <div class="row">
+             <div class="col-lg-12 text-center">
+                 <h2 class="section-heading wow fadeInDown">Album</h2>
+                 <center> <hr class="separator"> </center>
+                 <h3 class="section-subheading text-muted  wow fadeInDown">Here are some pictures from our gallery.</h3>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-4 col-sm-6 portfolio-item  wow rotateIn" data-wow-delay="0.4s">
+                 <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                     <div class="portfolio-hover">
+                         <div class="portfolio-hover-content">
+                             <i class="fa fa-plus fa-3x"></i>
+                         </div>
+                     </div>
+                     <img src="{% static 'images/portfolio/petit/i1.PNG' %}" class="img-responsive" alt="">
+                 </a>
+                 <div class="portfolio-caption">
+                     <h4>Template creation</h4>
+                 </div>
+             </div>
+             <div class="col-md-4 col-sm-6 portfolio-item wow rotateIn" data-wow-delay="0.4s">
+                 <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                     <div class="portfolio-hover">
+                         <div class="portfolio-hover-content">
+                             <i class="fa fa-plus fa-3x"></i>
+                         </div>
+                     </div>
+                     <img src="{% static 'images/portfolio/petit/i3.jpg' %}" class="img-responsive" alt="">
+                 </a>
+                 <div class="portfolio-caption">
+                     <h4>Evaluation plan of orchestartion</h4>
+                 </div>
+             </div>
+             <div class="col-md-4 col-sm-6 portfolio-item wow rotateIn" data-wow-delay="0.4s">
+                 <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                     <div class="portfolio-hover">
+                         <div class="portfolio-hover-content">
+                             <i class="fa fa-plus fa-3x"></i>
+                         </div>
+                     </div>
+                     <img src="{% static 'images/portfolio/petit/i2.jpg' %}" class="img-responsive" alt="">
+                 </a>
+                 <div class="portfolio-caption">
+                     <h4>Add cloud services</h4>
+                 </div>
+             </div>
+             
+            
+            
+         </div>
+     </div>
+ </section>
+
+ <!--- end Portfolio ---->
+
+
+
+
+
+
+  <!--- Touch ----->
+
+
+ <div id="touch" class="touch">
+     <div class="container">
+         <div class="row">
+             <h2 class="wow fadeInUp">Abonnez vous</h2>
+             <center> <hr class="separator1"> </center>
+             <p class="wow fadeInUp" data-wow-delay="0.4s">
+               Vous pouvez rester en contact avec nous grâce à nos différentes pages : </p>
+
+               <div class="col-lg-12 col-md-12 ">
+
+                 <a href="https://www.facebook.com/Sort-Simulation-1763664443932660/" title="Facebook" class="wow fadeInUp" data-wow-delay="0.6s">  <i class="social fa fa-facebook" aria-hidden="true"></i> </a>
+                 <a href="https://twitter.com/ensitn?lang=ar" title="Twitter" class="wow fadeInUp" data-wow-delay="0.8s">  <i class="social fa fa-twitter" aria-hidden="true"></i> </a>
+                 <a href="https://www.linkedin.com/school/11094564" title="Linkedin" class="wow fadeInUp" data-wow-delay="1s">  <i class="social fa fa-linkedin" aria-hidden="true"></i> </a>
+                 <a href="https://www.youtube.com/channel/UCbHeECHV-VTS2jiZCazW7Dg" title="Youtube" class="wow fadeInUp" data-wow-delay="1.2s">  <i class="social fa fa-youtube" aria-hidden="true"></i> </a>
+                 <a href="https://github.com/OssecTN" title="Github" class="wow fadeInUp" data-wow-delay="1.4s">  <i class="social fa fa-github" aria-hidden="true"></i> </a><br>
+
+               </div>
+
+         </div>
+     </div>
+ </div>
+
+ <!--- End touch ---->
+
+
+
+     <!---- rating---->
+ <div class="rate">
+   <!-- http://www.jquery2dotnet.com/ -->
+ <div class="container">
+     <div class="row">
+       <h2 class="wow fadeInUp">when the numbers speak</h2>
+       <center> <hr class="separator"> </center>
+       <p class="wow fadeInUp" data-wow-delay="0.4s">
+        "Started from the bottom now we're here"</p>
+         <div class="col-xs-12 col-md-12">
+             <div class="well well-sm wow rotateIn " data-wow-delay="0.8s">
+                 <div class="row">
+                     <div class="col-xs-12 col-md-6 text-center">
+                         <h1 class="rating-num">
+                             4.5</h1>
+                         <div class="rat">
+                           <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i>
+                         </div>
+                         <div class="avis">
+                             <i class="fa fa-user" aria-hidden="true"></i> 50 views
+                             <br>
+                             <i class="fa fa-download" aria-hidden="true"></i> 25 Downloads
+                         </div>
+                     </div>
+                     <div class="col-xs-12 col-md-6">
+                         <div class="row rating-desc">
+                             <div class="col-xs-3 col-md-3 text-right rat">
+                                 <i class="fa fa-star" aria-hidden="true"></i> 5
+                             </div>
+                             <div class="col-xs-8 col-md-9">
+                                 <div class="progress progress-striped">
+                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=" 20"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                         <span class="sr-only">40%</span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <!-- end 5 -->
+                             <div class="col-xs-3 col-md-3 text-right rat">
+                                 <i class="fa fa-star" aria-hidden="true"></i> 4
+                             </div>
+                             <div class="col-xs-8 col-md-9">
+                                 <div class="progress">
+                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                         <span class="sr-only">30%</span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <!-- end 4 -->
+                             <div class="col-xs-3 col-md-3 text-right rat">
+                               <i class="fa fa-star" aria-hidden="true"></i> 3
+                             </div>
+                             <div class="col-xs-8 col-md-9">
+                                 <div class="progress">
+                                     <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                         <span class="sr-only">20%</span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <!-- end 3 -->
+                             <div class="col-xs-3 col-md-3 text-right rat">
+                                 <i class="fa fa-star" aria-hidden="true"></i> 2
+                             </div>
+                             <div class="col-xs-8 col-md-9">
+                                 <div class="progress">
+                                     <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                         <span class="sr-only"> 6%</span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <!-- end 2 -->
+                             <div class="col-xs-3 col-md-3 text-right rat">
+                               <i class="fa fa-star" aria-hidden="true"></i> 1
+                             </div>
+                             <div class="col-xs-8 col-md-9">
+                                 <div class="progress">
+                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                         <span class="sr-only"> 4%</span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <!-- end 1 -->
+                         </div>
+                         <!-- end row -->
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+
+ </div>
+
+ <!-- end rating -->
+
+
+
+
+   <!---- Comments ---->
+
+   <div id="comments" class="comments">
+       <div class="container">
+         <div class="row">
+ <h2 class="wow fadeInUp">Testimonials</h2>
+ <center> <hr class="separator1"> </center>
+ <h4 class="wow fadeInUp" data-wow-delay="0.4s">Here are some testimonials from our users :WHAT PEOPLE THINK...</h4>
+
+ </div>
+ </div>
+ <div class="carousel-reviews broun-block  wow zoomIn">
+ <div class="container">
+     <div class="row">
+         <div id="carousel-reviews" class="carousel slide" data-ride="carousel">
+
+             <div class="carousel-inner">
+                 <div class="item active">
+                   <div class="col-md-4 col-sm-6">
+                 <div class="block-text rel zmin">
+                 <a title="" href="#comments">It's very enlightening</a>
+               <div class="mark">My assessment: <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
+                 <p>This application allowed me to learn a lot about the orchestration of key services and to understand them very well. I really liked the simulation and it's much better than just reading the code. thank you very much. Adam</p>
+               <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+               </div>
+           <div class="person-text rel">
+                     <img  class="img-circle"   src="{% static 'images/team/team-1.jpg' %}"/>
+             <a title="" href="#comments">Adam T.</a>
+             <i>De Carthago, Tunisia</i>
+           </div>
+         </div>
+               <div class="col-md-4 col-sm-6 hidden-xs">
+             <div class="block-text rel zmin">
+                 <a title="" href="#comments">Very informative</a>
+               <div class="mark">My assessment:<i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></div>
+                 <p>With your app, users can gain insight into the difference between different cloud services. One of the particularly interesting things was that there were different templates to guide especially beginners. </p>
+                   <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+                 </div>
+           <div class="person-text rel">
+             <img  class="img-circle"   src="{% static 'images/team/team-2.jpg' %}"/>
+
+                 <a title="" href="#comments">Ella Mentree</a>
+             <i>des Etats-Unis</i>
+           </div>
+         </div>
+         <div class="col-md-4 col-sm-6 hidden-sm hidden-xs">
+           <div class="block-text rel zmin">
+             <a title="" href="#comments">Just wonderful</a>
+             <div class="mark">My assessment: <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
+               <p>I used this application with great interest: I found it very informative for students to understand how the orchestration of cloud services work and to identify the difference between them.</p>
+             <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+           </div>
+           <div class="person-text rel">
+             <img  class="img-circle"   src="{% static 'images/team/team-3.jpg' %}"/>
+             <a title="" href="#comments">Ran</a>
+             <i>Indonesie</i>
+           </div>
+         </div>
+                 </div>
+                 <div class="item">
+                     <div class="col-md-4 col-sm-6">
+                 <div class="block-text rel zmin">
+                 <a title="" href="#comments">Very useful</a>
+               <div class="mark">My assessment: <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i></div>
+                 <p>I salute you, you are a creative team. I absolutely love your job! It's a gift from Heaven sent to a student like me who does not yet know how to distinguish one cloud service from another! Keep up the good work, génial! Ed</p>
+               <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+               </div>
+           <div class="person-text rel">
+             <img   class="img-circle"   src="{% static 'images/team/team-10.jpg' %}">
+             <a title="" href="#comments">EDWIN REDE</a>
+             <i>De Glasgow,Écosse</i>
+           </div>
+         </div>
+               <div class="col-md-4 col-sm-6 hidden-xs">
+             <div class="block-text rel zmin">
+                 <a title="" href="#comments">C'est éducatif</a>
+               <div class="mark">My assessment:<i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
+                 <p>Je considère votre application comme une application éducative car cela m'a beaucoup aidé à comprendre la différence entre services cloud. C'est une journée très instructive, surtout avant les examens.  </p>
+                   <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+                 </div>
+           <div class="person-text rel">
+             <img  class="img-circle"   src="{% static 'images/team/team-6.jpg' %}"/>
+                 <a title="" href="#comments">Sarra</a>
+             <i>France</i>
+           </div>
+         </div>
+         <div class="col-md-4 col-sm-6 hidden-sm hidden-xs">
+           <div class="block-text rel zmin">
+             <a title="" href="#comments">Très efficace</a>
+             <div class="mark">My assessment: <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></div>
+               <p>Trouver une application avec un vaste but est toujours inspirant de continuer à développer. Mais vous avez fait Magic, mes amis. Continuez et assurez-vous si vous avez besoin d'aide, je suis là. Merci pour votre travail quotidien. J'espère vous rencontrer un jour.
+                 Je donne cette app 5 étoiles. </p>
+             <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+           </div>
+           <div class="person-text rel">
+             <img  class="img-circle"   src="{% static 'images/team/team-12.jpg' %}"/>
+             <a title="" href="#comments">Mathieu</a>
+             <i>Italie</i>
+           </div>
+         </div>
+                 </div>
+                 <div class="item">
+                     <div class="col-md-4 col-sm-6">
+                 <div class="block-text rel zmin">
+                 <a title="" href="#comments">Bon travail</a>
+               <div class="mark">My assessment: <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
+                 <p>Bonjour, votre application et toutes les options qu'elle offre semblent tout simplement géniales, merci de partager. J'aimerais vous contacter. Je suis un nouveau développeur, mais chaque fois que je vérifie vos projets, cela me donne une idée de faire mes propres projets. Continuez-le :). Salutations de l'Allemagne!</p>
+               <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+               </div>
+           <div class="person-text rel">
+             <img   class="img-circle"   src="{% static 'images/team/team-11.png' %}">
+             <a title="" href="#comments">Jhon</a>
+             <i>Allemagne</i>
+           </div>
+         </div>
+
+         <div class="col-md-4 col-sm-6 hidden-sm hidden-xs">
+           <div class="block-text rel zmin">
+             <a title="" href="#comments">Application éclairante</a>
+             <div class="mark">My assessment:<i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
+               <p>Cette application est très facile à utiliser et à comprendre. Même si vous n'êtes pas un informaticien. Merci beaucoup. J'ai aimé aussi les effets sonores et surtout changer la vitesse de la simulaion.</p>
+             <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+           </div>
+           <div class="person-text rel">
+             <img   class="img-circle"   src="{% static 'images/team/team-8.jpeg' %}">
+             <a title="" href="#comments">Meriam</a>
+             <i>Espagne</i>
+           </div>
+         </div>
+               <div class="col-md-4 col-sm-6 hidden-xs">
+             <div class="block-text rel zmin">
+                 <a title="" href="#comments">J'ai absolument adoré</a>
+               <div class="mark">Mon évaluation:<i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></div>
+                 <p>J'ai aimé cette application. Les gens qui s'intéressent au domaine des cloud ainsi que la complexité de l'orchestration seront très probablement intéressés par l'utilisation de cette application. J'ai beaucoup apprécié que vous nous avez donné l'opportunité d'enregistrer le résultat final.</p>
+                   <ins class="ab zmin sprite sprite-i-triangle block"></ins>
+                 </div>
+           <div class="person-text rel">
+             <img   class="img-circle"   src="{% static 'images/team/team-4.jpg' %}">
+                 <a title="" href="#comments">Ahmed</a>
+             <i>Algérie</i>
+           </div>
+         </div>
+
+                 </div>
+             </div>
+             <a class="left carousel-control" href="#carousel-reviews" role="button" data-slide="prev">
+                 <i class="fa fa-chevron-left glyphicon glyphicon-chevron-left" aria-hidden="true"></i>
+             </a>
+             <a class="right carousel-control" href="#carousel-reviews" role="button" data-slide="next">
+                 <i class="fa fa-chevron-right glyphicon glyphicon-chevron-right" aria-hidden="true"></i>
+             </a>
+         </div>
+     </div>
+ </div>
+ </div>
+   </div>
+
+
+<!-- end comments -->
+
+
+
+
+ <!--- Contact ------>
+
+ <div id="contact" class="contact">
+     <div class="container">
+       <div class="row">
+             <h2 class="wow fadeInUp">Contactez nous</h2>
+             <center> <hr class="separator"> </center>
+             <p class="wow fadeInUp" data-wow-delay="0.4">
+               Vous pouvez nous contacter en remplissant les champs suivants :</p>
+
+               <div class="main  wow fadeInUp">
+                <div class="info">Donnez votre avis!</div>
+                <form action="mail_handler.php" method="post" name="form" class="form-box">
+                  <label for="name">Nom</label><br>
+                  <input type="text" name="name" class="inp" placeholder="Veuillez saisir votre nom" required><br>
+                  <label for="email">Email</label><br>
+                  <input type="email" name="email" class="inp" placeholder="Veuillez saisir votre Email" required><br>
+                  <label for="phone">Num Tél</label><br>
+                  <input type="tel" name="phone" class="inp" placeholder="Veuillez saisir votre num tél" required><br>
+                  <label for="message">Message</label><br>
+                  <textarea name="msg" class="msg-box" placeholder="Veuillez saisir votre message ici..." required></textarea><br>
+                  <input type="submit" name="submit" value="Envoyer" class="sub-btn">
+                </form>
+              </div>
+
+
+         </div>
+     </div>
+ </div>
+
+  <!---- End Contact ----->
+
+
+  <!---- Footer ---->
+
+  <div id="footer" class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-4 col-md-4">
+                  <h4  class="wow fadeInUp">Contact Us</h4>
+                  <p><i class="fa fa-home" aria-hidden="true"></i> Campus Universitaire de la Manouba – 2010 La Manouba</p>
+                  <p><i class="fa fa-envelope" aria-hidden="true"></i> webmaster@ensi-uma.tn</p>
+                  <p><i class="fa fa-phone" aria-hidden="true"></i> +216 71 600 444</p>
+                  <p><i class="fa fa-globe" aria-hidden="true"></i> www.ensi-uma.tn/</p>
+
+              </div>
+              <div class="col-lg-4 col-md-4">
+
+              </div>
+              <div class="col-lg-4 col-md-4">
+                  <h4>About</h4>
+                     <a href="https://www.facebook.com/ENSI.tunisie/" title="Facebook">  <i class="social fa fa-facebook" aria-hidden="true"></i> </a>
+               <a href="https://twitter.com/ensitn?lang=ar" title="Twitter">  <i class="social fa fa-twitter" aria-hidden="true"></i> </a>
+               <a href="https://www.linkedin.com/school/11094564" title="Linkedin">  <i class="social fa fa-linkedin" aria-hidden="true"></i> </a>
+               <a href="https://www.youtube.com/channel/UCbHeECHV-VTS2jiZCazW7Dg" title="Youtube">  <i class="social fa fa-youtube" aria-hidden="true"></i> </a>
+               <a href="https://github.com/OssecTN" title="Github">  <i class="social fa fa-github" aria-hidden="true"></i> </a><br>
+
+                 <a href="" data-toggle="modal" data-target="#myModal"> About us</a><br>
+                 <a href="" data-toggle="modal" data-target="#myModal1"> Privacy Pölicy</a><br>
+                 <a href="" data-toggle="modal" data-target="#myModal2"> Terms & Conditions of Use </a><br><br>
+
+
+              </div>
+
+          </div>
+          <div class="row">
+            <div class="copyright">
+              <p>Copyright © 2017 National School of Computer Sciences. All rights reserved. </p>
+
+            </div>
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center> <h4 class="modal-title" id="myModalLabel">Présentation de l’ENSI</h4> </center>
+        </div>
+        <div class="modal-body">
+    <p style="text-align: justify;">Établie en 1984, l&rsquo;ENSI (l&rsquo;École Nationale des Sciences de l&rsquo;Informatique) est l&rsquo;une des plus préstigieuse école d&rsquo;ingénieur  spécialisée en informatique en Tunisie.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">L&rsqursquo;ENSI est un collège d&rsquo;ingénierie de classe régionale où l&rsquo;enseignement et la recherche &#8211; avec pertinence pour le monde pratique en tant que principe directeur &#8211; continuent d&rsquo;être son objectif principal.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">La mission de l&rsquo;ENSI est de faire progresser la connaissance et d&rsquo;éduquer les étudiants en sciences, en technologie et dans d&rsquo;autres domaines d&rsquo;études qui serviront le mieux la Tunisie au 21ème siècle.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">Les diplômes obtenus chez l&rsquo;ENSI comprennent <em><strong>Diplôme d&rsquo;Ingénieur en Informatique</strong></em>, <strong><em>Diplôme de Master of Science</em></strong>, et <strong><em>Diplôme de Doctorat en Informatique</em></strong>.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">À la fin de l&rsquo;année 2016, il y avait plus de 4300 anciens élèves, 1000 étudiants de premier cycle et 200 étudiants diplômés.</p>
+  <p>Dates importantes :</p>
+  <p>&nbsp;</p>
+  <p>&#8211; 1984: Première génération d&rsquo;ingénieurs en informatique à l&rsquo;échelle nationale<br />
+  &#8211; 1994: Première doctorat à l&rsquo;échelle nationale<br />
+  &#8211; 1999: Premiers laboratoires informatique à l&rsquo;échelle nationale: RIADI lab &amp; CRISTAL lab<br />
+  &#8211; 2014: Laboratoire HANA<br />
+  &#8211; 2016: Laboratoire COSMOS</p>
+  <p>&#8211; 2017: Inauguration du centre de recherche de l&rsquo;ENSI  : <em><strong>ENSI Research Center</strong></em></p>
+  <p>&nbsp;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Modals -->
+<!-- Use the modals below to showcase details about your portfolio projects! -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <center>  <h4 class="modal-title" id="myModalLabel">Privacy Policy</h4>  </center>
+  </div>
+  <div class="modal-body">
+    <p class="statement">Your privacy is critically important to us. At SortSimulation, we have a few fundamental principles:</p>
+<ul>
+<li>We don&#8217;t ask you for personal information unless we truly need it. (We can&#8217;t stand services that ask you for things like your gender or income level for no apparent reason.)</li>
+<li>We don&#8217;t share your personal information with anyone except to comply with the law, develop our products, or protect our rights.</li>
+<li>We don&#8217;t store personal information on our servers unless required for the ongoing operation of one of our services.</li>
+<li>In our blogging products, we aim to make it as simple as possible for you to control what&#8217;s visible to the public, seen by search engines, kept private, and permanently deleted.</li>
+</ul>
+<h3>Website Visitors</h3>
+<p>Like most website operators, SortSimulation collects non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the date and time of each visitor request. SortSimulation&#8217;s purpose in collecting non-personally identifying information is to better understand how SortSimulation&#8217;s visitors use its website. From time to time, SortSimulation may release non-personally-identifying information in the aggregate, e.g., by publishing a report on trends in the usage of its website.</p>
+<p>SortSimulation also collects potentially personally-identifying information like Internet Protocol (IP) addresses for logged in users and for users leaving comments on WordPress.com blogs. SortSimulation only discloses logged in user and commenter IP addresses under the same circumstances that it uses and discloses personally-identifying information as described below, except that blog commenter IP addresses and email addresses are visible and disclosed to the administrators of the blog where the comment was left.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+  </div>
+</div>
+</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <center> <h4 class="modal-title" id="myModalLabel">Terms and Conditions of Use</h4>  </center>
+  </div>
+  <div class="modal-body">
+
+<p>Hello, and welcome to our Terms and Conditions of Use.  This is important and affects your legal rights, so please
+read them and our Privacy Policy carefully. We hope you&rsquo;re sitting
+comfortably. Here we go…</p>
+
+<h2><a name="s1">1.</a> Introductions</h2>
+
+<p>Thanks for choosing SortSimulation <strong>&ldquo;SortSimulation&rdquo;</strong>
+By using the SortSimulation service, websites, or software applications (together, the &ldquo;SortSimulation Service&rdquo; or &ldquo;Service&rdquo;),
+including by purchasing or receiving Codes or Limited Offers, you are entering into a binding contract
+with our local company in your country of residence (your &ldquo;Local Country&rdquo;).
+Your agreement with us includes these Terms and Conditions of Use (<strong>&ldquo;Terms&rdquo;</strong>) and our
+Privacy Policy
+
+<p>We&rsquo;re pleased to make our Service available to you. The SortSimulation Service includes social and interactive features.</p>
+
+<p>In order to use the SortSimulation Service, you need to (a) be 18 or older, or be 13 or older and have your parent or
+guardian&rsquo;s consent to these Terms, (b) have the power to enter a binding contract with us and are not barred from
+doing so under any applicable laws, and (c) be resident in the Local Country. You also warrant that any registration
+information that you submit to SortSimulation is true, accurate and complete, and you agree to keep it that way at all times.</p>
+
+<h2><a name="s2">2.</a> Changes to the Agreements</h2>
+
+<p>Occasionally we may, in our discretion, make changes to the SortSimulation Service and Agreements. When we make changes to
+the Agreements that we consider material, we&rsquo;ll notify you through the Service. By continuing to use the Service
+after those changes are made, you are expressing and acknowledging your acceptance of the changes.</p>
+<h2><a name="s4">4. </a>Licence and assignment</h2>
+
+<p>The SortSimulation Service and the content provided through it are the property of SortSimulation or SortSimulation's licensors, and we
+grant you a limited, non-exclusive, revocable licence to make personal, non-commercial use of the SortSimulation Service and
+to receive the media content made available through the SortSimulation Service in your Local Country, based on the Subscription
+or Trial you have selected (the &ldquo;Licence&rdquo;). This Licence shall remain in effect for a period of 20 years
+unless terminated by you or SortSimulation. </p>
+
+<p>The SortSimulation software applications are licensed, not sold, to you, and SortSimulation retains ownership of all copies of the
+SortSimulation software applications even after installation on your Devices. SortSimulation may assign these Agreements or any part
+of them without restrictions. You may not assign these Agreements or any part of them, nor transfer or sub-licence your
+rights under this Licence, to any third party. </p>
+
+<p>All SortSimulation trademarks, service marks, trade names, logos, domain names, and any other features of the SortSimulation brand
+are the sole property of SortSimulation. This Licence does not grant you any rights to use the SortSimulation trademarks, service
+marks, trade names, logos, domain names, or any other features of the SortSimulation brand, whether for commercial or
+non-commercial use.  </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+  </div>
+</div>
+</div>
+</div>
+
+
+<!-- Portfolio Modal 1 -->
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <!-- Project Details Go Here -->
+                        <h2>Saisie des données</h2>
+                        <img class="img-responsive" src="{% static 'images/portfolio/grand/11.PNG' %}" alt="">
+                        <p>Notre application offre à l’utilisateur la possibilité de choisir de faire entrer les données (le tableau de valeur) manuellement ou les charger à partir d’un fichier texte. Pour ce deuxième cas, l’utilisateur doit spécifier le séparateur de valeur considéré dans le fichier (, ; - | / # ….).
+                        </p>
+                        <p>Une fois les champs nécéssaires sont remplis, l'utilisateur doit valider ses données por commencer la simulation</p>
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 2 -->
+<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <h2>Simulation graphique des tris</h2>
+                        <img class="img-responsive img-centered" src="{% static 'images/portfolio/grand/12.PNG' %}" alt="">
+                        <p>Notre application permet de simuler graphiquement des différents algorithmes de tri. Elle illustrera le déroulement des opérations de tri, itération par itération.</p>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 3 -->
+<div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <!-- Project Details Go Here -->
+                        <h2>Changer vitesse simulation</h2>
+                        <img class="img-responsive img-centered" src="{% static 'images/portfolio/grand/13.jpg' %}" alt="">
+                        <p>La simulation peut être illustrée avec des différentes vitesses d’exécution. C'est un paramètre que l’utilisateur fixera lors la mise en jeu de l'application.
+                          </p>
+                          <p>Il pourra choisir entre une vitesse rapide, moyenne ou bien lente. Il peut de même combiner plusieurs viteeses dans la même simulation</p>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 4 -->
+<div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <!-- Project Details Go Here -->
+                        <h2>Temps d'exécution</h2>
+                        <img class="img-responsive img-centered" src="{% static 'images/portfolio/grand/14.jpg' %}" alt="">
+                        <p>L'application permet d’afficher le temps d’exécution de l'algorithme de tri sélectionné après la simulation.</p>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 5 -->
+<div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <!-- Project Details Go Here -->
+                        <h2>Sauvegarder résultat final</h2>
+                        <img class="img-responsive img-centered" src="{% static 'images/portfolio/grand/15.jpg' %}" alt="">
+                        <p>L'application permet à l'utilisateur de sauvegarder le résultat final du tri dans un fichier texte en spécifiant le séparateur voulu entre les différents éléments.</p>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 6 -->
+<div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <!-- Project Details Go Here -->
+                        <h2>Sound effects</h2>
+                        <img class="img-responsive img-centered" src="{% static 'images/portfolio/grand/16.jpg' %}" alt="">
+                        <p>L'utilisateur peut s'amuser avec la musique mise en jeu lors de la simulation ou l'arrêter.</p>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+/
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/wow.min.js' %}"></script>
+     <script>
+      new WOW().init();
+     </script>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/myScript.js' %}"></script>
+
+
+  </body>
+</html>
+
