@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^login$',views.login, name='login'),
     url(r'^workspace$',views.workspace, name='workspace'),
     url(r'^home$',views.home, name='home'),
+    url(r'^graph$',views.graph, name='graph'),
 ]
