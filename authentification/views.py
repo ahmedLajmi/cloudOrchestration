@@ -24,6 +24,7 @@ def workspace(request):
 	
 	return render(request , 'workspace.html')
 
+
 def formu(request):
 	if len(request.POST) == 0:
 		raise Http404("No MyModel matches the given query.")
@@ -51,4 +52,9 @@ def formu(request):
 		with open(originalToscaDefPath, 'wb+') as destination:
 			destination.write(definition.read())
 	return render(request , 'workspace.html')
+
+	
+def graph(request):
+	
+	return render(request , 'graph.html')
 
