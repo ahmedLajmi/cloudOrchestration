@@ -291,9 +291,9 @@ non-commercial use.  </p>
    <div class="form-group">
     <div class="input-group input-file" name="Fichier1">
       
-        <input type="text" class="form-control" placeholder='Choose a TOSCA Definition file...' />
+        <input type="text" id="Fichier1" class="form-control" placeholder='Choose a TOSCA Definition file...' />
         <span class="input-group-btn">
-            <button class="btn btn-default btn-choose" type="button">Choose</button>
+            <button class="btn btn-default btn-choose"   type="button">Choose</button>
         </span>
         
     </div>
@@ -302,10 +302,10 @@ non-commercial use.  </p>
 
    <h3>Template File Selection</h3>
   <div class="form-group">
-    <div class="input-group input-file" name="Fichier1">
-        <input type="text" class="form-control" placeholder='Choose a Template file...' />      
+    <div class="input-group input-file" name="Fichier2">
+        <input type="text"  id="Fichier2" class="form-control"  placeholder='Choose a Template file...' />      
             <span class="input-group-btn">
-            <button class="btn btn-default btn-choose" type="button">Choose</button>
+            <button class="btn btn-default btn-choose"   type="button">Choose</button>
         </span>
     </div>
   </div>
@@ -313,7 +313,7 @@ non-commercial use.  </p>
 
   <!-- COMPONENT END -->
  <center> <div class="form-group">
-    <button type="submit" class="btn btn-success " disabled>Submit</button>
+    <button type="submit" id="myButn" class="btn btn-success "  onclick="myFunction()"  >Submit</button>
     <button type="reset" class="btn btn-danger ">Reset</button>
   </div> </center>
   <br><br><br>
@@ -379,6 +379,19 @@ $(function() {
 });
 </script>
 
+
+<script>
+function myFunction() {
+    var x = document.getElementById("myButn");
+    var y = document.getElementById("Fichier1");
+    var z = document.getElementById("Fichier2");
+    if ( (y.value == "") || (z.value == ""))
+      alert('You have to select both files!');
+    else
+      location.href = '{% url 'graph' %}';
+    
+}
+</script>
 
   </body>
 </html>
