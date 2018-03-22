@@ -18,3 +18,8 @@ def workspace(request):
 	
 	return render(request , 'workspace.html')
 
+	
+def graph(request):
+	
+	return render(request , 'graph.html')
+
