@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
-from toscaparser import tosca_template
+from toscaparser.tosca_template import ToscaTemplate
 import importlib
 import datetime
 import os
@@ -79,7 +79,7 @@ def renv(request):
 		originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
 		secureToscaDefPath = BASE_DIR + "\\toscaparser\\secure\\TOSCA_definition_1_0.yaml"
 		try:
-			temp = tosca_template.ToscaTemplate(path+request.POST["path"])
+			temp = ToscaTemplate(path+request.POST["path"])
 		except:
 			# restaurer le tosca definition original
 			with open(secureToscaDefPath, 'rb') as definition:
