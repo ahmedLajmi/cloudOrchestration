@@ -12,8 +12,20 @@
     <link rel="stylesheet" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styleg.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
-
-
+	<script src="{% static 'cytoscape.js-master/dist/cytoscape.js' %}"></script>
+	<script src="{% static 'ace-builds-master/src/ace.js' %}" type="text/javascript" charset="utf-8"></script>
+	<script src="{% static 'ace-builds-master/src/mode-yaml.js' %}" type="text/javascript" charset="utf-8"></script>
+	<style>
+		#editor {
+		    width: 100%;
+		    min-height: 400px;
+		}
+		#cy {
+		  width: 100%;
+		  min-height: 700px;
+		  display: inline-block;
+		}
+	</style>
   </head>
   <body  data-spy="scroll" data-target=".navbar-fixed-top" >
 
@@ -52,7 +64,6 @@
       <ul class="nav navbar-nav navbar-right">
             <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#">Home</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#services">services</a></li>
-            
             <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#contact">contact</a></li>
       </ul>
 
@@ -66,40 +77,21 @@
 
   <!--- Graph ---->
 
- <div id="mygraph" class="mygraph">
      <div class="container">
          <div class="row">
-             <div class="col-lg-12 col-md-12"  >
-               
-               <h1>  Here my graph  </h1>
-
-             </div>
-
+             <div id="cy" class="col-lg-12 col-md-12"  ></div>
          </div>
-     </div>
- </div>
 
 <!---- End Graph ---->
 
 
 <!--- File ---->
 
- <section id="myfile" class="myfile">
-     <div class="container">
-         <div class="row">
-            
-             <div class="col-lg-12 col-md-12" >
-               
-               <h1>  Here my file  </h1>
-
-             </div>
-
-         </div>
-     </div>
- </section>
-
+<div class="row">
+	<div id="editor" class="col-lg-12 col-md-12" >{{ file }}</div>
+</div>
+ </div><br><br>
 <!---- End File ---->
-
 
 
   <!---- Footer ---->
@@ -382,6 +374,75 @@ non-commercial use.  </p>
 $(function() {
   bs_input_file();
 });
+
+var editor = ace.edit("editor");
+	    var yamlMode = ace.require("ace/mode/yaml").Mode;
+		editor.session.setMode(new yamlMode());
+		editor.setTheme("ace/theme/twilight");
+		editor.setReadOnly(true); 
+
+var cy = cytoscape({
+	  		container: document.getElementById('cy'), // container to render in
+		  	elements: [ // list of graph elements to start with
+			    
+			    {% for key,val in noeuds.items %}
+				  	{
+				  	group: "nodes",
+				  	data: { id:'{{ key }}' ,name: '{{ val.name }}' },
+				  	style: {
+				  		{% if val.type == "Compute" %}
+				  			'background-image': '{% static "img/serveur.jpg" %}' ,
+				  		{% elif val.type == "Database" %}
+				  			'background-image': '{% static "img/bd.jpg" %}' ,
+				  		{% elif val.type == "DBMS" %}
+				  			'background-image': '{% static "img/sgbd.png" %}' ,
+				  		{% elif val.type == "WebServer" %}
+				  			'background-image': '{% static "img/web.png" %}' ,
+				  		{% elif val.type == "WebApplication.CMS" %}
+				  			'background-image': '{% static "img/cms.jpg" %}' ,
+						{% endif %}
+				  		'background-fit': 'cover cover'
+					}
+				  	},
+				{% endfor %}
+				{% for id,relation in relations.items %}
+				  	{
+				  	group: "edges",
+				  	data: { id:'e{{ id }}' ,source: "{{ relation.source }}", target: "{{ relation.dest }}",name: '{{ relation.type }}'  },
+				  	},
+				{% endfor %}	
+		  	],
+		  	style: [ // the stylesheet for the graph
+			    {
+			    	selector: 'node',
+			    	style: {
+			        	'background-color': '#666',
+			        	'label': 'data(name)',
+			        	'width': 120,
+			        	'height': 120,
+			    	}
+		   		 },
+			    {
+			    	selector: 'edge',
+			    	style: {
+			        	'width': 3,
+			        	'line-color': '#ccc',
+			        	'target-arrow-color': '#ccc',
+			        	'target-arrow-shape': 'triangle',
+			        	'label': 'data(name)'
+			      	}
+			    }
+		  	],
+		  	layout: {
+	    		name: 'breadthfirst'
+	  		},
+			
+		});
+		cy.on('tap', 'node', function(evt){
+	  		var node = evt.target;
+	  		document.getElementById('menu-deroulant').style.display='inline-block';
+	  		//self.location.href= node.id()+'tapage.php'
+		});
 </script>
 
 

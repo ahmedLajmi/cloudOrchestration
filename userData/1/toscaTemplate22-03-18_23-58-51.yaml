@@ -1,0 +1,54 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+description: Template for deploying a single server with MySQL software on top.
+
+ 
+
+topology_template:
+
+  node_templates:
+
+    serveurWeb:
+      type: tosca.nodes.Compute
+
+    serveurBD:
+      type: tosca.nodes.Compute
+
+    serveurD:
+      type: tosca.nodes.Compute 
+
+    applicationServeurWeb: # ex apache
+      type: tosca.nodes.WebServer
+      requirements:
+        - host: serveurWeb 
+
+    SGBD:
+      type: tosca.nodes.DBMS
+      requirements:
+        - host: serveurBD
+
+    SGBD1:
+      type: tosca.nodes.DBMS
+      requirements:
+        - host: serveurD
+
+    db: # à discuter
+      type: tosca.nodes.Database
+      requirements:
+        - host: SGBD
+
+    cms:
+      type: tosca.nodes.WebApplication.CMS
+      requirements:
+        - host: applicationServeurWeb
+        - database_endpoint:
+            node: db
+            relationship: tosca.relationships.ConnectsTo
+
+    
+
+    
+
+    
+
+
