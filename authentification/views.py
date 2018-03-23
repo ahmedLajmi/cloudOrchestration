@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
-
+from toscaparser import tosca_template
 import importlib
 import datetime
 import os
@@ -29,30 +29,32 @@ def workspace(request):
 
 
 def formu(request):
+	path = os.path.join(BASE_DIR, "userData\\")
+	with open(path+'access.txt', 'r') as source:
+		DISP = (source.read() == "True")
+	if not DISP :
+		now = datetime.datetime.now()
+		second = now.second+6
+		minute = now.minute
+		if (second > 59):
+			second = second-59
+			minute = minute +1
+		after = now.replace(second=second,minute=minute)
+		while(True):
+			if(datetime.datetime.now()>after):
+				break
+	with open(path+'access.txt', 'w') as source:
+		source.write("False")
 	os.utime("C:\\Users\\ahlaj\Desktop\\cloudOrchestration\\toscaparser\\tosca_template.py", (time.time(),time.time()))
-	now = datetime.datetime.now()
-	after = now.replace(second=now.second+5)
-	"""with open("C:\\Users\\ahlaj\Desktop\\cloudOrchestration\\toscaparser\\auxiliare.py", 'rb+') as source:
-		with open("C:\\Users\\ahlaj\Desktop\\cloudOrchestration\\toscaparser\\tosca_template.py", 'wb+') as destination:
-			destination.write(source.read())"""
-	
-	"""if(importlib.reload(tosca_template)):
-		print ('it s ok')"""
-	#import toscaparser.tosca_template as ToscaTemplate
-	while (datetime.datetime.now() < after):
-		print('heloo')
-
 	if len(request.POST) == 0:
 		raise Http404("No MyModel matches the given query.")
 	print (request.FILES)
 	date = time.strftime('%d-%m-%y_%H-%M-%S',time.localtime())
-	path = os.path.join(BASE_DIR, "userData\\")
 	idUser = "1\\"
 	path = path + idUser +"{}"+date+".yaml"
-	originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
-	secureToscaDefPath = BASE_DIR + "\\toscaparser\\secure\\TOSCA_definition_1_0.yaml"
 	toscaDefinition = request.FILES['toscaDefinition']
 	toscaTemplat = request.FILES['toscaTemplate']
+	originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
 	# sauvegarder le tosca definition introduit par le client 
 	with open(path.format("toscaDef_"), 'wb+') as destination:
 		for chunk in toscaDefinition.chunks():
@@ -64,95 +66,77 @@ def formu(request):
 	with open(path.format("toscaTemplate"), 'wb+') as destination:
 		for chunk in toscaTemplat.chunks():
 			destination.write(chunk)
-	from toscaparser import tosca_template
-	#return render(request , 'workspace.html')
-    # path1 = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'lib/tosca_parser/tosca_parser.py')     
-	"""importlib.invalidate_caches()
-	ToscaTemplate = importlib.import_module('toscaparser.tosca_template')
-	importlib.reload(ToscaTemplate)"""
+	print (DISP)
+	return render(request , 'att.html',{'path': path.format("toscaTemplate")})
 
-	
 
-	#importlib.reload(toscaparser.tosca_template)
-	temp = tosca_template.ToscaTemplate(path.format("toscaTemplate"))
 
-	
-	graphe = temp.graph
-	nodes = graphe.nodetemplates
-	mon_fichier = open(path.format("toscaTemplate"), "r")
-	file = mon_fichier.read()
-	cpt = 0
-	id_node = 0
-	noeuds = dict()
-	rel = dict()
-	nature = str()
-	src = 0
-	for noeud in nodes:
-		noeuds[id_node] = {'name': noeud.name,'type':noeud.type.replace("tosca.nodes.",'') }
-		id_node = id_node+1
-	for noeud in nodes:
-		for require in noeud.requirements:
-			for key in require.keys():
-				if(key == "host"):
 
-					for cle,val in noeuds.items():
-						if val["name"] == require.get(key):
-							dest = cle
-						if val["name"] == noeud.name:
-							src = cle
+def renv(request):
+	path = os.path.join(BASE_DIR, "userData\\")
+	with open(path+'access.txt', 'r') as source:
+		DISP = (source.read() == "True")
+	if not DISP:
+		originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
+		secureToscaDefPath = BASE_DIR + "\\toscaparser\\secure\\TOSCA_definition_1_0.yaml"
+		try:
+			temp = tosca_template.ToscaTemplate(request.GET["path"])
+		except:
+			# restaurer le tosca definition original
+			with open(secureToscaDefPath, 'rb') as definition:
+				with open(originalToscaDefPath, 'wb+') as destination:
+					destination.write(definition.read())
+			with open(path+'access.txt', 'w') as source:
+				source.write("True")
+			raise Http404("Erreur type node")
+		graphe = temp.graph
+		nodes = graphe.nodetemplates
+		mon_fichier = open(request.GET["path"], "r")
+		file = mon_fichier.read()
+		cpt = 0
+		id_node = 0
+		noeuds = dict()
+		rel = dict()
+		nature = str()
+		src = 0
+		for noeud in nodes:
+			noeuds[id_node] = {'name': noeud.name,'type':noeud.type.replace("tosca.nodes.",'') }
+			id_node = id_node+1
+		for noeud in nodes:
+			for require in noeud.requirements:
+				for key in require.keys():
+					if(key == "host"):
 
-					rel[cpt] = {'type': 'hostedOn','nsrc':noeud.name ,'ndest':require.get(key) ,'source':src, 'dest':dest}
-					cpt = cpt+1
-				else:
-					values = require.get(key)
-					for value in values:
-						if (value == "node"):
+						for cle,val in noeuds.items():
+							if val["name"] == require.get(key):
+								dest = cle
+							if val["name"] == noeud.name:
+								src = cle
 
-							for cle,val in noeuds.items():
-								if val["name"] == values.get(value):
-									dest = cle
-								if val["name"] == noeud.name:
-									src = cle
+						rel[cpt] = {'type': 'hostedOn','nsrc':noeud.name ,'ndest':require.get(key) ,'source':src, 'dest':dest}
+						cpt = cpt+1
+					else:
+						values = require.get(key)
+						for value in values:
+							if (value == "node"):
 
-						if (value == "relationship"):
-							nature = values.get(value).replace("tosca.relationships.",'')
-					rel[cpt] = {'type': nature,'nsrc':noeud.name ,'ndest':require.get(key) ,'source':src , 'dest':dest}
-					cpt = cpt+1
-	# restaurer le tosca definition original
-	"""with open(secureToscaDefPath, 'rb') as definition:
-		with open(originalToscaDefPath, 'wb+') as destination:
-			destination.write(definition.read())"""
+								for cle,val in noeuds.items():
+									if val["name"] == values.get(value):
+										dest = cle
+									if val["name"] == noeud.name:
+										src = cle
 
-	return render(request , 'graph.html',{'noeuds': noeuds,'relations':rel, 'file':file})
+							if (value == "relationship"):
+								nature = values.get(value).replace("tosca.relationships.",'')
+						rel[cpt] = {'type': nature,'nsrc':noeud.name ,'ndest':require.get(key) ,'source':src , 'dest':dest}
+						cpt = cpt+1
+		# restaurer le tosca definition original
+		with open(secureToscaDefPath, 'rb') as definition:
+			with open(originalToscaDefPath, 'wb+') as destination:
+				destination.write(definition.read())
+		with open(path+'access.txt', 'w') as source:
+			source.write("True")
+		return render(request , 'graph.html',{'noeuds': noeuds,'relations':rel, 'file':file})
+	else:
+		raise Http404("Session end.")
 
-	
-	
-
-def delete_module(modname, paranoid=None):
-    from sys import modules
-    try:
-        thismod = modules[modname]
-    except KeyError:
-        raise ValueError(modname)
-    these_symbols = dir(thismod)
-    if paranoid:
-        try:
-            paranoid[:]  # sequence support
-        except:
-            raise ValueError('must supply a finite list for paranoid')
-        else:
-            these_symbols = paranoid[:]
-    del modules[modname]
-    for mod in modules.values():
-        try:
-            delattr(mod, modname)
-        except AttributeError:
-            pass
-        if paranoid:
-            for symbol in these_symbols:
-                if symbol[:2] == '__':  # ignore special symbols
-                    continue
-                try:
-                    delattr(mod, symbol)
-                except AttributeError:
-                    pass

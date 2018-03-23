@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^workspace$',views.workspace, name='workspace'),
     url(r'^home$',views.home, name='home'),
     url(r'^form$',views.formu, name='formu'),
+    url(r'^graph$',views.renv, name='graph'),
     #url(r'^graph$',views.graph, name='graph'),
 ]
