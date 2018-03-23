@@ -1,0 +1,11 @@
+  <p class="statement">Your privacy is critically important to us. At SortSimulation, we have a few fundamental principles:</p>
+<ul>
+<li>We don&#8217;t ask you for personal information unless we truly need it. (We can&#8217;t stand services that ask you for things like your gender or income level for no apparent reason.)</li>
+<li>We don&#8217;t share your personal information with anyone except to comply with the law, develop our products, or protect our rights.</li>
+<li>We don&#8217;t store personal information on our servers unless required for the ongoing operation of one of our services.</li>
+<li>In our blogging products, we aim to make it as simple as possible for you to control what&#8217;s visible to the public, seen by search engines, kept private, and permanently deleted.</li>
+</ul>
+<h3>Website Visitors</h3>
+<p>Like most website operators, SortSimulation collects non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the date and time of each visitor request. SortSimulation&#8217;s purpose in collecting non-personally identifying information is to better understand how SortSimulation&#8217;s visitors use its website. From time to time, SortSimulation may release non-personally-identifying information in the aggregate, e.g., by publishing a report on trends in the usage of its website.</p>
+<p>SortSimulation also collects potentially personally-identifying information like Internet Protocol (IP) addresses for logged in users and for users leaving comments on WordPress.com blogs. SortSimulation only discloses logged in user and commenter IP addresses under the same circumstances that it uses and discloses personally-identifying information as described below, except that blog commenter IP addresses and email addresses are visible and disclosed to the administrators of the blog where the comment was left.</p>
+  

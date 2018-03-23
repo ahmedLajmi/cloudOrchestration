@@ -19,12 +19,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-	url(r'^$',views.home, name='index'),
+	
     url(r'^register$',views.register, name='register'),
     url(r'^login$',views.login, name='login'),
     url(r'^workspace$',views.workspace, name='workspace'),
-    url(r'^home$',views.home, name='home'),
     url(r'^form$',views.formu, name='formu'),
     url(r'^graph$',views.renv, name='graph'),
-    #url(r'^graph$',views.graph, name='graph'),
 ]

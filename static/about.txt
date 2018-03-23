@@ -1,0 +1,18 @@
+<p style="text-align: justify;">Établie en 1984, l&rsquo;ENSI (l&rsquo;École Nationale des Sciences de l&rsquo;Informatique) est l&rsquo;une des plus préstigieuse école d&rsquo;ingénieur  spécialisée en informatique en Tunisie.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">L&rsqursquo;ENSI est un collège d&rsquo;ingénierie de classe régionale où l&rsquo;enseignement et la recherche &#8211; avec pertinence pour le monde pratique en tant que principe directeur &#8211; continuent d&rsquo;être son objectif principal.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">La mission de l&rsquo;ENSI est de faire progresser la connaissance et d&rsquo;éduquer les étudiants en sciences, en technologie et dans d&rsquo;autres domaines d&rsquo;études qui serviront le mieux la Tunisie au 21ème siècle.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">Les diplômes obtenus chez l&rsquo;ENSI comprennent <em><strong>Diplôme d&rsquo;Ingénieur en Informatique</strong></em>, <strong><em>Diplôme de Master of Science</em></strong>, et <strong><em>Diplôme de Doctorat en Informatique</em></strong>.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">À la fin de l&rsquo;année 2016, il y avait plus de 4300 anciens élèves, 1000 étudiants de premier cycle et 200 étudiants diplômés.</p>
+  <p>Dates importantes :</p>
+  <p>&nbsp;</p>
+  <p>&#8211; 1984: Première génération d&rsquo;ingénieurs en informatique à l&rsquo;échelle nationale<br />
+  &#8211; 1994: Première doctorat à l&rsquo;échelle nationale<br />
+  &#8211; 1999: Premiers laboratoires informatique à l&rsquo;échelle nationale: RIADI lab &amp; CRISTAL lab<br />
+  &#8211; 2014: Laboratoire HANA<br />
+  &#8211; 2016: Laboratoire COSMOS</p>
+  <p>&#8211; 2017: Inauguration du centre de recherche de l&rsquo;ENSI  : <em><strong>ENSI Research Center</strong></em></p>
+  <p>&nbsp;</p>

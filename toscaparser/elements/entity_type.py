@@ -38,8 +38,6 @@ class EntityType(object):
     TOSCA_DEF_FILE = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "TOSCA_definition_1_0.yaml")
-    with open(TOSCA_DEF_FILE, 'rb+') as destination:
-        print(destination.read())
     loader = toscaparser.utils.yamlparser.load_yaml
 
     TOSCA_DEF_LOAD_AS_IS = loader(TOSCA_DEF_FILE)
