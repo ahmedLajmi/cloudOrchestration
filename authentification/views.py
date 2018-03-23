@@ -48,7 +48,6 @@ def formu(request):
 	os.utime("C:\\Users\\ahlaj\Desktop\\cloudOrchestration\\toscaparser\\tosca_template.py", (time.time(),time.time()))
 	if len(request.POST) == 0:
 		raise Http404("No MyModel matches the given query.")
-	print (request.FILES)
 	date = time.strftime('%d-%m-%y_%H-%M-%S',time.localtime())
 	idUser = "1\\"
 	path = path + idUser +"{}"+date+".yaml"
@@ -63,11 +62,11 @@ def formu(request):
 		for chunk in toscaDefinition.chunks():
 			definition.write(chunk)
 	# sauvegarder le template tosca introduit par le client 
-	with open(path.format("toscaTemplate"), 'wb+') as destination:
+	with open(path.format("toscaTemplate_"), 'wb+') as destination:
 		for chunk in toscaTemplat.chunks():
 			destination.write(chunk)
 	print (DISP)
-	return render(request , 'att.html',{'path': path.format("toscaTemplate")})
+	return render(request , 'att.html',{'path': idUser+"toscaTemplate_"+date+".yaml"})
 
 
 
@@ -80,7 +79,7 @@ def renv(request):
 		originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
 		secureToscaDefPath = BASE_DIR + "\\toscaparser\\secure\\TOSCA_definition_1_0.yaml"
 		try:
-			temp = tosca_template.ToscaTemplate(request.GET["path"])
+			temp = tosca_template.ToscaTemplate(path+request.POST["path"])
 		except:
 			# restaurer le tosca definition original
 			with open(secureToscaDefPath, 'rb') as definition:
@@ -91,7 +90,7 @@ def renv(request):
 			raise Http404("Erreur type node")
 		graphe = temp.graph
 		nodes = graphe.nodetemplates
-		mon_fichier = open(request.GET["path"], "r")
+		mon_fichier = open(path+request.POST["path"], "r")
 		file = mon_fichier.read()
 		cpt = 0
 		id_node = 0
