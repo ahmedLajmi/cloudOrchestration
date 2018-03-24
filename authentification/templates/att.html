@@ -1,38 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Workspace</title>
-{% load staticfiles %}
-    <!-- Bootstrap -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/styleg.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
-	<script src="{% static 'cytoscape.js-master/dist/cytoscape.js' %}"></script>
-	<script src="{% static 'ace-builds-master/src/ace.js' %}" type="text/javascript" charset="utf-8"></script>
-	<script src="{% static 'ace-builds-master/src/mode-yaml.js' %}" type="text/javascript" charset="utf-8"></script>
-  </head>
-  <body>
-	<div class="container">
-		<div class="row">
-			<center><h3>Veuillez patienter vos fichiers sont en cours de traitement</h3></center>
+	<head>
+		{% load staticfiles %}
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Traitement</title>
+		<script>
+			window.setTimeout(function(){document.getElementById("form").submit();}, 5000);
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<center><h3> Please wait <br> We are loading your data </h3></center>
+			</div>
+			<div class="row">
+				<center><img src="{% static 'img/load.gif' %}" alt=""></center>
+			</div>
 		</div>
-		<div class="row">
-			<center><img src="{% static 'img/load.gif' %}" alt="Girl in a jacket"></center>
-		</div>
-	</div>
-	<form id="form" method="POST" action="{% url 'graph' %}" enctype="multipart/form-data">
-	{% csrf_token %} 
-	<input type="hidden" name="path" value="{{ path }}">
-	</form>
-	<script>
-		window.setTimeout(function(){document.getElementById("form").submit();}, 5000);
-	</script>
-  </body>
-</html>
-
+		<form id="form" method="POST" action="{% url 'graph' %}" enctype="multipart/form-data">
+			{% csrf_token %} 
+			<input type="hidden" name="path" value="{{ path }}">
+		</form>
+	</body>
+</html>	
