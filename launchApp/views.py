@@ -13,3 +13,12 @@ def home(request):
 	with open(BASE_DIR+'\\static\\term.txt', 'r') as source:
 		term = source.read()
 	return render(request , 'home.html',{'about': about,'privacy':privacy, 'term':term})
+
+def workspace(request):
+	with open(BASE_DIR+'\\static\\about.txt', 'r') as source:
+		about = source.read()
+	with open(BASE_DIR+'\\static\\privacy.txt', 'r') as source:
+		privacy = source.read()
+	with open(BASE_DIR+'\\static\\term.txt', 'r') as source:
+		term = source.read()
+	return render(request , 'workspace.html',{'about': about,'privacy':privacy, 'term':term})

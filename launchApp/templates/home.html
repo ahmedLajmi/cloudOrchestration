@@ -21,7 +21,6 @@
 		<script>
 			new WOW().init();
 		</script>
-
 	</head>
 	<body  data-spy="scroll" data-target=".navbar-fixed-top" >
 	
@@ -40,12 +39,12 @@
 					<ul class="nav lang navbar-nav navbar-right pull-right">
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-								<img id="imgBtnSel" src="{% static 'images/en.png' %}" alt="..." class="img-thumbnail icon-medium">En<span  id="lanBtnSel" class="caret"></span>
+								<img id="imgBtnSel" src="{% static 'images/en.png' %}" alt="..." class="img-thumbnail icon-medium"> En <span  id="lanBtnSel" class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
 									<a id="btnEng" href="indexEn.html" class="language"><img id="imgBtnEng" src="{% static 'images/fr.jpeg' %}" alt="..." class="img-thumbnail icon-small">
-									  <span id="lanBtnEng">Fr</span>
+										<span id="lanBtnEng"> Fr </span>
 									</a>
 								</li>
 							</ul>
@@ -150,7 +149,63 @@
 			</div>
 		</div>
 		<!--- End touch ---->
+		
+		<!--- Portfolio ---->
+		<section id="portfolio" class="bg-light-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading wow fadeInDown">Album</h2>
+						<center> <hr class="separator"> </center>
+						<h3 class="section-subheading text-muted  wow fadeInDown">Here are some pictures from our gallery.</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-6 portfolio-item  wow rotateIn" data-wow-delay="0.4s">
+						<a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div>
+							<img src="{% static 'images/portfolio/petit/i1.PNG' %}" class="img-responsive" alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>Template creation</h4>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6 portfolio-item wow rotateIn" data-wow-delay="0.4s">
+						<a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div>
+							<img src="{% static 'images/portfolio/petit/i3.jpg' %}" class="img-responsive" alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>Evaluation plan of orchestartion</h4>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6 portfolio-item wow rotateIn" data-wow-delay="0.4s">
+						<a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div>
+							<img src="{% static 'images/portfolio/petit/i2.jpg' %}" class="img-responsive" alt="">
+						</a>
+						<div class="portfolio-caption">
+							<h4>Add cloud services</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
+		 <!--- end Portfolio ---->
+		
 		<!--- Contact ------>
 		<div id="contact" class="contact">
 			<div class="container">

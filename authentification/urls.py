@@ -22,7 +22,7 @@ urlpatterns = [
 	
     url(r'^register$',views.register, name='register'),
     url(r'^login$',views.login, name='login'),
-    url(r'^workspace$',views.workspace, name='workspace'),
+    
     url(r'^form$',views.formu, name='formu'),
     url(r'^graph$',views.renv, name='graph'),
 ]

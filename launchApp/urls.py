@@ -20,4 +20,5 @@ from . import views
 
 urlpatterns = [
 	url(r'^$',views.home, name='index'),
+    url(r'^workspace$',views.workspace, name='workspace'),
 ]

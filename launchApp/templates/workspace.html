@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Workspace</title>
+		{% load staticfiles %}
+		<!-- Bootstrap -->
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link rel="stylesheet" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/stylew.css' %}">
+		<link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="{% static 'js/wow.min.js' %}"></script>
+		<script> new WOW().init(); </script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/myScript.js' %}"></script>
+	</head>
+	<body  data-spy="scroll" data-target=".navbar-fixed-top" >
+
+		<!-- NAvigation -->
+		<div id="myNavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container navbar-header1">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand page-scroll">CloudOrchestrator</a>
+				</div>
+				<div class="navbar-collapse collapse" id="navbarResponsive">
+					<ul class="nav lang navbar-nav navbar-right pull-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+								<img id="imgBtnSel" src="{% static 'images/en.png' %}" alt="..." class="img-thumbnail icon-medium"> En <span  id="lanBtnSel" class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a id="btnEng" href="indexEn.html" class="language"><img id="imgBtnEng" src="{% static 'images/fr.jpeg' %}" alt="..." class="img-thumbnail icon-small">
+										<span id="lanBtnEng"> Fr </span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#">Home</a></li>
+						<li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#services">services</a></li>
+						<li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#contact">contact</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--- End Navigation ---->
+
+		<div id="header" class="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 ban  wow zoomIn"  data-wow-delay="1s">
+						<div class="">
+							<h1>Welcome User</h1>
+							<br><br><br>
+						</div>
+						<div>
+							<div class="col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="1.4s">
+								<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#myselectionModal">
+									<i class="fa fa-file-archive-o" aria-hidden="true"></i> 
+									<span > &nbsp; Insert file &nbsp; </span> 
+								</button>
+								<p> 
+									You can insert a yaml file and generate its graph containing its nodes and relationships
+								</p>
+							</div>
+							<div class="col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0.8s">
+								<button class="btn btn-lg btn-success" onClick="$('#fileselect').show()">
+									<i class="fa fa-sitemap" aria-hidden="true"></i>
+									Create template 
+								</button>
+								<p>You can create your own template with new services and cutsomized nodes. </p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!---- Footer ---->
+		<div id="footer" class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-md-4">
+						<h4  class="wow fadeInUp">Contact Us</h4>
+						<p><i class="fa fa-home" aria-hidden="true"></i> Campus Universitaire de la Manouba – 2010 La Manouba</p>
+						<p><i class="fa fa-envelope" aria-hidden="true"></i> webmaster@ensi-uma.tn</p>
+						<p><i class="fa fa-phone" aria-hidden="true"></i> +216 71 600 444</p>
+						<p><i class="fa fa-globe" aria-hidden="true"></i> www.ensi-uma.tn/</p>
+					</div>
+					<div class="col-lg-4 col-md-4"> </div>
+					<div class="col-lg-4 col-md-4">
+						<h4>About</h4>
+						<a href="https://www.facebook.com/ENSI.tunisie/" title="Facebook">  <i class="social fa fa-facebook" aria-hidden="true"></i> </a>
+						<a href="https://twitter.com/ensitn?lang=ar" title="Twitter">  <i class="social fa fa-twitter" aria-hidden="true"></i> </a>
+						<a href="https://www.linkedin.com/school/11094564" title="Linkedin">  <i class="social fa fa-linkedin" aria-hidden="true"></i> </a>
+						<a href="https://www.youtube.com/channel/UCbHeECHV-VTS2jiZCazW7Dg" title="Youtube">  <i class="social fa fa-youtube" aria-hidden="true"></i> </a>
+						<a href="https://github.com/OssecTN" title="Github">  <i class="social fa fa-github" aria-hidden="true"></i> </a><br>
+						<a href="" data-toggle="modal" data-target="#myModal"> About us</a><br>
+						<a href="" data-toggle="modal" data-target="#myModal1"> Privacy Pölicy</a><br>
+						<a href="" data-toggle="modal" data-target="#myModal2"> Terms & Conditions of Use </a><br><br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="copyright">
+						<p>Copyright © 2018 National School of Computer Sciences. All rights reserved. </p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center> <h4 class="modal-title" id="myModalLabel">Présentation de l’ENSI</h4> </center>
+					</div>
+					<div class="modal-body">{{ about | safe }}</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Portfolio Modals -->
+		<!-- Use the modals below to showcase details about your portfolio projects! -->
+		<!-- Modal -->
+		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center>  <h4 class="modal-title" id="myModalLabel">Privacy Policy</h4>  </center>
+					</div>
+					<div class="modal-body">{{ privacy | safe }}</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center> <h4 class="modal-title" id="myModalLabel">Terms and Conditions of Use</h4>  </center>
+					</div>
+					<div class="modal-body">{{ term | safe }}</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Modal -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="myselectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body"> 
+						<div id="fileselection"   class="col-md-8 col-md-offset-2">
+							<br><br><br>
+							<form method="POST" action="{% url 'formu' %}" enctype="multipart/form-data">
+								{% csrf_token %}
+								<!-- COMPONENT START -->
+								<h3>TOSCA Definition File Selection</h3>
+								<div class="form-group">
+									<div class="input-group input-file" name="toscaDefinition">
+										<input type="text" class="form-control" placeholder='Choose a TOSCA Definition file...' />
+										<span class="input-group-btn">
+											<button class="btn btn-default btn-choose" type="button">Choose</button>
+										</span>
+									</div>
+								</div>
+								<h3>Template File Selection</h3>
+								<div class="form-group">
+									<div class="input-group input-file" name="toscaTemplate">
+										<input type="text" class="form-control" placeholder='Choose a Template file...' />      
+											<span class="input-group-btn">
+											<button class="btn btn-default btn-choose" type="button">Choose</button>
+										</span>
+									</div>
+								</div>
+								<!-- COMPONENT END -->
+								<center> 
+									<div class="form-group">
+										<button type="submit" class="btn btn-primary " >Submit</button>
+										<button type="reset" class="btn btn-danger ">Reset</button>
+									</div> 
+								</center>
+							  <br><br><br>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">  </div>
+				</div>
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+			function bs_input_file() {
+				$(".input-file").before(
+					function() {
+						if ( ! $(this).prev().hasClass('input-ghost') ) {
+							var element = $("<input type='file' accept='.yaml,.yml' class='input-ghost' style='visibility:hidden; height:0'>");
+							element.attr("name",$(this).attr("name"));
+							element.change(function(){
+								element.next(element).find('input').val((element.val()).split('\\').pop());
+							});
+							$(this).find("button.btn-choose").click(function(){
+								element.click();
+							});
+							$(this).find("button.btn-reset").click(function(){
+								element.val(null);
+								$(this).parents(".input-file").find('input').val('');
+							});
+							$(this).find('input').css("cursor","pointer");
+							$(this).find('input').mousedown(function() {
+								$(this).parents('.input-file').prev().click();
+								return false;
+							});
+						return element;
+						}
+					}
+				);
+			}
+			$(function() {
+				bs_input_file();
+			});
+	
+			function myFunction() {
+				var x = document.getElementById("myButn");
+				var y = document.getElementById("Fichier1");
+				var z = document.getElementById("Fichier2");
+				if ( (y.value == "") || (z.value == ""))
+					alert('You have to select both files!');	
+			}
+		</script>
+	</body>
+</html>
