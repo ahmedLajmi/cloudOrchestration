@@ -8,9 +8,10 @@ from django.views.generic import View
 from .forms import UserForm , SignUpForm
 
 from django.template.context_processors import csrf
-
+from django.http import Http404 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from .models import NodePersonalised
 
 from django.http import Http404
 from toscaparser.tosca_template import ToscaTemplate
@@ -19,6 +20,8 @@ import datetime
 import os
 import time
 import sys
+
+
 
 # Create your views here.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -135,6 +138,46 @@ class TagType:
 
 
 
+class IndexView(generic.ListView):
+	
+	template_name = 'authentification/nodeslist.html'  
+	context_object_name = 'all_nodes'  
+	def get_queryset(setf):  #get objects
+		return NodePersonalised.objects.all()
+
+
+class DetailView(generic.DetailView):
+	
+	model = NodePersonalised  
+	template_name = 'authentification/detailnode.html' 
+
+def detailNode(request, id):
+	try:
+		node =  NodePersonalised.objects.get(pk=id)
+	except NodePersonalised.DoesNotExist:
+	 	raise Http404("Node does not exist")
+
+	return render(request,'authentification/detailnode.html', {'node': node}) 
+
+
+class NodePCreate (CreateView):
+	model = NodePersonalised 
+	fields = [ 'name' , 'typen' , 'attribute' ,'photo' ]   #what fields i want to fill
+
+
+class NodePUpdate (UpdateView):
+	model = NodePersonalised 
+	fields = [ 'name' , 'typen' , 'attribute' ,'photo']   #what fields i want to fill
+
+
+class NodePDelete (DeleteView):
+	model = NodePersonalised  
+	success_url =reverse_lazy('authentification:list')
+
+
+
+
+
 def formu(request):
 	path = os.path.join(BASE_DIR, "userData\\")
 	with open(path+'access.txt', 'r') as source:
@@ -152,7 +195,7 @@ def formu(request):
 				break
 	with open(path+'access.txt', 'w') as source:
 		source.write("False")
-	os.utime("C:\\PCD\\GitAhmed\\cloudOrchestration\\toscaparser\\tosca_template.py", (time.time(),time.time()))
+	os.utime("C:\\PCD\\GitV3\\cloudOrchestration\\toscaparser\\tosca_template.py", (time.time(),time.time()))
 	if len(request.POST) == 0:
 		raise Http404("No MyModel matches the given query.")
 	date = time.strftime('%d-%m-%y_%H-%M-%S',time.localtime())

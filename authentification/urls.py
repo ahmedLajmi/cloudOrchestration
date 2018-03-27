@@ -30,5 +30,13 @@ urlpatterns = [
     url(r'^form$',views.formu, name='formu'),
     url(r'^graph$',views.renv, name='graph'),
 
+
+    url(r'^list/$',views.IndexView.as_view() , name='list'), 
+    url(r'^mynode/(?P<id>[0-9]+)/$',views.detailNode , name='detail'), 
+
+    url(r'^node/add/$',views.NodePCreate.as_view() , name='node-add'),
+    url(r'^node/(?P<pk>[0-9]+)/$',views.NodePUpdate.as_view() , name='node-update'),
+    url(r'^node/(?P<pk>[0-9]+)/delete/$',views.NodePDelete.as_view() , name='node-delete'),
+
    
 ]
