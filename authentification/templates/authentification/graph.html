@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block mytitle %} MyGraph {% endblock %}
+
+{% block mylink %}
+    <link rel="stylesheet" href="{% static 'css/style_graph.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <script src="{% static 'cytoscape.js-master/dist/cytoscape.js' %}"></script>
+    <script src="{% static 'ace-builds-master/src/ace.js' %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static 'ace-builds-master/src/mode-yaml.js' %}" type="text/javascript" charset="utf-8"></script>
+    <style>
+      #editor {
+          width: 100%;
+          min-height: 400px;
+      }
+      #cy {
+        width: 100%;
+        min-height: 700px;
+        display: inline-block;
+      }
+     </style>{% endblock %}
+
+
+{% block mybody%}
+
+
+{% if request.user.get_username %}
+
+  <!--- Graph ---->
+
+     <div class="container ">
+         <div class="row ">
+             <div id="cy" class="col-lg-12 col-md-12"  ></div>
+         </div>
+
+<!---- End Graph ---->
+
+
+<!--- File ---->
+
+<div class="row">
+  <div id="editor" class="col-lg-12 col-md-12" >{{ file }}</div>
+</div><br><br>
+ </div>
+<!---- End File ---->
+
+
+
+
+<!-- Modal -->
+<div class="modal fade select" id="myselectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    
+<div id="fileselection"   class="col-md-8 col-md-offset-2">
+
+
+
+<form method="POST" action="#" enctype="multipart/form-data">
+  <!-- COMPONENT START -->
+
+    <h3>TOSCA Definition File Selection</h3>
+   <div class="form-group">
+    <div class="input-group input-file" name="Fichier1">
+      
+        <input type="text" class="form-control" placeholder='Choose a TOSCA Definition file...' />
+        <span class="input-group-btn">
+            <button class="btn btn-default btn-choose" type="button">Choose</button>
+        </span>
+        
+    </div>
+  </div>
+
+
+   <h3>Template File Selection</h3>
+  <div class="form-group">
+    <div class="input-group input-file" name="Fichier1">
+        <input type="text" class="form-control" placeholder='Choose a Template file...' />      
+            <span class="input-group-btn">
+            <button class="btn btn-default btn-choose" type="button">Choose</button>
+        </span>
+    </div>
+  </div>
+
+
+  <!-- COMPONENT END -->
+ <center> <div class="form-group">
+    <button type="submit" class="btn btn-success " disabled>Submit</button>
+    <button type="reset" class="btn btn-danger ">Reset</button>
+  </div> </center>
+  <br><br><br>
+   
+  <br><br><br>
+</form>
+
+</div>
+<div class="modal-footer">
+   
+  </div>
+  </div>
+  
+</div>
+</div>
+</div>
+
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/wow.min.js' %}"></script>
+     <script>
+      new WOW().init();
+     </script>
+
+    <script src="{% static 'js/myScript.js' %}"></script>
+
+
+<script type="text/javascript">
+  function bs_input_file() {
+  $(".input-file").before(
+    function() {
+      if ( ! $(this).prev().hasClass('input-ghost') ) {
+        var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+        element.attr("name",$(this).attr("name"));
+        element.change(function(){
+          element.next(element).find('input').val((element.val()).split('\\').pop());
+        });
+        $(this).find("button.btn-choose").click(function(){
+          element.click();
+        });
+        $(this).find("button.btn-reset").click(function(){
+          element.val(null);
+          $(this).parents(".input-file").find('input').val('');
+        });
+        $(this).find('input').css("cursor","pointer");
+        $(this).find('input').mousedown(function() {
+          $(this).parents('.input-file').prev().click();
+          return false;
+        });
+        return element;
+      }
+    }
+  );
+}
+$(function() {
+  bs_input_file();
+});
+
+var editor = ace.edit("editor");
+      var yamlMode = ace.require("ace/mode/yaml").Mode;
+    editor.session.setMode(new yamlMode());
+    editor.setTheme("ace/theme/twilight");
+    editor.setReadOnly(true); 
+
+var cy = cytoscape({
+        container: document.getElementById('cy'), // container to render in
+        elements: [ // list of graph elements to start with
+          
+          {% for key,val in noeuds.items %}
+            {
+            group: "nodes",
+            data: { id:'{{ key }}' ,name: '{{ val.name }}' },
+            style: {
+              {% if val.type == "Compute" %}
+                'background-image': '{% static "img/serveur.jpg" %}' ,
+              {% elif val.type == "Database" %}
+                'background-image': '{% static "img/bd.jpg" %}' ,
+              {% elif val.type == "DBMS" %}
+                'background-image': '{% static "img/sgbd.png" %}' ,
+              {% elif val.type == "WebServer" %}
+                'background-image': '{% static "img/web.png" %}' ,
+              {% elif val.type == "WebApplication.CMS" %}
+                'background-image': '{% static "img/cms.jpg" %}' ,
+            {% endif %}
+              'background-fit': 'cover cover'
+          }
+            },
+        {% endfor %}
+        {% for id,relation in relations.items %}
+            {
+            group: "edges",
+            data: { id:'e{{ id }}' ,source: "{{ relation.source }}", target: "{{ relation.dest }}",name: '{{ relation.type }}'  },
+            },
+        {% endfor %}  
+        ],
+        style: [ // the stylesheet for the graph
+          {
+            selector: 'node',
+            style: {
+                'background-color': '#666',
+                'label': 'data(name)',
+                'width': 120,
+                'height': 120,
+            }
+           },
+          {
+            selector: 'edge',
+            style: {
+                'width': 3,
+                'line-color': '#ccc',
+                'target-arrow-color': '#ccc',
+                'target-arrow-shape': 'triangle',
+                'label': 'data(name)'
+              }
+          }
+        ],
+        layout: {
+          name: 'breadthfirst'
+        },
+      
+    });
+    cy.on('tap', 'node', function(evt){
+        var node = evt.target;
+        document.getElementById('menu-deroulant').style.display='inline-block';
+        //self.location.href= node.id()+'tapage.php'
+    });
+</script>
+
+
+  {% endif %}
+
+ {% endblock %}
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#editor {
+		    position: absolute;
+		    width: 500px;
+		    height: 400px;
+		}
+	</style>
+</head>
+<body>
+	<div id="editor">some text</div>
+	<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="src/mode-yaml.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		
+	    var editor = ace.edit("editor");
+	    var yamlMode = ace.require("ace/mode/yaml").Mode;
+		editor.session.setMode(new yamlMode());
+		editor.setTheme("ace/theme/twilight");
+		editor.setReadOnly(true); 
+		editor.setValue("");
+	</script>
+</body>
+</html>
