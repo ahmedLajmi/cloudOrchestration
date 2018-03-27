@@ -22,7 +22,7 @@ class UserForm(forms.ModelForm):
     	, widget=forms.TextInput(attrs={'class': 'input form-control','placeholder': 'Enter your Name'}) )
     email = forms.EmailField(
     widget=forms.EmailInput(attrs={'class': 'form-control','placeholder': 'Enter your Email'})
-) 
+    )
     class Meta:
         model = User
         fields = ['username', 'email', 'name', 'password', 'password2']

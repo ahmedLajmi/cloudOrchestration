@@ -27,17 +27,36 @@ def home(request):
 	return render(request , 'authentification/home.html')
 
 def register(request):
-	
 	return render(request , 'authentification/register.html')
 
 def workspace(request):
-
 	return render(request , 'authentification/workspace.html')
 
 	
 def graph(request):
-	
 	return render(request , 'authentification/graph.html')
+
+
+class TagType:
+    def __init__(self):
+        pass
+    success, info, warning, danger = range(4)
+
+class Messages:
+    def __init__(self,message, tag):
+        self.message = message
+        if tag == 0:
+            self.tag = "alert alert-success"
+        elif tag == 1:
+            self.tag = "alert alert-info"
+        elif tag == 2:
+            self.tag = "alert alert-warning"
+        else:
+            self.tag = "alert alert-danger"
+
+
+
+
 
 
 def login(request):
@@ -50,50 +69,49 @@ def login(request):
             auth_login(request=request, user=user)
             return HttpResponseRedirect(reverse('authentification:workspace'))
         else:
-            msg_to_html = custom_message('Invalid Credentials', TagType.danger)
+            msg_to_html = Messages('Invalid Credentials', TagType.danger)
             dictionary = dict(request=request, messages = msg_to_html)
             dictionary.update(csrf(request))
             return render_to_response('authentification/login.html', dictionary)
     elif request.method == 'GET':
-    		return render(request , 'authentification/login.html')
+        return render(request, 'authentification/login.html')
 
 
 
 class UserFormView(View):
-	form_class = UserForm 
-	template_name = 'authentification/register.html'  
+    form_class = UserForm
+    template_name = 'authentification/register.html'
+    def get(self,request):
+        form = self.form_class(None)
+        return render(request, self.template_name , {'form': form}) #to display blank form
 
-	
-	def get(self,request): 
-		form = self.form_class(None)    
-		return render(request, self.template_name , {'form': form}) #to display blank form
+    def post(self, request):  # if user clicks submit : process from data base
+        form = self.form_class(
+            request.POST)  # when clicks submit, all info data get stored in POST data to be passed to the form and the form valid the data
 
-	def post(self,request):  #if user clicks submit : process from data base
-		form = self.form_class(request.POST)    #when clicks submit, all info data get stored in POST data to be passed to the form and the form valid the data
+        if form.is_valid():  # store the info in data base but first make check validations
+            user = form.save(
+                commit=False)  # make a user object using whatever typed in the form but does not save it in data base
+            # get cleaned (normalized) data : unifier la forme
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
-		if form.is_valid(): #store the info in data base but first make check validations
-			user = form.save(commit=False) #make a user object using whatever typed in the form but does not save it in data base
-			#get cleaned (normalized) data : unifier la forme
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password']
+            # how to set user passwords , because they have h value
+            user.set_password(password)
+            user.save()  # put user in data base
 
-			#how to set user passwords , because they have h value
-			user.set_password(password)
-			user.save()   #put user in data base
+            # returns User objects if credentials are correct
+            user = authenticate(username=username, password=password)
 
-			#returns User objects if credentials are correct
-			user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:  # compte banned by admin
+                    auth_login(request, user)  # log the user in a session
+                # now the user is loged in whatever the info i want i put request.user.username..
 
-			if user is not None :
-				if user.is_active:  #compte banned by admin
-					auth_login(request,user)  #log the user in a session
-				#now the user is loged in whatever the info i want i put request.user.username..
+                # now redirect them to the home page
+                return redirect('authentification:workspace')
 
-				#now redirect them to the home page
-				return redirect('authentification:workspace')
-
-		return render(request, self.template_name , {'form': form})
-
+        return render(request, self.template_name, {'form': form})
 
 
 # this def is if you want to change the user's password
@@ -103,35 +121,11 @@ def update_pwd(username, pwd):
     user_model.save()
 
 
-class Messages:
-    def __init__(self):
-        self.message = ''
-
-    message = ''
-    tag = ''
 
 
-def custom_message(message, tag):
-    # 1.- success, 2.-info, 3.- warning 4.- danger
-    msg = Messages()
-    if tag == 0:
-        msg.tag = "alert alert-success"
-    elif tag == 1:
-        msg.tag = "alert alert-info"
-    elif tag == 2:
-        msg.tag = "alert alert-warning"
-    else:
-        msg.tag = "alert alert-danger"
-
-    msg.message = message
-    return msg
 
 
-class TagType:
-    def __init__(self):
-        pass
 
-    success, info, warning, danger = range(4)
 
 
 
