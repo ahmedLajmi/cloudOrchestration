@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>{% block mytitle %} 
+    		 {% endblock %}</title>
+{% load staticfiles %}
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'font-awesome-4.6.3/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_base.css' %}">
+    {% block mylink %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+   
+</head>
+
+
+<body  data-spy="scroll" data-target=".navbar-fixed-top" >
+
+
+<!-- NAvigation -->
+
+<div id="myNavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container navbar-header1">
+    <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="{% url 'authentification:home' %}" class="navbar-brand  page-scroll">CloudOrchestrator</a>
+
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbarResponsive">
+
+            {% if request.user.get_username %}
+            <ul class="nav lang1 navbar-nav navbar-right pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      <img id="imgBtnSel" src="{% static 'images/user.png' %}" alt="..." class="img-thumbnail icon-medium"> 
+                    &nbsp;
+                       {{ request.user.get_username }} <span  id="lanBtnSel" class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      
+                      <li><a id="btnEng" href="indexEn.html" class="language">  <span id="lanBtnEng">Modifier Compte</span></a>
+                      </li>
+
+                     {% if request.user.is_authenticated %}
+                      <li>
+                         <form action="{% url 'logout' %}" method="post" class="form-inline my-2 my-lg-0">
+                        {% csrf_token %}
+                          <center> <button class="btn  btn-primary" type="submit"><i class="fa fa-power-off" aria-hidden="true"></i>&nbsp;Logout</button></center>
+                         </form>
+                      </li>
+                     {% endif %}
+                  </ul>
+                </li>
+            </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#"  onClick="location.href = '{% url 'authentification:home' %}';"><span class="fa fa-home" aria-hidden="true"></span> &nbsp; Home</a></li>
+             <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#"  onClick="location.href = '{% url 'authentification:workspace' %}';"><span class="fa fa-user" aria-hidden="true"></span> &nbsp; Workspace</a></li>
+     	 </ul>
+
+        {% else %}
+
+        <ul class="nav lang navbar-nav navbar-right pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      <img id="imgBtnSel" src="{% static 'images/en.png' %}" alt="..." class="img-thumbnail icon-medium">  
+                       En <span  id="lanBtnSel" class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a id="btnEng" href="indexEn.html" class="language"><img id="imgBtnEng" src="{% static 'images/fr.jpeg' %}" alt="..." class="img-thumbnail icon-small">  <span id="lanBtnEng">Fr</span></a></li>
+                  </ul>
+                </li>
+            </ul>
+
+            
+      <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger"  href="#" onClick="location.href = '{% url 'authentification:home' %}';"><span class="fa fa-home" aria-hidden="true"></span> &nbsp; Home</a></li>
+
+            {% block myitems%}
+            {% endblock %}
+
+              
+      </ul>
+         {% endif %}
+            
+
+    </div>
+  </div>
+
+</div>
+
+<!--- End Navigation ---->
+
+
+
+{% block mybody%}
+
+{% endblock %}
+
+
+
+
+  <!---- Footer ---->
+
+  <div id="footer" class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-4 col-md-4">
+                  <h4>Contact Us</h4>
+                  <p><i class="fa fa-home" aria-hidden="true"></i> Campus Universitaire de la Manouba – 2010 La Manouba</p>
+                  <p><i class="fa fa-envelope" aria-hidden="true"></i> webmaster@ensi-uma.tn</p>
+                  <p><i class="fa fa-phone" aria-hidden="true"></i> +216 71 600 444</p>
+                  <p><i class="fa fa-globe" aria-hidden="true"></i> www.ensi-uma.tn/</p>
+
+              </div>
+              <div class="col-lg-4 col-md-4">
+
+              </div>
+              <div class="col-lg-4 col-md-4">
+                  <h4>About</h4>
+                     <a href="https://www.facebook.com/ENSI.tunisie/" title="Facebook">  <i class="social fa fa-facebook" aria-hidden="true"></i> </a>
+               <a href="https://twitter.com/ensitn?lang=ar" title="Twitter">  <i class="social fa fa-twitter" aria-hidden="true"></i> </a>
+               <a href="https://www.linkedin.com/school/11094564" title="Linkedin">  <i class="social fa fa-linkedin" aria-hidden="true"></i> </a>
+               <a href="https://www.youtube.com/channel/UCbHeECHV-VTS2jiZCazW7Dg" title="Youtube">  <i class="social fa fa-youtube" aria-hidden="true"></i> </a>
+               <a href="https://github.com/OssecTN" title="Github">  <i class="social fa fa-github" aria-hidden="true"></i> </a><br>
+
+                 <a href="" data-toggle="modal" data-target="#myModal"> About us</a><br>
+                 <a href="" data-toggle="modal" data-target="#myModal1"> Privacy Pölicy</a><br>
+                 <a href="" data-toggle="modal" data-target="#myModal2"> Terms & Conditions of Use </a><br><br>
+
+
+              </div>
+
+          </div>
+          <div class="row">
+            <div class="copyright">
+              <p>Copyright © 2018 National School of Computer Sciences. All rights reserved. </p>
+
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <!--  End Footer -->
+
+
+
+  <!-- Modal ENSI -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center> <h4 class="modal-title" id="myModalLabel">Présentation de l’ENSI</h4> </center>
+        </div>
+        <div class="modal-body">
+    <p style="text-align: justify;">Établie en 1984, l&rsquo;ENSI (l&rsquo;École Nationale des Sciences de l&rsquo;Informatique) est l&rsquo;une des plus préstigieuse école d&rsquo;ingénieur  spécialisée en informatique en Tunisie.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">L&rsqursquo;ENSI est un collège d&rsquo;ingénierie de classe régionale où l&rsquo;enseignement et la recherche &#8211; avec pertinence pour le monde pratique en tant que principe directeur &#8211; continuent d&rsquo;être son objectif principal.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">La mission de l&rsquo;ENSI est de faire progresser la connaissance et d&rsquo;éduquer les étudiants en sciences, en technologie et dans d&rsquo;autres domaines d&rsquo;études qui serviront le mieux la Tunisie au 21ème siècle.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">Les diplômes obtenus chez l&rsquo;ENSI comprennent <em><strong>Diplôme d&rsquo;Ingénieur en Informatique</strong></em>, <strong><em>Diplôme de Master of Science</em></strong>, et <strong><em>Diplôme de Doctorat en Informatique</em></strong>.</p>
+  <p>&nbsp;</p>
+  <p style="text-align: justify;">À la fin de l&rsquo;année 2016, il y avait plus de 4300 anciens élèves, 1000 étudiants de premier cycle et 200 étudiants diplômés.</p>
+  <p>Dates importantes :</p>
+  <p>&nbsp;</p>
+  <p>&#8211; 1984: Première génération d&rsquo;ingénieurs en informatique à l&rsquo;échelle nationale<br />
+  &#8211; 1994: Première doctorat à l&rsquo;échelle nationale<br />
+  &#8211; 1999: Premiers laboratoires informatique à l&rsquo;échelle nationale: RIADI lab &amp; CRISTAL lab<br />
+  &#8211; 2014: Laboratoire HANA<br />
+  &#8211; 2016: Laboratoire COSMOS</p>
+  <p>&#8211; 2017: Inauguration du centre de recherche de l&rsquo;ENSI  : <em><strong>ENSI Research Center</strong></em></p>
+  <p>&nbsp;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+<!-- Modal Privacy Policy-->
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <center>  <h4 class="modal-title" id="myModalLabel">Privacy Policy</h4>  </center>
+  </div>
+  <div class="modal-body">
+    <p class="statement">Your privacy is critically important to us. At CloudOrchestrator, we have a few fundamental principles:</p>
+<ul>
+<li>We don&#8217;t ask you for personal information unless we truly need it. (We can&#8217;t stand services that ask you for things like your gender or income level for no apparent reason.)</li>
+<li>We don&#8217;t share your personal information with anyone except to comply with the law, develop our products, or protect our rights.</li>
+<li>We don&#8217;t store personal information on our servers unless required for the ongoing operation of one of our services.</li>
+<li>In our blogging products, we aim to make it as simple as possible for you to control what&#8217;s visible to the public, seen by search engines, kept private, and permanently deleted.</li>
+</ul>
+<h3>Website Visitors</h3>
+<p>Like most website operators, CloudOrchestrator collects non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the date and time of each visitor request. CloudOrchestrator&#8217;s purpose in collecting non-personally identifying information is to better understand how CloudOrchestrator&#8217;s visitors use its website. From time to time, CloudOrchestrator may release non-personally-identifying information in the aggregate, e.g., by publishing a report on trends in the usage of its website.</p>
+<p>CloudOrchestrator also collects potentially personally-identifying information like Internet Protocol (IP) addresses for logged in users and for users leaving comments on WordPress.com blogs. CloudOrchestrator only discloses logged in user and commenter IP addresses under the same circumstances that it uses and discloses personally-identifying information as described below, except that blog commenter IP addresses and email addresses are visible and disclosed to the administrators of the blog where the comment was left.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+  </div>
+</div>
+</div>
+</div>
+
+
+<!-- Modal Conditions of use-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <center> <h4 class="modal-title" id="myModalLabel">Terms and Conditions of Use</h4>  </center>
+  </div>
+  <div class="modal-body">
+
+<p>Hello, and welcome to our Terms and Conditions of Use.  This is important and affects your legal rights, so please
+read them and our Privacy Policy carefully. We hope you&rsquo;re sitting
+comfortably. Here we go…</p>
+
+<h2><a name="s1">1.</a> Introductions</h2>
+
+<p>Thanks for choosing CloudOrchestrator <strong>&ldquo;CloudOrchestrator&rdquo;</strong>
+By using the CloudOrchestrator service, websites, or software applications (together, the &ldquo;CloudOrchestrator Service&rdquo; or &ldquo;Service&rdquo;),
+including by purchasing or receiving Codes or Limited Offers, you are entering into a binding contract
+with our local company in your country of residence (your &ldquo;Local Country&rdquo;).
+Your agreement with us includes these Terms and Conditions of Use (<strong>&ldquo;Terms&rdquo;</strong>) and our
+Privacy Policy
+
+<p>We&rsquo;re pleased to make our Service available to you. The CloudOrchestrator Service includes social and interactive features.</p>
+
+<p>In order to use the CloudOrchestrator Service, you need to (a) be 18 or older, or be 13 or older and have your parent or
+guardian&rsquo;s consent to these Terms, (b) have the power to enter a binding contract with us and are not barred from
+doing so under any applicable laws, and (c) be resident in the Local Country. You also warrant that any registration
+information that you submit to CloudOrchestrator is true, accurate and complete, and you agree to keep it that way at all times.</p>
+
+<h2><a name="s2">2.</a> Changes to the Agreements</h2>
+
+<p>Occasionally we may, in our discretion, make changes to the CloudOrchestrator Service and Agreements. When we make changes to
+the Agreements that we consider material, we&rsquo;ll notify you through the Service. By continuing to use the Service
+after those changes are made, you are expressing and acknowledging your acceptance of the changes.</p>
+<h2><a name="s4">4. </a>Licence and assignment</h2>
+
+<p>The CloudOrchestrator Service and the content provided through it are the property of CloudOrchestrator or CloudOrchestrator's licensors, and we
+grant you a limited, non-exclusive, revocable licence to make personal, non-commercial use of the CloudOrchestrator Service and
+to receive the media content made available through the CloudOrchestrator Service in your Local Country, based on the Subscription
+or Trial you have selected (the &ldquo;Licence&rdquo;). This Licence shall remain in effect for a period of 20 years
+unless terminated by you or CloudOrchestrator. </p>
+
+<p>The CloudOrchestrator software applications are licensed, not sold, to you, and CloudOrchestrator retains ownership of all copies of the
+CloudOrchestrator software applications even after installation on your Devices. CloudOrchestrator may assign these Agreements or any part
+of them without restrictions. You may not assign these Agreements or any part of them, nor transfer or sub-licence your
+rights under this Licence, to any third party. </p>
+
+<p>All CloudOrchestrator trademarks, service marks, trade names, logos, domain names, and any other features of the CloudOrchestrator brand
+are the sole property of CloudOrchestrator. This Licence does not grant you any rights to use the CloudOrchestrator trademarks, service
+marks, trade names, logos, domain names, or any other features of the CloudOrchestrator brand, whether for commercial or
+non-commercial use.  </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+  </div>
+</div>
+</div>
+</div>
+
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/wow.min.js' %}"></script>
+     <script>
+      new WOW().init();
+     </script>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/myScript.js' %}"></script>
+
+</body>
+</html>
