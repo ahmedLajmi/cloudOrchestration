@@ -98,15 +98,15 @@
 							data: { id:'{{ key }}' ,name: '{{ val.name }}' },
 							style: {
 								{% if val.type == "Compute" %}
-									'background-image': '{% static "img/serveur.jpg" %}' ,
+									'background-image': '{% static "/media/img/serveur.jpg" %}' ,
 								{% elif val.type == "Database" %}
-									'background-image': '{% static "img/bd.jpg" %}' ,
+									'background-image': '{% static "/media/img/bd.jpg" %}' ,
 								{% elif val.type == "DBMS" %}
-									'background-image': '{% static "img/sgbd.png" %}' ,
+									'background-image': '{% static "/media/img/sgbd.png" %}' ,
 								{% elif val.type == "WebServer" %}
-									'background-image': '{% static "img/web.png" %}' ,
+									'background-image': '{% static "/media/img/web.png" %}' ,
 								{% elif val.type == "WebApplication.CMS" %}
-									'background-image': '{% static "img/cms.jpg" %}' ,
+									'background-image': '{% static "/media/img/cms.jpg" %}' ,
 								{% endif %}
 								'background-fit': 'cover cover'
 							}
