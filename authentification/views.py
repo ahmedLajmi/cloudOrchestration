@@ -5,12 +5,11 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate 
 from django.contrib.auth import login as auth_login
 from django.views.generic import View 
-from .forms import UserForm , SignUpForm
+from .forms import UserForm , NodePForm
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core import serializers
-import json
 
 from django.template.context_processors import csrf
 from django.http import HttpResponseRedirect
@@ -143,13 +142,12 @@ def detailNode(request):
     except NodePersonalised.DoesNotExist:
         raise Http404("Node does not exist")
     json_data = serializers.serialize('json', [ node, ]) #json.dumps(node)
-    print(json_data)
     return HttpResponse(json_data, content_type="application/json")
 
 
 class NodePCreate (CreateView):
-	model = NodePersonalised 
-	fields = [ 'name' , 'typen' , 'attribute' ,'photo' ]   #what fields i want to fill
+    form_class = NodePForm
+    model = NodePersonalised
 
 
 class NodePUpdate (UpdateView):
