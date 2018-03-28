@@ -2,19 +2,60 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6670c6e2-8515-4231-89e0-e249b70b51c0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/graphGenerator/urls.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/launchApp/urls.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/authentification/templates/authentification/att.html" afterPath="$PROJECT_DIR$/graphGenerator/templates/graphGenerator/att.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/authentification/templates/authentification/graph.html" afterPath="$PROJECT_DIR$/graphGenerator/templates/graphGenerator/graph.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/en.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/fr.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/header.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/outils/Opengl1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/outils/c++1.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/outils/glut1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/outils/opengl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/outils/qt3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/grand/11.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/grand/12.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/grand/13.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/grand/14.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/grand/15.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/grand/16.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/11.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/12.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/13.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/14.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/15.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/15.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/16.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/i1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/i2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/portfolio/petit/i3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/desktop.ini" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-10.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-12.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-5.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-6.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-6.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/team/team-8.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/user.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/bd.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/cms.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/load.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/serveur.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/sgbd.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/web.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/web.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentification/templates/authentification/workspace.html" afterPath="$PROJECT_DIR$/authentification/templates/authentification/workspace.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentification/models.py" afterPath="$PROJECT_DIR$/authentification/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentification/templates/authentification/detailnode.html" afterPath="$PROJECT_DIR$/authentification/templates/authentification/detailnode.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentification/templates/authentification/nodepersonalised_form.html" afterPath="$PROJECT_DIR$/authentification/templates/authentification/nodepersonalised_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentification/templates/authentification/nodeslist.html" afterPath="$PROJECT_DIR$/authentification/templates/authentification/nodeslist.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentification/templates/base.html" afterPath="$PROJECT_DIR$/authentification/templates/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentification/urls.py" afterPath="$PROJECT_DIR$/authentification/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentification/views.py" afterPath="$PROJECT_DIR$/authentification/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cloudOrchestration/settings.py" afterPath="$PROJECT_DIR$/cloudOrchestration/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cloudOrchestration/urls.py" afterPath="$PROJECT_DIR$/cloudOrchestration/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/toscaparser/elements/entity_type.py" afterPath="$PROJECT_DIR$/toscaparser/elements/entity_type.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,8 +70,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/authentification/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
-              <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state relative-caret-position="402">
+              <caret line="31" column="32" lean-forward="false" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
               <folding>
                 <element signature="e#630#662#0" expanded="true" />
               </folding>
@@ -38,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/authentification/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+            <state relative-caret-position="514">
+              <caret line="157" column="0" lean-forward="true" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
               <folding>
                 <element signature="e#0#86#0" expanded="true" />
               </folding>
@@ -50,12 +91,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="workspace.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/authentification/templates/authentification/workspace.html">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/authentification/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
-              <caret line="41" column="70" lean-forward="false" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="70" />
-              <folding />
+            <state relative-caret-position="234">
+              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nodeslist.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/authentification/templates/authentification/nodeslist.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="121" column="43" lean-forward="true" selection-start-line="121" selection-start-column="43" selection-end-line="121" selection-end-column="43" />
+              <folding>
+                <element signature="e#4104#4111#1#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,6 +141,8 @@
       <find>print</find>
       <find>update_pwd</find>
       <find>TagType</find>
+      <find>ajax</find>
+      <find>static</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,16 +154,20 @@
         <option value="$PROJECT_DIR$/authentification/forms.py" />
         <option value="$PROJECT_DIR$/launchApp/urls.py" />
         <option value="$PROJECT_DIR$/launchApp/views.py" />
-        <option value="$PROJECT_DIR$/authentification/templates/base.html" />
         <option value="$PROJECT_DIR$/graphGenerator/urls.py" />
         <option value="$PROJECT_DIR$/cloudOrchestration/urls.py" />
         <option value="$PROJECT_DIR$/authentification/templates/authentification/workspace.html" />
         <option value="$PROJECT_DIR$/toscaparser/elements/entity_type.py" />
         <option value="$PROJECT_DIR$/authentification/templates/authentification/att.html" />
-        <option value="$PROJECT_DIR$/cloudOrchestration/settings.py" />
         <option value="$PROJECT_DIR$/graphGenerator/views.py" />
+        <option value="$PROJECT_DIR$/authentification/templates/authentification/nodepersonalised_form.html" />
+        <option value="$PROJECT_DIR$/authentification/templates/authentification/detailnode.html" />
+        <option value="$PROJECT_DIR$/cloudOrchestration/settings.py" />
         <option value="$PROJECT_DIR$/authentification/urls.py" />
+        <option value="$PROJECT_DIR$/authentification/templates/base.html" />
         <option value="$PROJECT_DIR$/authentification/views.py" />
+        <option value="$PROJECT_DIR$/authentification/templates/authentification/nodeslist.html" />
+        <option value="$PROJECT_DIR$/authentification/models.py" />
       </list>
     </option>
   </component>
@@ -160,7 +221,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="launchApp" />
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -193,28 +254,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cloudOrchestration" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cloudOrchestration" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="authentification" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="authentification" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -454,7 +493,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -491,54 +530,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/toscaparser/utils/gettextutils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/toscaparser/utils/validateutils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-190">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/toscaparser/repositories.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/toscaparser/shell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="17" column="46" lean-forward="false" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/toscaparser/topology_template.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/toscaparser/triggers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-28">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/toscaparser/unsupportedtype.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-28">
@@ -779,20 +770,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/authentification/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3270">
-          <caret line="48" column="66" lean-forward="false" selection-start-line="48" selection-start-column="66" selection-end-line="48" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cloudOrchestration/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
           <caret line="27" column="4" lean-forward="true" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
           <folding>
-            <element signature="e#642#674#0" expanded="true" />
+            <element signature="e#642#674#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -842,7 +825,7 @@
         <state relative-caret-position="396">
           <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <element signature="e#630#662#0" expanded="true" />
+            <element signature="e#630#662#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -855,20 +838,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cloudOrchestration/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/graphGenerator/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="104" column="50" lean-forward="true" selection-start-line="104" selection-start-column="50" selection-end-line="104" selection-end-column="50" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -878,17 +853,7 @@
         <state relative-caret-position="36">
           <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/authentification/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#630#662#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -901,12 +866,92 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cloudOrchestration/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="120" column="40" lean-forward="true" selection-start-line="120" selection-start-column="40" selection-end-line="120" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentification/templates/authentification/nodepersonalised_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="12" column="23" lean-forward="true" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentification/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#62#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentification/templates/authentification/form_template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentification/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="83" column="87" lean-forward="false" selection-start-line="83" selection-start-column="87" selection-end-line="83" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentification/templates/authentification/detailnode.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="22" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentification/templates/authentification/nodeslist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="121" column="43" lean-forward="true" selection-start-line="121" selection-start-column="43" selection-end-line="121" selection-end-column="43" />
+          <folding>
+            <element signature="e#4104#4111#1#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentification/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="31" column="32" lean-forward="false" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+          <folding>
+            <element signature="e#630#662#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/authentification/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+        <state relative-caret-position="514">
+          <caret line="157" column="0" lean-forward="true" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
           <folding>
             <element signature="e#0#86#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentification/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>

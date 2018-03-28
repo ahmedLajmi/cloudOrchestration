@@ -34,14 +34,14 @@
                    <div class="col-sm-4 col-lg-2">
                       <div class="thumbnail">
 
-                         <a href="{% url 'authentification:detail' node.id %}">
+                         <a href="" data-toggle="modal" data-target="#nodeDetail" onclick="loadNode({{ node.id }})">
                             <img src="{{ node.photo.url }}" class="img-responsive">  <!-- {{ user.photo.url }} -->
                          </a>
                          <div class="caption">
                             <h2>{{ node.name }}</h2>
                             <h4>{{ node.typen }}</h4>
                             <!-- View Details -->
-                            <a href="{% url 'authentification:detail' node.id  %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+                            <a href="" data-toggle="modal" data-target="#nodeDetail" onclick="loadNode({{ node.id }})" class="btn btn-primary btn-sm" role="button">View Details</a>
                             <!-- Delete Album -->
                             
                             <form action="{% url 'authentification:node-update' node.id %}" method="get" style="display: inline;">
@@ -79,4 +79,51 @@
           </div>
        </div>
     </div>
+
+    <!-- Modal -->
+		<div class="modal fade" id="nodeDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<center> <h2 class="modal-title" id="nodeName"></h2>  </center>
+					</div>
+					<div class="modal-body" id="detailNode"> </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <script>
+        function loadNode(pk)
+		{
+			$.ajax({
+				type: "POST",
+				url: "{% url 'authentification:detailNode'%}",
+				dataType: "json",
+				traditional: true,
+				data: {"pk":pk},
+				success: function(response) {
+				    node = response[0]['fields'];
+                    document.getElementById('nodeName').innerHTML= 'Node: '+ node.name
+                    document.getElementById('detailNode').innerHTML=
+                        '   {% load static %}\
+                            <center> \
+                                <img src=" {% get_media_prefix %}'+ node.photo +'" class="img-responsive"> \
+                            </center> \
+                            <h4> Type : '+ node.typen +'</h4> \
+                            <h4> Attribute :'+ node.attribute +'</h4> \
+                            <h4> Date de creation :'+ node.date +'</h4> '
+
+					console.log(node);
+				},
+				error: function(response) {
+					console.log(response);
+				}
+			});
+		}
+    </script>
+
 {% endblock %}

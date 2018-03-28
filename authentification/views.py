@@ -7,6 +7,11 @@ from django.contrib.auth import login as auth_login
 from django.views.generic import View 
 from .forms import UserForm , SignUpForm
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from django.core import serializers
+import json
+
 from django.template.context_processors import csrf
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -120,25 +125,26 @@ def update_pwd(username, pwd):
 
 
 class IndexView(generic.ListView):
-	
-	template_name = 'authentification/nodeslist.html'  
-	context_object_name = 'all_nodes'  
-	def get_queryset(setf):  #get objects
-		return NodePersonalised.objects.all()
+    template_name = 'authentification/nodeslist.html'
+    context_object_name = 'all_nodes'
+    def get_queryset(setf):  #get objects
+        return NodePersonalised.objects.all()
 
 
-class DetailView(generic.DetailView):
+"""class DetailView(generic.DetailView):
 	
 	model = NodePersonalised  
-	template_name = 'authentification/detailnode.html' 
+	template_name = 'authentification/detailnode.html'"""
 
-def detailNode(request, id):
-	try:
-		node =  NodePersonalised.objects.get(pk=id)
-	except NodePersonalised.DoesNotExist:
-	 	raise Http404("Node does not exist")
-
-	return render(request,'authentification/detailnode.html', {'node': node}) 
+@csrf_exempt
+def detailNode(request):
+    try:
+        node =  NodePersonalised.objects.get(pk=request.POST["pk"])
+    except NodePersonalised.DoesNotExist:
+        raise Http404("Node does not exist")
+    json_data = serializers.serialize('json', [ node, ]) #json.dumps(node)
+    print(json_data)
+    return HttpResponse(json_data, content_type="application/json")
 
 
 class NodePCreate (CreateView):

@@ -25,7 +25,9 @@ urlpatterns = [
     url(r'^login$',views.login, name='login'),
 
     url(r'^list/$',views.IndexView.as_view() , name='list'),
-    url(r'^mynode/(?P<id>[0-9]+)/$',views.detailNode , name='detail'), 
+    url(r'^mynode/(?P<pk>[0-9]+)/$',views.detailNode , name='detail'),
+
+    url(r'^mynode/',views.detailNode , name='detailNode'),
 
     url(r'^node/add/$',views.NodePCreate.as_view() , name='node-add'),
     url(r'^node/(?P<pk>[0-9]+)/$',views.NodePUpdate.as_view() , name='node-update'),

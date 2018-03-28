@@ -128,6 +128,6 @@ STATICFILES_DIRS = (
 STATIC_URL = '/static/'
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")   #actual directory on computer  : for (server)
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")   #actual directory on computer  : for (server)
 MEDIA_URL = '/media/'  #references the relative url  : for users (browser)
 
