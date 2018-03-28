@@ -21,7 +21,7 @@
 				</div>
 			</div>
 		</div>
-		<form id="form" method="POST" action="{% url 'authentification:graph' %}" enctype="multipart/form-data">
+		<form id="form" method="POST" action="{% url 'grapheGenerator:graph' %}" enctype="multipart/form-data">
 			{% csrf_token %} 
 			<input type="hidden" name="path" value="{{ path }}">
 		</form>

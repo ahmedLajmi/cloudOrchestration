@@ -15,18 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    path(r'', include('launchApp.urls')),
     path('admin/', admin.site.urls),
     path('auth/', include('authentification.urls')),
-
+    path('graph/', include('graphGenerator.urls')),
      # logout default function
-    url(r'^logout/', auth_views.logout, {'next_page': 'authentification:home'}, name='logout'),
+    url(r'^logout/', auth_views.logout, {'next_page': 'home'}, name='logout'),
 ]
 
 

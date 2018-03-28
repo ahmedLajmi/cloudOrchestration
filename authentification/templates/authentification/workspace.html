@@ -39,7 +39,7 @@
 					</div>
 					<div class="modal-body"> 
 						<div id="fileselection"   class="col-md-8 col-md-offset-2">
-							<form method="POST" action="{% url 'authentification:formu' %}" enctype="multipart/form-data">
+							<form method="POST" action="{% url 'grapheGenerator:postForm' %}" enctype="multipart/form-data">
 								{% csrf_token %}
 								<!-- COMPONENT START -->
 								<h3>TOSCA Definition File Selection</h3>
