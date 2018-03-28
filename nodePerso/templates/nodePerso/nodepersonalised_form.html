@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block mytitle %} Add a new Node {% endblock %}
+
+{% block mylink %}
+<link rel="stylesheet" href="{% static 'css/style_graph.css' %}">
+{% endblock %}
+
+{% block mybody%}
+    <div id="header" class="header">
+       <div class="container">
+          <div class="row">
+             <div class="container-fluid">
+                <div class="row">
+                   <div class="col-sm-12 col-md-7">
+                      <div class="panel panel-default">
+                         <div class="panel-body">
+                             <h1>Add a New Node</h1>
+                             <a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"> Add attribut  </span></a>
+                            <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                               {% csrf_token %}   <!--  for common security practises-->
+                               {% include 'nodePerso/form_template.html' %}  <!-- how we want our labels shown -->
+                               <div id="attribut"></div>
+                                <div class="form-group">
+                                  <div class="col-sm-offset-2 col-sm-10">
+                                     <!-- im pass 2 fields -->
+                                     <button type="submit" class="btn btn-success">Submit</button>
+                                  </div>
+                               </div>
+                            </form>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <center> <h4 class="modal-title" id="myModalLabel">Add an attribut</h4> </center>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="url">Name of attribut :</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="nameAtt" placeholder="">
+                        </div>
+                    </div><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="add()" data-dismiss="modal">Confirmer</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script language="javascript">
+        {% if attributes %}
+            {% for attribute in attributes %}
+                var div = document.createElement('div');
+                var cpt = 1;
+			    div.className = 'form-group';
+			    div.id = cpt ;
+			    div.innerHTML +=
+							'<label class="control-label col-sm-2" for="url">{{ attribute.name }} : </label>\
+							<div class="col-sm-4">\
+							<select class="form-control" name="{{ attribute.pk }}">\
+                                {% if attribute.type == "text" %}\
+                                    <option value="text" selected >Text</option>\
+                                    <option value="number" >Number</option>\
+                                {% elif attribute.type == "number" %}\
+                                    <option value="number" selected >Number</option>\
+                                    <option value="text" >Text</option>\
+                                {% endif %}\
+                            </select>\
+							</div>\
+							<div class="col-sm-2">\
+								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'meida/img/del.png' %}" width="20" height="20"></a>\
+							</div>';
+			    cpt = cpt + 1 ;
+			document.getElementById('attribut').appendChild(div);
+            {% endfor %}
+        {% endif %}
+        var cpt = 1;
+		function add()
+		{
+			var div = document.createElement('div');
+			div.className = 'form-group';
+			div.id = cpt ;
+			div.innerHTML =
+							'<label class="control-label col-sm-2" for="url" for='+document.getElementById("nameAtt").value +'>'+document.getElementById("nameAtt").value +': </label>\
+							<div class="col-sm-4">\
+                                <select class="form-control" name="'+document.getElementById("nameAtt").value +'">\
+                                    <option value="text">Text</option>\
+                                    <option value="number">Number</option>\
+                                </select>\
+							</div>\
+							<div class="col-sm-2">\
+								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'meida/img/del.png' %}" width="20" height="20"></a>\
+							</div>';
+			cpt = cpt + 1 ;
+			document.getElementById('attribut').appendChild(div);
+		}
+		function del(id)
+		{
+			console.log(id);
+			document.getElementById("attribut").removeChild(document.getElementById(id))
+		}
+	</script>
+
+{% endblock %}

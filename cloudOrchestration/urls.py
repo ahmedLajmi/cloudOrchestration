@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentification.urls')),
     path('graph/', include('graphGenerator.urls')),
+    path('node/', include('nodePerso.urls')),
      # logout default function
     url(r'^logout/', auth_views.logout, {'next_page': 'home'}, name='logout'),
 ]

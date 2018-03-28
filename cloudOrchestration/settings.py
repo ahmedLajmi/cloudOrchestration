@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'authentification',
     'launchApp',
     'graphGenerator',
+    'nodePerso',
 
 ]
 

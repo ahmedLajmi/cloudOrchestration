@@ -2,7 +2,6 @@ from django.contrib.auth.models import User  #basic user class
 from django.contrib.auth.forms import UserCreationForm
 from django import forms 
 from django.core.exceptions import ValidationError
-from .models import NodePersonalised
 
 #make a new user form class
 
@@ -38,19 +37,6 @@ class UserForm(forms.ModelForm):
 
         return cd['password2']
 
-
-class NodePForm(forms.ModelForm):
-    class Meta:
-        model = NodePersonalised
-        fields = ['name', 'typen', 'attribute']
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
-                                               'placeholder': 'Enter node name '}),
-            'typen': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': False,
-                                           'placeholder': 'Enter node type '}),
-            'attribute': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': False,
-                                           'placeholder': 'Enter node attribute '})
-        }
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')

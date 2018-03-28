@@ -1,27 +1,14 @@
-from django.shortcuts import render, get_object_or_404 , redirect , render_to_response
-from django.views import generic
-from django.views.generic.edit import CreateView , UpdateView , DeleteView #when i want to make a form form maj
-from django.urls import reverse_lazy
-from django.contrib.auth import authenticate 
-from django.contrib.auth import login as auth_login
-from django.views.generic import View 
-from .forms import UserForm , NodePForm
-
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
-from django.core import serializers
-
-from django.template.context_processors import csrf
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from .models import NodePersonalised
-
-from django.http import Http404
-
 import os
 
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, render_to_response
+from django.template.context_processors import csrf
+from django.urls import reverse
+from django.views.generic import View
 
-
+from .forms import UserForm
 
 # Create your views here.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -113,52 +100,3 @@ def update_pwd(username, pwd):
     user_model = User.objects.get(username=username)
     user_model.set_password(pwd)
     user_model.save()
-
-
-
-
-
-
-
-
-
-
-class IndexView(generic.ListView):
-    template_name = 'authentification/nodeslist.html'
-    context_object_name = 'all_nodes'
-    def get_queryset(setf):  #get objects
-        return NodePersonalised.objects.all()
-
-
-"""class DetailView(generic.DetailView):
-	
-	model = NodePersonalised  
-	template_name = 'authentification/detailnode.html'"""
-
-@csrf_exempt
-def detailNode(request):
-    try:
-        node =  NodePersonalised.objects.get(pk=request.POST["pk"])
-    except NodePersonalised.DoesNotExist:
-        raise Http404("Node does not exist")
-    json_data = serializers.serialize('json', [ node, ]) #json.dumps(node)
-    return HttpResponse(json_data, content_type="application/json")
-
-
-class NodePCreate (CreateView):
-    form_class = NodePForm
-    model = NodePersonalised
-
-
-class NodePUpdate (UpdateView):
-	model = NodePersonalised 
-	fields = [ 'name' , 'typen' , 'attribute' ,'photo']   #what fields i want to fill
-
-
-class NodePDelete (DeleteView):
-	model = NodePersonalised  
-	success_url =reverse_lazy('authentification:list')
-
-
-
-

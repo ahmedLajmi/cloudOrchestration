@@ -11,15 +11,10 @@
     <div id="header" class="header">
        <div class="container">
 
-          <button class="btn btn-lg btn-primary"  onclick="location.href = '{% url 'authentification:node-add' %}';"><i class="fa fa-sign-in" ></i>  Add a node  </button>
+          <button class="btn btn-lg btn-primary"  onclick="location.href = '{% url 'nodePerso:node-add' %}';"><i class="fa fa-sign-in" ></i>  Add a node  </button>
           <div class="row">
              <h1> hello nodes are</h1>
              {% if all_nodes %}
-             <ul>
-                {% for node in all_nodes %}
-                <li><a href="{% url 'authentification:detail' node.id %}">{{node.name }}</a></li>
-                {% endfor %}
-             </ul>
              {% else %}
              <h1>No nodes </h1>
              {% endif %}
@@ -42,17 +37,13 @@
                             <h4>{{ node.typen }}</h4>
                             <!-- View Details -->
                             <a href="" data-toggle="modal" data-target="#nodeDetail" onclick="loadNode({{ node.id }})" class="btn btn-primary btn-sm" role="button">View Details</a>
-                            <!-- Delete Album -->
-                            
-                            <form action="{% url 'authentification:node-update' node.id %}" method="get" style="display: inline;">
-                               {% csrf_token %}
-                               <input type="hidden" name="noe_id" value="{{ node.id }}"  title="Update"/>
-                               <button type="submit" class="btn btn-default btn-sm" title="Update">
-                               <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
-                               </button>
-                            </form>
+                            <!-- Update Node -->
 
-                            <form action="{% url 'authentification:node-delete' node.id %}" method="post" style="display: inline;">
+                               <button type="button" class="btn btn-default btn-sm" title="Update" onclick="javascript:location.href='{% url 'nodePerso:node-update' node.id %}'" >
+                                   <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+                               </button>
+                            <!-- Delete Node -->
+                            <form action="{% url 'nodePerso:node-delete' node.id %}" method="post" style="display: inline;">
                                {% csrf_token %}
                                <input type="hidden" name="album_id" value="{{ node.id }}"  title="Delete"/>
                                <button type="submit" class="btn btn-default btn-sm"  title="Delete">
@@ -101,23 +92,27 @@
 		{
 			$.ajax({
 				type: "POST",
-				url: "{% url 'authentification:detailNode'%}",
+				url: "{% url 'nodePerso:detailNode'%}",
 				dataType: "json",
 				traditional: true,
 				data: {"pk":pk},
 				success: function(response) {
-				    node = response[0]['fields'];
-                    document.getElementById('nodeName').innerHTML= 'Node: '+ node.name
+				    var noeud = response.node.fields;
+				    var attributes = response.attributes;
+                    document.getElementById('nodeName').innerHTML= 'Node: '+ noeud.name;
                     document.getElementById('detailNode').innerHTML=
                         '   {% load static %}\
                             <center> \
-                                <img src=" {% get_media_prefix %}'+ node.photo +'" class="img-responsive"> \
+                                <img src=" {% get_media_prefix %}'+ noeud.photo +'" class="img-responsive"> \
                             </center> \
-                            <h4> Type : '+ node.typen +'</h4> \
-                            <h4> Attribute :'+ node.attribute +'</h4> \
-                            <h4> Date de creation :'+ node.date +'</h4> '
+                            <h4> Type : '+ noeud.typen +'</h4> \
+                            <h4> Date de creation :'+ noeud.date +'</h4> ';
 
-					console.log(node);
+                    for (var attribute in attributes){
+                        console.log(attributes[attribute]);
+                        document.getElementById('detailNode').innerHTML +=
+                            '<h4>'+attributes[attribute].fields.name+' : '+ attributes[attribute].fields.type +'</h4>'
+                    }
 				},
 				error: function(response) {
 					console.log(response);

@@ -1,4 +1,4 @@
-"""cloud URL Configuration
+"""cloudOrchestration URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -13,15 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
 from django.conf.urls import url
 from . import views
 
-app_name = 'authentification' #creer un namespace
+app_name = 'nodePerso' #creer un namespace
+
 
 urlpatterns = [
 
-    url(r'^register$',views.UserFormView.as_view(), name='register'),
-    url(r'^login$',views.login, name='login'),
+    url(r'^list/$', views.IndexView.as_view(), name='list'),
+    url(r'^details/$', views.detailNode, name='detailNode'),
+    url(r'^add/$', views.NodePCreate.as_view(), name='node-add'),
+    url(r'^(?P<pk>[0-9]+)/update/$', views.NodePUpdate.as_view(), name='node-update'),
+    url(r'^(?P<pk>[0-9]+)/delete/$', views.NodePDelete.as_view(), name='node-delete'),
 
 ]
+
