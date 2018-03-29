@@ -12,11 +12,11 @@ from .models import NodePersonalised
  	# 	fields = ['username', 'email' , 'password']
 
 class NodePForm(forms.ModelForm):
-    typen = forms.ChoiceField(widget= forms.Select(attrs={'class': 'form-control'}),choices=NodePersonalised.BASE_NODE_TYPE, label="Type")
+    type = forms.ChoiceField(widget= forms.Select(attrs={'class': 'form-control'}),choices=NodePersonalised.BASE_NODE_TYPE, label="Type")
 
     class Meta:
         model = NodePersonalised
-        fields = ['name', 'typen']
+        fields = ['name', 'type']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
                                                'placeholder': 'Enter node name '}),

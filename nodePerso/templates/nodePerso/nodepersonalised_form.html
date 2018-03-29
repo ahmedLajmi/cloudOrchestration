@@ -48,7 +48,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label col-sm-4" for="url">Name of attribut :</label>
+                        <label class="control-label col-sm-4" for="nameAtt">Name of attribut :</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="nameAtt" placeholder="">
                         </div>
@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <script language="javascript">
+    <script>
         {% if attributes %}
             {% for attribute in attributes %}
                 var div = document.createElement('div');
@@ -70,9 +70,9 @@
 			    div.className = 'form-group';
 			    div.id = cpt ;
 			    div.innerHTML +=
-							'<label class="control-label col-sm-2" for="url">{{ attribute.name }} : </label>\
+							'<label class="control-label col-sm-2" for=""{{ attribute.pk }}"">{{ attribute.name }} : </label>\
 							<div class="col-sm-4">\
-							<select class="form-control" name="{{ attribute.pk }}">\
+							<select class="form-control" id="{{ attribute.pk }}"  name="{{ attribute.pk }}">\
                                 {% if attribute.type == "text" %}\
                                     <option value="text" selected >Text</option>\
                                     <option value="number" >Number</option>\
@@ -83,7 +83,7 @@
                             </select>\
 							</div>\
 							<div class="col-sm-2">\
-								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'meida/img/del.png' %}" width="20" height="20"></a>\
+								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
 							</div>';
 			    cpt = cpt + 1 ;
 			document.getElementById('attribut').appendChild(div);
@@ -96,15 +96,15 @@
 			div.className = 'form-group';
 			div.id = cpt ;
 			div.innerHTML =
-							'<label class="control-label col-sm-2" for="url" for='+document.getElementById("nameAtt").value +'>'+document.getElementById("nameAtt").value +': </label>\
+							'<label class="control-label col-sm-2" for='+document.getElementById("nameAtt").value +'>'+document.getElementById("nameAtt").value +': </label>\
 							<div class="col-sm-4">\
-                                <select class="form-control" name="'+document.getElementById("nameAtt").value +'">\
+                                <select class="form-control" id="'+document.getElementById("nameAtt").value +'" name="'+document.getElementById("nameAtt").value +'">\
                                     <option value="text">Text</option>\
                                     <option value="number">Number</option>\
                                 </select>\
 							</div>\
 							<div class="col-sm-2">\
-								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'meida/img/del.png' %}" width="20" height="20"></a>\
+								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
 							</div>';
 			cpt = cpt + 1 ;
 			document.getElementById('attribut').appendChild(div);

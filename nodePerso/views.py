@@ -53,12 +53,9 @@ class NodePUpdate(UpdateView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        print(self.object)
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         attributes = list(self.object.persoattribute_set.all())
-        for att in attributes:
-            print(att.type)
         return self.render_to_response(self.get_context_data(form=form, attributes=attributes))
 
     def form_valid(self, form):
@@ -68,7 +65,6 @@ class NodePUpdate(UpdateView):
             if str(attribute).isdigit():
                 att = PersoAttribute.objects.get(pk=attribute)
                 att.type = self.request.POST.get(attribute)
-                print(self.request.POST.get(attribute))
                 att.save()
             else:
                 node.persoattribute_set.create(name=attribute, type=self.request.POST.get(attribute))
