@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'launchApp',
     'graphGenerator',
     'nodePerso',
+    'createTemplate',
 
 ]
 

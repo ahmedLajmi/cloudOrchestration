@@ -12,7 +12,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 ban  wow zoomIn"  data-wow-delay="1s">
 						<div class="">
-							<h1>Welcome, {{ request.user.get_username }} </h1>
+							<h1>Welcome {{ request.user.get_username }} </h1>
 							<br><br><br>
 						</div>	
 						<div>
@@ -21,7 +21,7 @@
 								<p> You can insert a yaml file and generate its graph containing its nodes and relationships </p>
 							</div>
 							<div class="col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0.8s">
-								<button class="btn btn-lg btn-success" onClick="$('#fileselect').show()"><i class="fa fa-sitemap" aria-hidden="true"></i>  Create template </button>
+								<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#createTemplate"><i class="fa fa-sitemap" aria-hidden="true"></i>  Create template </button>
 								<p>You can create your own template with new services and cutsomized nodes. </p>
 							</div>
 						</div>
@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		
-		<!-- Modal -->
+		<!-- Modal Selection fichier -->
 		<div class="modal fade select" id="myselectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -76,6 +76,57 @@
 			</div>
 		</div>
 
+        <!-- Modal create Template-->
+        <div class="modal fade" id="createTemplate" tabindex="-1" role="dialog" aria-labelledby="nodeDetail">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                        <center><h2 class="modal-title" >Composition du template</h2></center>
+                    </div>
+                    <div class="modal-body" id="detailTemplate">
+                        <a href="#" onclick="add()">Add a node</a>
+                        <form action="post">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="inputName" style="padding-top: 5px"  class="col-sm-3 col-form-label">Template Name :</label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="inputName" placeholder="Template Name">
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Node Type</th>
+                                        <th scope="col">Number of instances</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="template">
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-3">
+                                                <input type="text" readonly style="border:none;" class="form-control-plaintext" name="compute" value="Compute">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="padding-left:0px;" class="col-sm-8">
+                                                <input type="number" min="1" class="form-control" id="computeNumber" placeholder="">
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                </table>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 		<script type="text/javascript">
 			function bs_input_file() {
 				$(".input-file").before( 
@@ -114,6 +165,44 @@
 					alert('You have to select both files!');
 
 			}
+
+            function add()
+            {
+                $.ajax({
+				type: "POST",
+				url: "{% url 'createTemplate:list'%}",
+				dataType: "json",
+				traditional: true,
+				data: {"query":"listNode"},
+				success: function(response) {
+				    console.log(response);
+				},
+				error: function(response) {
+					console.log(response);
+				}
+			});
+                var div = document.createElement('div');
+                div.className = 'form-group';
+                div.id = cpt ;
+                div.innerHTML =
+                                '<label class="control-label col-sm-2" for='+document.getElementById("nameAtt").value +'>'+document.getElementById("nameAtt").value +': </label>\
+                                <div class="col-sm-4">\
+                                    <select class="form-control" id="'+document.getElementById("nameAtt").value +'" name="'+document.getElementById("nameAtt").value +'">\
+                                        <option value="text">Text</option>\
+                                        <option value="number">Number</option>\
+                                    </select>\
+                                </div>\
+                                <div class="col-sm-2">\
+                                    <a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
+                                </div>';
+                cpt = cpt + 1 ;
+                document.getElementById('attribut').appendChild(div);
+            }
+            function del(id)
+            {
+                console.log(id);
+                document.getElementById("attribut").removeChild(document.getElementById(id))
+            }
 		</script>
 	{% endif %}
 {% endblock %}

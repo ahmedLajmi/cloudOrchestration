@@ -4,6 +4,14 @@ from django.urls import reverse
 from datetime import date
 
 
+class BaseNode(models.Model):
+
+	name = models.CharField(max_length=250)
+	type = models.CharField(max_length=250,choices= BASE_NODE_TYPE)
+	date = models.DateField(("Date"), default=date.today)
+	photo = models.FileField(default="img/serveur.jpg")
+	user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+
 
 
 
@@ -24,6 +32,8 @@ class NodePersonalised(models.Model):
 														#keyWordargs
 	def __str__(self):
 		return self.name + ' - password: ' + self.type
+
+
 
 
 class PersoAttribute(models.Model):
