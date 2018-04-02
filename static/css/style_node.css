@@ -1,0 +1,126 @@
+
+.header {
+
+    height: 600px;
+    width: 100%;
+    padding: 30px 0 30px;
+    margin-top: 50px;
+    background-color: #FFFFCC;
+}
+
+
+.header h1 {
+
+    font-size: 40px;
+    font-weight: 700;
+    padding-top: 20px;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 5px #610B38 ;
+    color: #610B38 ;}
+
+
+.modal .btn-primary {
+  color: white;
+  border-color: #FF3300;
+  background-color: #FF3300; 
+  } 
+
+.modal .btn-primary:hover {
+  background-color: #ffffff !important;
+  color: #FF3300  !important;
+  border-color: #FF3300 !important;}
+
+ .modal .btn-primary:focus {
+    color: white;
+    border-color: #a4270d;
+    background-color: #eb3812; }
+
+ 
+
+
+ .separator {
+  height: 3px;
+  width: 30%;
+  border: none ;
+  box-shadow: none;
+  background-color: #FF3300 ;
+  margin-bottom: 40px;}
+
+.block-text {
+    background-color: #fff;
+    border-radius: 5px;
+    color: #626262;
+    font-size: 14px;
+    margin-top: 27px; 
+    width: 100%; 
+}
+.modal h1 {
+    color: #585858;
+    font-family: Georgia;
+    font-style: italic;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.block-text h4 {
+    color: #585858;
+    font-family: Georgia;
+    font-style: italic;
+    line-height: 15px;
+    position: relative;
+    width: 450;
+    text-decoration: none !important;
+    text-align: center;
+}
+
+.modal-content {
+    border: none;
+    background-color: #FFFFCC;
+}
+
+
+.modal {
+    margin-top: 120px;
+    border: none;
+}
+
+
+.panel .btn-success {
+  color: white;
+  border-color: #FF3300;
+  background-color: #FF3300; 
+  font-size: 15px;
+  font-weight: bold;
+  width: 150px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 300px;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  text-align: center;
+  margin-left: 100px;
+  margin-top: 30px;
+  } 
+
+.panel .btn-success:hover {
+  background-color: #ffffff !important;
+  color: #FF3300  !important;
+  border-color: #FF3300 !important;}
+
+ .panel .btn-success:focus {
+    color: white;
+    border-color: #a4270d;
+    background-color: #eb3812; }
+
+
+ .panel a {
+  font-size: 15px;
+  text-transform: uppercase;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+ }
+ .modal .bt{
+    margin-right: 10px;
+ }
+
+.header label{
+    text-align: left;
+}
+
