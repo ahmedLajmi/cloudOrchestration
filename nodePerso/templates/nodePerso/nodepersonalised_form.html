@@ -4,28 +4,31 @@
 {% block mytitle %} Add a new Node {% endblock %}
 
 {% block mylink %}
-<link rel="stylesheet" href="{% static 'css/style_graph.css' %}">
+<link rel="stylesheet" href="{% static 'css/style_node.css' %}">
+
 {% endblock %}
 
 {% block mybody%}
     <div id="header" class="header">
-       <div class="container">
+       <div class="container"  style="margin-left: 400px;margin-top: 50px;">
           <div class="row">
              <div class="container-fluid">
                 <div class="row">
                    <div class="col-sm-12 col-md-7">
                       <div class="panel panel-default">
                          <div class="panel-body">
-                             <h1>Add a New Node</h1>
-                             <a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"> Add attribut  </span></a>
+                             <center><h1>Add a New Node</h1></center>
+                             <center> <hr class="separator"> </center>
+                            
                             <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                                {% csrf_token %}   <!--  for common security practises-->
                                {% include 'nodePerso/form_template.html' %}  <!-- how we want our labels shown -->
                                <div id="attribut"></div>
+                                <a href="#" data-toggle="modal" data-target="#myModal" class=" pull-right"><span class="fa fa-plus" aria-hidden="true"> Add Attribute  </span></a>
                                 <div class="form-group">
                                   <div class="col-sm-offset-2 col-sm-10">
                                      <!-- im pass 2 fields -->
-                                     <button type="submit" class="btn btn-success">Submit</button>
+                                     <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Submit</button>
                                   </div>
                                </div>
                             </form>
@@ -44,19 +47,21 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <center> <h4 class="modal-title" id="myModalLabel">Add an attribut</h4> </center>
+                    <center> <h1 class="modal-title" id="myModalLabel">Add an attribute</h1> </center>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label col-sm-4" for="nameAtt">Name of attribut :</label>
+                        <label class="control-label col-sm-4" for="nameAtt">Name of attribute :</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="nameAtt" placeholder="">
                         </div>
                     </div><br>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="add()" data-dismiss="modal">Confirmer</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                   <center>
+                    <button type="button" class="btn bt btn-primary" onclick="add()" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                   </center>
                 </div>
             </div>
         </div>
@@ -82,7 +87,7 @@
                                 {% endif %}\
                             </select>\
 							</div>\
-							<div class="col-sm-2">\
+							<div class="col-sm-4" style="margin-top: 50px;">\
 								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
 							</div>';
 			    cpt = cpt + 1 ;
