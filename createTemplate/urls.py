@@ -22,6 +22,7 @@ app_name = 'createTemplate' #creer un namespace
 urlpatterns = [
 
     url(r'^listNode/$', views.list, name='list'),
+    url(r'^generateForm/$', views.form, name='templateForm'),
 
 
 ]

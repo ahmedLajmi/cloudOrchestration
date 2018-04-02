@@ -29,7 +29,7 @@ urlpatterns = [
     path('node/', include('nodePerso.urls')),
     path('template/', include('createTemplate.urls')),
      # logout default function
-    url(r'^logout/', auth_views.logout, {'next_page': 'home'}, name='logout'),
+    url(r'^logout/', auth_views.logout, {'next_page': 'launchApp:home'}, name='logout'),
 ]
 
 

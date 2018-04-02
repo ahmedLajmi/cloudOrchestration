@@ -84,10 +84,10 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
                         <center><h2 class="modal-title" >Composition du template</h2></center>
                     </div>
+                    <form method="post" action="{% url 'createTemplate:templateForm'%}">
+                        {% csrf_token %}
                     <div class="modal-body" id="detailTemplate">
                         <a href="#" onclick="add()">Add a node</a>
-                        <form action="post">
-                            {% csrf_token %}
                             <div class="form-group row">
                                 <label for="inputName" style="padding-top: 5px"  class="col-sm-3 col-form-label">Template Name :</label>
                                 <div class="col-sm-8">
@@ -105,24 +105,24 @@
                                     <tr>
                                         <td>
                                             <div class="col-sm-3">
-                                                <input type="text" readonly style="border:none;" class="form-control-plaintext" name="compute" value="Compute">
+                                                <input type="text" readonly style="border:none;" class="form-control-plaintext" name="node1" value="Compute">
                                             </div>
                                         </td>
                                         <td>
                                             <div style="padding-left:0px;" class="col-sm-8">
-                                                <input type="number" min="1" class="form-control" id="computeNumber" placeholder="">
+                                                <input name="num1" type="number" min="1" class="form-control" id="computeNumber" value=1 placeholder="1">
                                             </div>
                                         </td>
                                     </tr>
-
                                 </tbody>
                                 </table>
-                        </form>
-
+                        
                     </div>
                     <div class="modal-footer">
+    	                <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -165,46 +165,58 @@
 					alert('You have to select both files!');
 
 			}
-
+			var cpt = 2 ;
             function add()
             {
-                $.ajax({
-				type: "POST",
-				url: "{% url 'createTemplate:list'%}",
-				dataType: "json",
-				traditional: true,
-				data: {"query":"listNode"},
-				success: function(response) {
+            	var select ;
+        		$.ajax({
+					type: "POST",
+					url: "{% url 'createTemplate:list'%}",
+					dataType: "json",
+					traditional: true,
+					data: {"query":"listNode"},
+					success: function(response) {
+						select = 
+							'<div class="col-sm-12"><select name="node'+cpt+'" class="form-control">';
+						var i = 1;
+					    for (var name in response) {
+					    	if(i == 1){
+					    		select = select +'<option selected="selected" value="'+response[name]+'">'+name+'</option>';
+					    		i++;
+					    	}else{
+					    		select = select +'<option value="'+response[name]+'">'+name+'</option>';
+					    	}
+					    	
+	                    }
+	                    select = select +'</select></div>';
+	                    var table = document.getElementById("template");
+		                var row = table.insertRow();
+		                row.id = row.rowIndex ;
+		                // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+		                var cell1 = row.insertCell(0);
+		                var cell2 = row.insertCell(1);
 
-				    for (var name in response) {
-                        console.log(name);
-                    }
-				},
-				error: function(response) {
-					console.log(response);
-				}
-			});
-                var table = document.getElementById("template");
-                var row = table.insertRow(2);
-                var cpt = 1;
-                // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-
-                // Add some text to the new cells:
-                cell1.innerHTML =
-                    '<div class="col-sm-3">\
-                        <input type="text" readonly style="border:none;" class="form-control-plaintext" name="compute" value="Compute">\
-                    </div>';
-                cell2.innerHTML =
-                    '<div style="padding-left:0px;" class="col-sm-8">\
-                        <input type="number" min="1" class="form-control" id="computeNumber" placeholder="">\
-                    </div>';
+		                // Add some text to the new cells:
+		                cell1.innerHTML = select ;
+		                cell2.innerHTML =
+		                    '<div style="padding-left:0px;" class="col-sm-4">\
+		                        <input value=1 name="num'+cpt+'" type="number" min="1" class="form-control" id="computeNumber" placeholder="1">\
+		                    </div>\
+		                    <a href="#" onclick="del('+ row.id +')" > \
+									<img src="{% static 'media/img/del.png' %}" width="20" height="20">\
+							</a>';
+	                    cpt++;
+					},
+					error: function(response) {
+						console.log(response);
+					}
+				});
+            	
             }
             function del(id)
             {
                 console.log(id);
-                document.getElementById("attribut").removeChild(document.getElementById(id))
+                document.getElementById("template").deleteRow(id);
             }
 		</script>
 	{% endif %}

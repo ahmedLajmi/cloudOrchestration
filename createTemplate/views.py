@@ -15,7 +15,12 @@ def list(request):
         nodes.update({baseNode.name : 'b'+str(baseNode.pk)})
     for persoNode in request.user.nodepersonalised_set.all():
         nodes.update({persoNode.name: 'p' + str(persoNode.pk)})
-    print(nodes)
     json_data = json.dumps(nodes)
     return HttpResponse(json_data, content_type="application/json")
 
+def form(request):
+	for element in request.POST:
+		if("node" in element):
+			print(request.POST[element])
+			print(request.POST["num"+element.replace("node","")])
+	return HttpResponse("hi")

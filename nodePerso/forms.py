@@ -15,7 +15,7 @@ class NodePForm(forms.ModelForm):
 
     #my_model=forms.ModelChoiceField(queryset=BaseNode.objects.all(), widget=Select(attrs={'style':'background_color:#F5F8EC'}))
 
-    #derivedFrom = forms.ChoiceField(widget= forms.Select(attrs={'class': 'form-control'}), label="Derived From")
+
 
     class Meta:
         model = NodePersonalised
@@ -23,6 +23,6 @@ class NodePForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
                                                'placeholder': 'Enter node name '}),
-            #'derivedFrom': forms.ChoiceField(widget= forms.Select(attrs={'class': 'form-control'}), label="Derived From")
+            'derivedFrom' : forms.Select(attrs={'class':'form-control'})
         }
 

@@ -22,7 +22,7 @@ class NodePersonalised(models.Model):
 	date = models.DateField(("Date"), default=date.today)
 	photo = models.FileField(default="img/serveur.jpg")
 	user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
-	derivedFrom = models.ForeignKey(BaseNode, default=1, on_delete=models.CASCADE)
+	derivedFrom = models.ForeignKey(BaseNode, default=1, on_delete=models.CASCADE, verbose_name=u'Derived From')
 
 
 	def get_absolute_url(self):

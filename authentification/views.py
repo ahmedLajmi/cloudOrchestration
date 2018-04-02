@@ -40,7 +40,7 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             auth_login(request=request, user=user)
-            return render(request, 'authentification/workspace.html')
+            return HttpResponseRedirect(reverse('launchApp:home'))
         else:
             msg_to_html = Messages('Invalid Credentials', Messages.danger)
             dictionary = dict(request=request, messages = msg_to_html)
@@ -50,7 +50,7 @@ def login(request):
         if request.user.is_authenticated is False:
             return render(request, 'authentification/login.html')
         else:
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('launchApp:home'))
 
 
 
