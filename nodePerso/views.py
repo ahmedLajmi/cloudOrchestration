@@ -7,12 +7,12 @@ from django.http import HttpResponse
 from django.core import serializers
 import ast
 import json
-from .models import NodePersonalised
-from .models import PersoAttribute
+from .models import NodePersonalised,PersoAttribute,BaseNode
 from .forms import NodePForm
 
 
 class IndexView(generic.ListView):
+
     template_name = 'nodePerso/nodeslist.html'
     context_object_name = 'all_nodes'
 
@@ -21,17 +21,19 @@ class IndexView(generic.ListView):
 
 @csrf_exempt
 def detailNode(request):
+
     try:
         node = NodePersonalised.objects.get(pk=request.POST["pk"])
         attributes = list(node.persoattribute_set.all())
     except NodePersonalised.DoesNotExist:
         raise Http404("Node does not exist")
-    json_data = {'node': ast.literal_eval(serializers.serialize('json', [node]))[0]}
+    json_data = {'node': ast.literal_eval(serializers.serialize('json', [node]))[0],'base':str(node.derivedFrom)}
     data = dict()
     for attribute in attributes:
         data.update({str(attribute): ast.literal_eval(serializers.serialize('json', [attribute]))[0]})
     json_data.update({'attributes': data})
     json_data = json.dumps(json_data)
+    print(json_data)
     return HttpResponse(json_data, content_type="application/json")
 
 

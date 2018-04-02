@@ -33,7 +33,7 @@
 										</a>
 										<div class="caption">
 											<h2>{{ node.name }}</h2>
-											<h4>{{ node.type }}</h4>
+											<h5>{{ node.derivedFrom }}</h5>
 											<!-- View Details -->
 											<a href="" data-toggle="modal" data-target="#nodeDetail" onclick="loadNode({{ node.id }})" class="btn btn-primary btn-sm" role="button">
 												View Details
@@ -76,7 +76,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                    '<center><h2 class="modal-title" id="noeud"></h2></center>'
+                    <center><h2 class="modal-title" id="noeud"></h2></center>
 				</div>
 				<div class="modal-body" id="detailNode"> </div>
 				<div class="modal-footer">
@@ -95,15 +95,16 @@
 				traditional: true,
 				data: {"pk":pk},
 				success: function(response) {
+				    console.log(response);
 				    var noeud = response.node.fields;
 				    var attributes = response.attributes;
                     document.getElementById('noeud').innerHTML= 'Node: '+ noeud.name ;
                     document.getElementById('detailNode').innerHTML=
                         '   {% load static %}\
-                            <center> \
+                            <center> \<center> \
                                 <img src=" {% get_media_prefix %}'+ noeud.photo +'" class="img-responsive"> \
                             </center> \
-                            <h4> Type : '+ noeud.typen +'</h4> \
+                            <h4> Derived From : '+ response.base +'</h4> \
                             <h4> Date de creation :'+ noeud.date +'</h4> ';
                     for (var attribute in attributes){
                         console.log(attributes[attribute]);

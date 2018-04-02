@@ -94,14 +94,14 @@
                                   <input type="text" class="form-control" id="inputName" placeholder="Template Name">
                                 </div>
                             </div>
-                            <table class="table">
+                            <table class="table" id="template">
                                 <thead>
                                     <tr>
                                         <th scope="col">Node Type</th>
                                         <th scope="col">Number of instances</th>
                                     </tr>
                                 </thead>
-                                <tbody id="template">
+                                <tbody>
                                     <tr>
                                         <td>
                                             <div class="col-sm-3">
@@ -175,28 +175,31 @@
 				traditional: true,
 				data: {"query":"listNode"},
 				success: function(response) {
-				    console.log(response);
+
+				    for (var name in response) {
+                        console.log(name);
+                    }
 				},
 				error: function(response) {
 					console.log(response);
 				}
 			});
-                var div = document.createElement('div');
-                div.className = 'form-group';
-                div.id = cpt ;
-                div.innerHTML =
-                                '<label class="control-label col-sm-2" for='+document.getElementById("nameAtt").value +'>'+document.getElementById("nameAtt").value +': </label>\
-                                <div class="col-sm-4">\
-                                    <select class="form-control" id="'+document.getElementById("nameAtt").value +'" name="'+document.getElementById("nameAtt").value +'">\
-                                        <option value="text">Text</option>\
-                                        <option value="number">Number</option>\
-                                    </select>\
-                                </div>\
-                                <div class="col-sm-2">\
-                                    <a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
-                                </div>';
-                cpt = cpt + 1 ;
-                document.getElementById('attribut').appendChild(div);
+                var table = document.getElementById("template");
+                var row = table.insertRow(2);
+                var cpt = 1;
+                // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+
+                // Add some text to the new cells:
+                cell1.innerHTML =
+                    '<div class="col-sm-3">\
+                        <input type="text" readonly style="border:none;" class="form-control-plaintext" name="compute" value="Compute">\
+                    </div>';
+                cell2.innerHTML =
+                    '<div style="padding-left:0px;" class="col-sm-8">\
+                        <input type="number" min="1" class="form-control" id="computeNumber" placeholder="">\
+                    </div>';
             }
             function del(id)
             {

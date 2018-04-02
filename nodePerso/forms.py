@@ -1,5 +1,5 @@
 from django import forms
-from .models import NodePersonalised
+from .models import NodePersonalised,BaseNode
 
 #make a new user form class
 
@@ -12,13 +12,17 @@ from .models import NodePersonalised
  	# 	fields = ['username', 'email' , 'password']
 
 class NodePForm(forms.ModelForm):
-    type = forms.ChoiceField(widget= forms.Select(attrs={'class': 'form-control'}),choices=NodePersonalised.BASE_NODE_TYPE, label="Type")
+
+    #my_model=forms.ModelChoiceField(queryset=BaseNode.objects.all(), widget=Select(attrs={'style':'background_color:#F5F8EC'}))
+
+    #derivedFrom = forms.ChoiceField(widget= forms.Select(attrs={'class': 'form-control'}), label="Derived From")
 
     class Meta:
         model = NodePersonalised
-        fields = ['name', 'type']
+        fields = ['name', 'derivedFrom']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
                                                'placeholder': 'Enter node name '}),
+            #'derivedFrom': forms.ChoiceField(widget= forms.Select(attrs={'class': 'form-control'}), label="Derived From")
         }
 
