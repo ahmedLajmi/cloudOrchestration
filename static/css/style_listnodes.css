@@ -1,16 +1,10 @@
 
-
-
-
 .header {
 
-    height: 1200px;
-    width: 100%;
     padding: 30px 0 30px;
     margin-top: 50px;
     background-color: #FFFFCC;
 }
-
 .header h1 {
 
     font-size: 40px;
@@ -141,3 +135,16 @@
     color: white;
     border-color: #a4270d;
     background-color: #eb3812; }
+  
+#container-of-boxes {
+    display: table;
+    width: 1158px;
+}
+
+#box {
+    min-height: 210px;
+    padding-bottom: 20px;
+    display: table-cell;
+    height: auto;
+    overflow: hidden;
+}

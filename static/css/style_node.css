@@ -123,4 +123,8 @@
 .header label{
     text-align: left;
 }
-
+/*
+ input[type="file"] {
+    color: red;
+}
+*/
