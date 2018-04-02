@@ -19,7 +19,7 @@ class NodePForm(forms.ModelForm):
 
     class Meta:
         model = NodePersonalised
-        fields = ['name', 'derivedFrom']
+        fields = ['name', 'derivedFrom', 'photo']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
                                                'placeholder': 'Enter node name '}),

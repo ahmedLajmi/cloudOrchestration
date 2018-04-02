@@ -75,7 +75,7 @@
 			    div.className = 'form-group';
 			    div.id = cpt ;
 			    div.innerHTML +=
-							'<label class="control-label col-sm-3" for=""{{ attribute.pk }}"">{{ attribute.name }} : </label>\
+							'<label class="control-label col-sm-2" for=""{{ attribute.pk }}"">{{ attribute.name }} : </label>\
 							<div class="col-sm-4">\
 							<select class="form-control" id="{{ attribute.pk }}"  name="{{ attribute.pk }}">\
                                 {% if attribute.type == "text" %}\
@@ -87,7 +87,7 @@
                                 {% endif %}\
                             </select>\
 							</div>\
-							<div class="col-sm-2" style="margin-top: 50px;">\
+							<div class="col-sm-4" style="margin-top: 50px;">\
 								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
 							</div>';
 			    cpt = cpt + 1 ;

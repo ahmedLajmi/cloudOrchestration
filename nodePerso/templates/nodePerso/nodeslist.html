@@ -4,13 +4,166 @@
 {% block mytitle %} NodesList {% endblock %}
 
 {% block mylink %}
-<link rel="stylesheet" href="{% static 'css/style_listnodes.css' %}">
 
+<style type="text/css">
+
+
+.header {
+
+    padding: 30px 0 30px;
+    margin-top: 50px;
+    background-color: #FFFFCC;
+}
+.header h1 {
+
+    font-size: 40px;
+    font-weight: 700;
+    padding-top: 70px;
+    text-shadow: 1px 1px 5px #610B38 ;
+    color: #610B38 ;}
+
+
+.header .btn-primary {
+  color: white;
+  border-color: #FF3300;
+  background-color: #FF3300; 
+  } 
+
+.header .btn-primary:hover {
+  background-color: #ffffff !important;
+  color: #FF3300  !important;
+  border-color: #FF3300 !important;}
+
+ .header .btn-primary:focus {
+    color: white;
+    border-color: #a4270d;
+    background-color: #eb3812; }
+
+ 
+
+.header .btn-default {
+  background-color: #ffffff !important;
+  color: #FF3300  !important;
+  border-color: #FF3300 !important;
+  margin-top: 10px;
+}
+
+.header .upd {
+    margin-right: 5px;}
+
+.header .btn-default:hover {
+  color: white !important;
+  border-color: #FF3300  !important;
+  background-color: #FF3300 !important;
+  } 
+
+
+
+ .separator {
+  height: 3px;
+  width: 30%;
+  border: none ;
+  box-shadow: none;
+  background-color: #FF3300 ;
+  margin-bottom: 30px;}
+
+.block-text {
+    background-color: #fff;
+    border-radius: 5px;
+    color: #626262;
+    font-size: 14px;
+    margin-top: 27px; 
+    width: 100%; 
+}
+.block-text h2 {
+    color: #585858;
+    font-family: Georgia;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 21px;
+    text-decoration: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+
+.thumbnail img {
+    height:180px;
+    width:100%;
+}
+
+
+.modal-content {
+
+    background-color: #FFFFCC;
+}
+.modal-content img {
+    height:250px;
+    width:80%;
+    margin-bottom: 20px;
+}
+
+.modal-content h2 {
+    color: #7d4702;
+    font-family: Georgia;
+    font-style: italic;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 21px;
+    text-decoration: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+.modal-content h4 {
+    color: #585858;
+    font-family: Georgia;
+    font-style: italic;
+    line-height: 15px;
+    position: relative;
+    width: 450;
+    text-decoration: none !important;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.modal-content .btn-primary {
+  color: white;
+  border-color: #FF3300;
+  background-color: #FF3300; 
+  margin-top: 0px;
+  width: 120px;
+  } 
+
+.modal-content .btn-primary:hover {
+  background-color: #ffffff !important;
+  color: #FF3300  !important;
+  border-color: #FF3300 !important;}
+
+ .modal-content .btn-primary:focus {
+    color: white;
+    border-color: #a4270d;
+    background-color: #eb3812; }
+  
+#container-of-boxes {
+    display: table;
+    width: 1158px;
+}
+
+#box {
+    min-height: 210px;
+    padding-bottom: 20px;
+    display: table-cell;
+    height: auto;
+    overflow: hidden;
+}
+
+</style>
 {% endblock %}
 
 {% block mybody%}
 	<div id="header" class="header">
-		<div class="container">
+		<div class="container"  id="container-of-boxes">
 			<button class="btn btn-lg btn-primary pull-right"  onclick="location.href = '{% url 'nodePerso:node-add' %}';">
 				<i class="fa fa-plus-circle" ></i>
 				Add a node
@@ -28,7 +181,7 @@
 						<div class="col-sm-12"></div>
 						{% if all_nodes %}
 							{% for node in all_nodes %}
-								<div class="col-sm-4 col-lg-2">
+								<div class="col-sm-4 col-lg-2"  id="box">
 									<div class="thumbnail">
 										<a href="" data-toggle="modal" data-target="#nodeDetail" onclick="loadNode({{ node.id }})">
 											<img src="{{ node.photo.url }}" class="img-responsive  center-block">  <!-- {{ user.photo.url }} -->
