@@ -24,4 +24,10 @@ urlpatterns = [
     url(r'^register$',views.UserFormView.as_view(), name='register'),
     url(r'^login$',views.login, name='login'),
 
+    url(r'^users/$',views.IndexView.as_view() , name='users'), #im using a class but treat it as view
+    url(r'^(?P<pk>[0-9]+)/$',views.DetailView.as_view() , name='detail'), #pk for primary key because detal expects id
+    url(r'^add/$', views.userCreate.as_view(), name='user-add'),
+    url(r'^(?P<pk>[0-9]+)/update/$', views.userUpdate.as_view(), name='user-update'),
+    url(r'^(?P<pk>[0-9]+)/delete/$', views.userDelete.as_view(), name='user-delete'),
+
 ]
