@@ -4,6 +4,8 @@ from django.shortcuts import render
 from nodePerso.models import BaseNode
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.forms import formset_factory
+from .forms import ComputeForm,DatabaseForm
 import json
 
 
@@ -19,8 +21,26 @@ def list(request):
     return HttpResponse(json_data, content_type="application/json")
 
 def form(request):
-	for element in request.POST:
-		if("node" in element):
-			print(request.POST[element])
-			print(request.POST["num"+element.replace("node","")])
-	return HttpResponse("hi")
+    for element in request.POST:
+        if("node" in element):
+            print(request.POST[element])
+            print(request.POST["num"+element.replace("node","")])
+    computeFormset = formset_factory(ComputeForm , extra=2)
+    computeForm = computeFormset()
+    forms = (ComputeForm(),DatabaseForm())
+    return render(request, 'createTemplate/form.html', {'form': computeForm})
+
+@csrf_exempt
+def loadDist(request):
+    windowsDistribution = {"windowsXp" : "Windows Xp", "windows7" :"Windows 7", "windows10" :"Windows 10"}
+    linuxDistribution = {"ubuntu" : "Ubuntu", "mint" :"Mint"}
+    print(request.POST["type"])
+    if(request.POST["type"] == "windows"):
+        distribution = windowsDistribution
+    else:
+        distribution = linuxDistribution
+    json_data = json.dumps(distribution)
+    return HttpResponse(json_data, content_type="application/json")
+
+def validateForm(request):
+    return HttpResponse("hello")

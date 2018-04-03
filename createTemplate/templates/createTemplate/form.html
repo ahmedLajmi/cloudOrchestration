@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<form class="form-horizontal" role="form" action="{% url 'createTemplate:validateForm' %}" method="post">
+					{%csrf_token%}
+				        {% for error in form.non_field_errors %}
+				        <div class="form-group has-errors text-danger small">
+				            {{error}}
+				        </div>
+				        {% endfor %}
+				        {% for field in form %}
+				        <div class="form-group has-errors text-danger small">
+				            {{field.errors}}
+				        </div>
+				        <div class="form-group row">
+						    <div class="col-sm-2 col-form-label">
+						    	{{field.label_tag }}
+						    </div>
+						    
+						    <div class="col-sm-6">
+						   		{{field }}
+						    </div>
+						</div>
+
+				        {% endfor %}
+			        <button type="sumbit" class="btn btn-primary" >Sumbit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<script>
+		function loadDist()
+		{
+			var select = document.getElementById("os_type");
+			var type = select.options[select.selectedIndex].value;
+			$.ajax({
+				type: "POST",
+				url: "{% url 'createTemplate:loadDist'%}",
+				dataType: "json",
+				traditional: true,
+				data: {"type":type},
+				success: function(response) {
+				    var distribution = document.getElementById ("distribution");
+				    distribution.options.length = 0;
+				    for (var value in response){
+				    	distribution.options[distribution.options.length] = new Option (response[value], value);
+				    }
+                    
+				},
+				error: function(response) {
+					console.log(response);
+				}
+			});
+		}
+    </script>
+	
+	
+</body>
+</html>
