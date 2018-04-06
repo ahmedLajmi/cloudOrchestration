@@ -64,7 +64,7 @@ class UserFormView(View):
         if request.user.is_authenticated is False:
             return render(request, self.template_name, {'form': form})  #to display blank form
         else:
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('launchApp:home'))
 
 
     def post(self, request):  # if user clicks submit : process from data base

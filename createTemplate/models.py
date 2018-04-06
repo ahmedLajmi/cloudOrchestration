@@ -35,3 +35,7 @@ class WebServer(models.Model):
 
 	component_version = models.FloatField(max_length = 2)
 
+class Template(models.Model):
+
+	path = models.CharField(max_length = 250)
+

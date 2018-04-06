@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.core import serializers
 import ast
 import json
-from .models import NodePersonalised,PersoAttribute,BaseNode
+from .models import NodePersonalised,PersoAttribute
 from .forms import NodePForm
 
 

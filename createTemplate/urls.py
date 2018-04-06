@@ -23,9 +23,9 @@ urlpatterns = [
 
     url(r'^listNode/$', views.list, name='list'),
     url(r'^generateForm/$', views.form, name='templateForm'),
-    url(r'^validateForm/$', views.validateForm, name='validateForm'),
-    url(r'^loadDist/$', views.loadDist, name='loadDist')
-
+    #url(r'^validateForm/$', views.validateForm, name='validateForm'),
+    url(r'^loadDist/$', views.loadDist, name='loadDist'),
+    url(r'^validateForm/$', views.formGen, name='formGen'),
 
 ]
 
