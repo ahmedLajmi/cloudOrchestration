@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block mytitle %} UsersList {% endblock %}
+
+{% block mylink %}
+<link rel="stylesheet" href="{% static 'css/style_graph.css' %}">
+</style>
+{% endblock %}
+
+{% block mybody%}
+
+ <div id="header" class="header">
+    <div class="container"  >
+    	<div class="row">
+    		 <div class="col-sm-8 col-lg-4"  >
+             
+			<img src="{% static '/media/images/user.png' %}" class="img-responsive"/>  
+			<h2>Username : {{user.username}}</h2>
+
+			<h2>Email : {{user.email}}</h2>
+
+			<h2>{{user.name}}</h2>
+
+
+			{% if error_message %}  <!--une variable pour contenir le msg d'erreur-->
+			     <p><strong>This is error message {{error_message}} </strong></p>
+			{% endif %}
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

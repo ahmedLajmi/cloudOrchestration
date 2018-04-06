@@ -9,6 +9,11 @@ from django.urls import reverse
 from django.views.generic import View
 
 from .forms import UserForm
+from django.contrib.auth.models import User
+from django.views import generic
+from django.http import Http404
+from django.views.generic.edit import CreateView , UpdateView , DeleteView #when i want to make a form form maj
+from django.urls import reverse_lazy
 
 # Create your views here.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -90,7 +95,7 @@ class UserFormView(View):
                     auth_login(request, user)  # log the user in a session
                 # now the user is loged in whatever the info i want i put request.user.username..
                 # now redirect them to the home page
-                return redirect('home')
+                return redirect('launchApp:home')
 
         return render(request, self.template_name, {'form': form})
 
@@ -100,3 +105,56 @@ def update_pwd(username, pwd):
     user_model = User.objects.get(username=username)
     user_model.set_password(pwd)
     user_model.save()
+
+class IndexView(generic.ListView):
+    
+    template_name = 'authentification/userslist.html'  #when we get the list of all items put them in this template used
+    form_class = UserForm
+    context_object_name = 'all_users'  # because by default object_list
+    def get_queryset(setf):  #get objects
+        return User.objects.all()
+
+
+class DetailView(generic.DetailView):
+    
+    model = User 
+    form_class = UserForm
+    template_name = 'authentification/detailuser.html' 
+
+class userCreate (CreateView):
+
+    form_class = UserForm
+    template_name = 'authentification/register.html'
+
+    def get(self,request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})  #to display blank form
+        
+    def post(self, request): 
+        form = self.form_class(
+            request.POST)  
+        if form.is_valid():  
+            user = form.save(commit=False)  
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()  
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                return redirect('authentification:users')
+
+        return render(request, self.template_name, {'form': form})
+
+
+class userUpdate (UpdateView):
+     model = User  
+     fields = [ 'username' , 'email' , 'password' ]   
+     success_url = reverse_lazy('authentification:users')
+
+
+class userDelete(DeleteView):
+    model = User
+    success_url = reverse_lazy('authentification:users')
+
+    

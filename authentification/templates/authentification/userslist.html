@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block mytitle %} UsersList {% endblock %}
+
+{% block mylink %}
+<link rel="stylesheet" href="{% static 'css/style_listnodes.css' %}">
+</style>
+{% endblock %}
+
+{% block mybody%}
+
+    <div id="header" class="header">
+        <div class="container"  id="container-of-boxes">
+            <button class="btn btn-lg btn-primary pull-right"  onclick="location.href = '{% url 'authentification:user-add'%}';">
+                <i class="fa fa-plus-circle" ></i>
+                Add user
+            </button>
+            <div class="row">
+                <center><h1> The users are </h1></center>
+                <center> <hr class="separator"> </center>
+                
+                <div class="albums-container container-fluid">
+                    <!-- Albums -->
+                    <div class="row">
+                        <div class="col-sm-12"></div>
+                        {% if all_users %}
+                            {% for user in all_users %}
+                                <div class="col-sm-4 col-lg-2"  id="box">
+                                    <div class="thumbnail">
+                                        <a href="{% url 'authentification:detail' user.id %}">
+                                            <img src="{% static '/media/images/user.png' %}" class="img-responsive">  
+                                        </a>
+                                        
+                                        <div class="caption">
+                                            <center>
+                                            <div class="block-text rel zmin">
+                                            <h2 class="text-center">{{ user.username }}</h2>
+                                            <h2 class="text-center">{{ user.name }}</h2>
+                                            </div>
+                                           </center>
+                                            <!-- View Details -->
+                                            <center>
+                                                <a href="{% url 'authentification:detail' user.id  %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+                                            </center>
+                                            <center>
+                                             <!-- Update Album -->
+                                            <form action="{% url 'authentification:user-update' user.id %}" method="get" style="display: inline;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="album_id" value="{{ user.id }}" />
+                                                <button type="submit" title="user-update"  class="btn btn-default upd btn-sm">
+                                                    <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+                                                </button>
+                                            </form>
+
+                                            <!-- Delete Album -->
+                                            <form action="{% url 'authentification:user-delete' user.id %}" method="post" style="display: inline;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="album_id" value="{{ user.id }}" />
+                                                <button type="submit" class="btn btn-default btn-sm" title="user-delete">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </form>
+                                            </center>
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-sm-12">
+                                <br><br><br>
+                                <br>
+                                <h1>No existing users </h1>
+                            </div>
+                       {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+{% endblock %}
