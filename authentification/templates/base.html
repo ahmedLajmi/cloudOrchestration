@@ -22,10 +22,10 @@
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/myScript.js' %}"></script>
 	</head>
-	<body  data-spy="scroll" data-target=".navbar-fixed-top" >
+	<body data-spy="scroll" data-target=".navbar-fixed-top"  >
 		<!-- NAvigation -->
-		<div id="myNavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container navbar-header1">
+		<nav id="myNavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="navbar-header1">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="icon-bar"></span>
@@ -94,12 +94,11 @@
 					{% endif %}
 				</div>
 			</div>
-		</div>
-		<!--- End Navigation ---->
-		
+		</nav>
+		<!-- End Navigation -->
 		{% block mybody%}{% endblock %}
-		
-		<!---- Footer ---->
+		<div class="container"></div>
+		<!-- Footer -->
 		<div id="footer" class="footer">
 			<div class="container">
 				<div class="row">

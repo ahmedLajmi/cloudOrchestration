@@ -27,6 +27,7 @@ def detailNode(request):
         attributes = list(node.persoattribute_set.all())
     except NodePersonalised.DoesNotExist:
         raise Http404("Node does not exist")
+    print(ast.literal_eval(serializers.serialize('json', [node]))[0])
     json_data = {'node': ast.literal_eval(serializers.serialize('json', [node]))[0],'base':str(node.derivedFrom)}
     data = dict()
     for attribute in attributes:
@@ -42,10 +43,12 @@ class NodePCreate(CreateView):
     model = NodePersonalised
 
     def form_valid(self, form):
-        node = form.save()
+        node = form.save(commit=False)
+        node.user = self.request.user
+        node.save()
         attributes = self.request.POST.keys() - form.fields.keys() - {'csrfmiddlewaretoken'}
         for attribute in attributes:
-            node.persoattribute_set.create(name=attribute, type=self.request.POST.get(attribute))
+            node.persoattribute_set.create(name=attribute, type=self.request.POST.get(attribute), node = node)    
         return super(NodePCreate, self).form_valid(form)
 
 

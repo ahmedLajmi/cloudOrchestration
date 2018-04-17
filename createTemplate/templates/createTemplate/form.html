@@ -50,9 +50,9 @@
 
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title">
-		                        		Book a Room
+		                        		{{type}}
 		                        	</h3>
-									<h5>This information will let us know more about you.</h5>
+									<h5>{{ templateName }}</h5>
 		                    	</div>
 								<div class="wizard-navigation">
 									<ul>
@@ -112,6 +112,26 @@
 
 
 	<script>
+		var select = document.getElementById("os_type");
+		var type = select.options[select.selectedIndex].value;
+		$.ajax({
+			type: "POST",
+			url: "{% url 'createTemplate:loadDist'%}",
+			dataType: "json",
+			traditional: true,
+			data: {"type":type},
+			success: function(response) {
+			    var distribution = document.getElementById ("distribution");
+			    distribution.options.length = 0;
+			    for (var value in response){
+			    	distribution.options[distribution.options.length] = new Option (response[value], value);
+			    }
+                
+			},
+			error: function(response) {
+				console.log(response);
+			}
+		})
 		function loadDist()
 		{
 			var select = document.getElementById("os_type");

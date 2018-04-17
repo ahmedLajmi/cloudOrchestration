@@ -23,11 +23,21 @@ class ComputeForm(forms.ModelForm):
 
   architecture = forms.ChoiceField(choices=architectureChoices, widget=forms.Select(attrs={'class':'form-control'}))
   os_type = forms.ChoiceField(choices=os_typeChoices, widget=forms.Select(attrs={'onchange':'loadDist();','id':'os_type' ,'class':'form-control'}))
-  distribution = forms.ChoiceField(choices=distributionChoices, widget=forms.Select(attrs={'class':'form-control','id':'distribution'}))
+  distribution = forms.ChoiceField(choices=distributionChoices,widget=forms.Select(attrs={'class':'form-control','id':'distribution'}))
   class Meta:
       model = Compute
-      fields = ['num_cpus', 'disk_size', 'mem_size', 'architecture', 'os_type', 'distribution', 'version']
+      fields = ['name','num_cpus', 'disk_size', 'mem_size', 'architecture', 'os_type', 'distribution', 'version']
+      fieldsets = (
+            ('Host', {
+                'fields': ('num_cpus', 'disk_size','mem_size'),
+            }),
+            ("Operating system", {
+                'fields': ('architecture', 'os_type','distribution','version'),
+            }),
+        )
       widgets = {
+          'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                             'placeholder': ''}),
          'num_cpus': forms.NumberInput(attrs={'class': 'input form-control', 'autofocus': True,
                                              'placeholder': ''}),
          'disk_size': forms.NumberInput(attrs={'class': 'input form-control', 'autofocus': True,
@@ -37,6 +47,7 @@ class ComputeForm(forms.ModelForm):
          'version': forms.NumberInput(attrs={'class': 'input form-control', 'autofocus': True,
                                              'placeholder': ''})
       }
+      
   def __init__(self, *args, **kwargs):
     if 'persoNode' in kwargs:
       self.persoNode = kwargs.pop('persoNode', None)
@@ -55,8 +66,10 @@ class ComputeForm(forms.ModelForm):
 class DatabaseForm(forms.ModelForm):
   class Meta:
       model = Database
-      fields = ['name', 'user', 'password', 'port']
+      fields = ['nameInst','name', 'user', 'password', 'port']
       widgets = {
+         'nameInst': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                             'placeholder': ''}),
          'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
                                              'placeholder': ''}),
          'user': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
@@ -85,8 +98,10 @@ class DbmsForm(forms.ModelForm):
 
   class Meta:
       model = Dbms
-      fields = ['root_password', 'port']
+      fields = ['name','root_password', 'port']
       widgets = {
+          'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                             'placeholder': ''}),
          'root_password': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
                                              'placeholder': ''}),
          'port': forms.NumberInput(attrs={'class': 'input form-control', 'autofocus': True,
@@ -111,8 +126,10 @@ class SoftwareComponentForm(forms.ModelForm):
 
   class Meta:
       model = SoftwareComponent
-      fields = ['component_version']
+      fields = ['name','component_version']
       widgets = {
+          'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                             'placeholder': ''}),
          'component_version': forms.NumberInput(attrs={'class': 'input form-control', 'autofocus': True,
                                              'placeholder': ''})
       }
@@ -135,8 +152,10 @@ class WebApplicationForm(forms.ModelForm):
 
   class Meta:
       model = WebApplication
-      fields = ['context_root']
+      fields = ['name','context_root']
       widgets = {
+          'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                             'placeholder': ''}),
          'context_root': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
                                              'placeholder': ''}),
       }
@@ -159,8 +178,10 @@ class WebServerForm(forms.ModelForm):
 
   class Meta:
       model = WebServer
-      fields = ['component_version']
+      fields = ['name','component_version']
       widgets = {
+          'name': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                             'placeholder': ''}),
          'component_version': forms.NumberInput(attrs={'class': 'input form-control', 'autofocus': True,
                                              'placeholder': ''})
       }

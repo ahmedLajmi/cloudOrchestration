@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from toscaparser.tosca_template import ToscaTemplate
 from django.http import Http404
+from django.http import HttpResponse
 import datetime
 import time
 import os
@@ -55,10 +56,11 @@ def formu(request):
 
 
 def renv(request):
+	  
 	path = os.path.join(BASE_DIR, "userData\\")
 	with open(path+'access.txt', 'r') as source:
 		DISP = (source.read() == "True")
-	if not DISP:
+	#if not DISP:
 		originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
 		secureToscaDefPath = BASE_DIR + "\\toscaparser\\secure\\TOSCA_definition_1_0.yaml"
 		try:
@@ -72,6 +74,7 @@ def renv(request):
 				source.write("True")
 			raise Http404("Erreur type node")
 		graphe = temp.graph
+
 		nodes = graphe.nodetemplates
 		mon_fichier = open(path+request.POST["path"], "r")
 		file = mon_fichier.read()
@@ -112,14 +115,15 @@ def renv(request):
 								nature = values.get(value).replace("tosca.relationships.",'')
 						rel[cpt] = {'type': nature,'nsrc':noeud.name ,'ndest':require.get(key) ,'source':src , 'dest':dest}
 						cpt = cpt+1
+						print(noeuds)
 		# restaurer le tosca definition original
-		with open(secureToscaDefPath, 'rb') as definition:
-			with open(originalToscaDefPath, 'wb+') as destination:
-				destination.write(definition.read())
+		#with open(secureToscaDefPath, 'rb') as definition:
+		#	with open(originalToscaDefPath, 'wb+') as destination:
+		#		destination.write(definition.read())
 		with open(path+'access.txt', 'w') as source:
 			source.write("True")
 		return render(request, 'graphGenerator/graph.html', {'noeuds': noeuds, 'relations':rel, 'file':file})
-	else:
-		raise Http404("Session end.")
+	#else:
+	#	raise Http404("Session end.")
 
 
