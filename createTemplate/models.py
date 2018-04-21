@@ -88,6 +88,11 @@ class Database(models.Model):
 				definition += '''
 				port: '''+str(self.port)
 		return definition
+	def host(self,host):
+		relation = '''
+			requirements:
+	        	- host: '''+host
+		return relation
 
 class Dbms(models.Model):
 
@@ -115,6 +120,12 @@ class Dbms(models.Model):
 				port: '''+str(self.port)
 		return definition
 
+	def host(self,host):
+		relation = '''
+			requirements:
+	        	- host: '''+host
+		return relation
+
     
 class SoftwareComponent(models.Model):
 
@@ -137,6 +148,13 @@ class SoftwareComponent(models.Model):
 				component_version: '''+str(self.component_version)
 		return definition
 
+	def host(self):
+		relation = '''
+			requirements:
+	        	- host: serveurWeb
+		'''
+		return relation
+
 class WebApplication(models.Model): 
 
 	context_root = models.CharField(max_length = 250)
@@ -158,6 +176,21 @@ class WebApplication(models.Model):
 				context_root: '''+str(self.context_root)
 		return definition
 
+	def host(self):
+		relation = '''
+			requirements:
+	        	- host: serveurWeb
+		'''
+		return relation
+
+	def connectTo(self):
+		relation = '''
+			- database_endpoint:
+	            node: db
+	            relationship: tosca.relationships.ConnectsTo
+		'''
+		return relation
+
 class WebServer(models.Model):
 
 	component_version = models.FloatField(max_length = 2)
@@ -176,6 +209,13 @@ class WebServer(models.Model):
 			properties:
 				component_version: '''+str(self.component_version)
 		return definition
+
+	def host(self):
+		relation = '''
+			requirements:
+	        	- host: serveurWeb
+		'''
+		return relation
 
 class Template(models.Model):
 

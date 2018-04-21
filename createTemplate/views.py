@@ -102,7 +102,6 @@ def formGen(request):
                             node.update({field:form[field]})
                         key = str(cpt)
                         inst.update({key:node })
-                        print(cpt)
                         cpt += 1;
                     else:
                         perso = NodePersonalised.objects.get(pk = current.replace("p",""))
@@ -146,76 +145,17 @@ def formGen(request):
                 for nodeType in request.session['templateSpecification']:
                     options=""
                     if nodeType != 'Compute' and nodeType != 'templateName':    
-                        if(nodeType == 'database'):
-                            nodes = request.session['templateSpecification'][nodeType]
-                            for node in nodes:
-                                if 'dbms' in request.session['templateSpecification']:
-                                    listeOptions = request.session['templateSpecification']['dbms']
-                                    for option in listeOptions:
-                                        options += "<option value="+option+"> "+listeOptions[option]["name"]+"</option>"
-                                        typeRel = "database."+node+".host"
-                                        label1 = nodes[node]['nameInst']
-                                        label2 = 'Hosted on'
-                                    formulaire += genFormRel(label1,label2,typeRel,options)
-                        
-                        elif(nodeType == 'dbms'):
-                            nodes = request.session['templateSpecification'][nodeType]
-                            for node in nodes:
-                                listeOptions = request.session['templateSpecification']['Compute']
-                                for option in listeOptions:
-                                    options += "<option name="+option+"> "+listeOptions[option]["name"]+"</option>"
-                                    typeRel = "dbms."+node+".host"
-                                    label1 = nodes[node]['name']
-                                    label2 = 'Hosted on'
-                                formulaire += genFormRel(label1,label2,typeRel,options)
-                       
-                        elif(nodeType == 'softwareComponent'):
-                            nodes = request.session['templateSpecification'][nodeType]
-                            for node in nodes:
-                                listeOptions = request.session['templateSpecification']['Compute']
-                                for option in listeOptions:
-                                    options += "<option name="+node+"> "+listeOptions[option]["name"]+"</option>"
-                                    typeRel = "softwareComponent."+node+".host"
-                                    label1 = nodes[node]['name']
-                                    label2 = 'Hosted on'
-                                formulaire += genFormRel(label1,label2,typeRel,options)
-                        
-                        elif(nodeType == 'webApplication'):
-                            nodes = request.session['templateSpecification'][nodeType]
-                            for node in nodes:
-                                if 'webServer' in request.session['templateSpecification']:
-                                    listeOptions = request.session['templateSpecification']['webServer']
-                                    for option in listeOptions:
-                                        options += "<option name="+node+"> "+listeOptions[option]["name"]+"</option>"
-                                        typeRel = "softwareComponent."+node+".host"
-                                        label1 = nodes[node]['name']
-                                        label2 = 'Hosted on'
-                                    formulaire += genFormRel(label1,label2,typeRel,options)
-                            for node in nodes:
-                                if 'database' in request.session['templateSpecification']:
-                                    listeOptions = request.session['templateSpecification']['database']
-                                    for option in listeOptions:
-                                        options += "<option name="+node+"> "+listeOptions[option]["nameInst"]+"</option>"
-                                        typeRel = "softwareComponent."+node+".ConnectsTo"
-                                        label1 = nodes[node]['name']
-                                        label2 = 'Connects To'
-                                    formulaire += genFormRel(label1,label2,typeRel,options)
-                        
-                        elif(nodeType == 'webServer'):
-                            nodes = request.session['templateSpecification'][nodeType]
-                            for node in nodes:
-                                listeOptions = request.session['templateSpecification']['Compute']
-                                for option in listeOptions:
-                                    options += "<option name="+option+"> "+listeOptions[option]["name"]+"</option>"
-                                    typeRel = "softwareComponent."+node+".host"
-                                    label1 = nodes[node]['name']
-                                    label2 = 'Hosted on'
-                                formulaire += genFormRel(label1,label2,typeRel,options)
-                        else:
-                            #nodeType = NodePersonalised.objects.get(pk = nodeType.replace("p",""))
-                            print(nodeType)
-                        #return HttpResponse(str(request.session['templateSpecification'])) 
-                return HttpResponse(formulaire)                
+                        if nodeType in ["database","dbms","softwareComponent","webServer","webApplication"]:
+                            formulaire += relationForm(nodeType,request)
+                        else: # cas des nodes perso
+                            node = NodePersonalised.objects.get(pk = nodeType.replace("p",""))
+                            information = request.session['templateSpecification'][nodeType].values()
+                            base = str(node.derivedFrom)
+                            formulaire += relationFormPerso(base,request,nodeType)
+                #del templateSpecification['current']
+                #del templateSpecification['previous'] 
+                request.session['templateSpecification'] = request.session['templateSpecification']
+                return render(request, 'createTemplate/formRel.html', {'form': formulaire})
             #sinon dans le cas ou il existe plus de nodes
             else:
                 templateSpecification['current'] = suiv
@@ -226,12 +166,24 @@ def formGen(request):
                 #typeNodeP = NodePersonalised.objects.get(pk = suiv.replace("p",""))
                 return render(request, 'createTemplate/form.html', {'form': forms,'type':typeNodeP})
         else:
+            print('ccc')
             return render(request, 'createTemplate/form.html', {'form': forms})
             
     else:
         raise Http404("Page does not exist")
 
-
+def formRel(request):
+    relationships = request.POST.copy()
+    del relationships['csrfmiddlewaretoken']
+    relationships = relationships.dict()
+    templateSpecification = request.session['templateSpecification']
+    path = os.path.join(BASE_DIR, "userData\\")+str(request.user.pk)
+    template = saveData(templateSpecification,path,relationships)
+    if not os.path.exists(path):
+        os.makedirs(path)
+    with open(path+'\\test.yaml', 'w') as source:
+        source.write(template)
+    raise Http404("Page does exist")
 
 def genFormset(current,templateSpecification):
     #controle data
@@ -267,15 +219,279 @@ def genFormset(current,templateSpecification):
 
 def genFormRel(label1,label2,typeRel,options):
     form = '''
-        <label> {} </label>
-        <label> {} </label>
-        <input hidden value="" >    
-        <select name={}>
-          {}
-        </select>'''
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-3 col-form-label">{} {} </label>
+            <div class="col-sm-6">
+                <select class="form-control" name={}>
+                  {}
+                </select>
+            </div>
+          </div>'''
     return form.format(label1,label2,typeRel,options)
+
+def relationForm(nodeType,request):
+    formulaire = ""
+    if(nodeType == 'database'):
+        nodes = request.session['templateSpecification'][nodeType]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                    perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                    derivedFrom = str(perso.derivedFrom)
+                    if derivedFrom == 'dbms':
+                        for nodePerso in request.session['templateSpecification'][nodePersos]:
+                            #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                            options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"                                        
+            if 'dbms' in request.session['templateSpecification']:
+                listeOptions = request.session['templateSpecification']['dbms']
+                for option in listeOptions:
+                    options += "<option value=dbms."+option+"> "+listeOptions[option]["name"]+"</option>"
+            if options != "":
+                typeRel = "database."+node+".host"
+                label1 = nodes[node]['nameInst']
+                label2 = 'Hosted on'
+                formulaire += genFormRel(label1,label2,typeRel,options)
+                    
+    elif(nodeType == 'dbms'):
+        nodes = request.session['templateSpecification'][nodeType]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                    perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                    derivedFrom = str(perso.derivedFrom)
+                    if derivedFrom == 'compute':
+                        for nodePerso in request.session['templateSpecification'][nodePersos]:
+                            #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                            options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            listeOptions = request.session['templateSpecification']['Compute']
+            for option in listeOptions:
+                options += "<option value=compute."+option+"> "+listeOptions[option]["name"]+"</option>"
+            typeRel = "dbms."+node+".host"
+            label1 = nodes[node]['name']
+            label2 = 'Hosted on'
+            formulaire += genFormRel(label1,label2,typeRel,options)
+   
+    elif(nodeType == 'softwareComponent'):
+        nodes = request.session['templateSpecification'][nodeType]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'compute':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            listeOptions = request.session['templateSpecification']['Compute']
+            for option in listeOptions:
+                options += "<option value=Compute."+node+"> "+listeOptions[option]["name"]+"</option>"
+            typeRel = "softwareComponent."+node+".host"
+            label1 = nodes[node]['name']
+            label2 = 'Hosted on'
+            formulaire += genFormRel(label1,label2,typeRel,options)
+    
+    elif(nodeType == 'webApplication'):
+        nodes = request.session['templateSpecification'][nodeType]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'webServer':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            if 'webServer' in request.session['templateSpecification']:
+                listeOptions = request.session['templateSpecification']['webServer']
+                for option in listeOptions:
+                    options += "<option value=webServer."+node+"> "+listeOptions[option]["name"]+"</option>"
+            if options != "":
+                typeRel = "softwareComponent."+node+".host"
+                label1 = nodes[node]['name']
+                label2 = 'Hosted on'
+                formulaire += genFormRel(label1,label2,typeRel,options)
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'database':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            if 'database' in request.session['templateSpecification']:
+                listeOptions = request.session['templateSpecification']['database']
+                for option in listeOptions:
+                    options += "<option value=database."+node+"> "+listeOptions[option]["nameInst"]+"</option>"
+            if options != "":        
+                typeRel = "softwareComponent."+node+".ConnectsTo"
+                label1 = nodes[node]['name']
+                label2 = 'Connects To'
+                formulaire += genFormRel(label1,label2,typeRel,options)
+    
+    elif(nodeType == 'webServer'):
+        nodes = request.session['templateSpecification'][nodeType]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'compute':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            listeOptions = request.session['templateSpecification']['Compute']
+            for option in listeOptions:
+                options += "<option value=Compute."+option+"> "+listeOptions[option]["name"]+"</option>"
+            typeRel = "softwareComponent."+node+".host"
+            label1 = nodes[node]['name']
+            label2 = 'Hosted on'
+            formulaire += genFormRel(label1,label2,typeRel,options)
+    return formulaire
+
+def relationFormPerso(nodeType,request,nodePer):
+    formulaire = ""
+    if(nodeType == 'database'):
+        nodes = request.session['templateSpecification'][nodePer]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                    perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                    derivedFrom = str(perso.derivedFrom)
+                    if derivedFrom == 'dbms':
+                        for nodePerso in request.session['templateSpecification'][nodePersos]:
+                            #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                            options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"                                        
+            if 'dbms' in request.session['templateSpecification']:
+                listeOptions = request.session['templateSpecification']['dbms']
+                for option in listeOptions:
+                    options += "<option value=dbms."+option+"> "+listeOptions[option]["name"]+"</option>"
+            if options != "":
+                typeRel = nodePer+"."+node+".host"
+                label1 = nodes[node]['nodeBase']['nameInst']
+                label2 = 'Hosted on'
+                formulaire += genFormRel(label1,label2,typeRel,options)
+                    
+    elif(nodeType == 'dbms'):
+        nodes = request.session['templateSpecification'][nodePer]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                    perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                    derivedFrom = str(perso.derivedFrom)
+                    if derivedFrom == 'compute':
+                        for nodePerso in request.session['templateSpecification'][nodePersos]:
+                            #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                            options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            listeOptions = request.session['templateSpecification']['Compute']
+            for option in listeOptions:
+                options += "<option value=Compute."+option+"> "+listeOptions[option]["name"]+"</option>"
+            typeRel = nodePer+"."+node+".host"
+            label1 = nodes[node]['nodeBase']['name']
+            label2 = 'Hosted on'
+            formulaire += genFormRel(label1,label2,typeRel,options)
+   
+    elif(nodeType == 'softwareComponent'):
+        nodes = request.session['templateSpecification'][nodePer]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'compute':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            listeOptions = request.session['templateSpecification']['Compute']
+            for option in listeOptions:
+                options += "<option value=Compute."+node+"> "+listeOptions[option]["name"]+"</option>"
+            typeRel = nodePer+"."+node+".host"
+            label1 = nodes[node]['nodeBase']['name']
+            label2 = 'Hosted on'
+            formulaire += genFormRel(label1,label2,typeRel,options)
+    
+    elif(nodeType == 'webApplication'):
+        nodes = request.session['templateSpecification'][nodePer]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'webServer':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            if 'webServer' in request.session['templateSpecification']:
+                listeOptions = request.session['templateSpecification']['webServer']
+                for option in listeOptions:
+                    options += "<option value=webServer."+node+"> "+listeOptions[option]["name"]+"</option>"
+            if options != "":
+                typeRel = nodePer+"."+node+".host"
+                label1 = nodes[node]['nodeBase']['name']
+                label2 = 'Hosted on'
+                formulaire += genFormRel(label1,label2,typeRel,options)
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'database':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            if 'database' in request.session['templateSpecification']:
+                listeOptions = request.session['templateSpecification']['database']
+                for option in listeOptions:
+                    options += "<option value=database."+node+"> "+listeOptions[option]["nameInst"]+"</option>"
+            if options != "":        
+                typeRel = nodePer+"."+node+".ConnectsTo"
+                label1 = nodes[node]['nodeBase']['name']
+                label2 = 'Connects To'
+                formulaire += genFormRel(label1,label2,typeRel,options)
+    
+    elif(nodeType == 'webServer'):
+        nodes = request.session['templateSpecification'][nodePer]
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'compute':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            listeOptions = request.session['templateSpecification']['Compute']
+            for option in listeOptions:
+                options += "<option value=Compute."+option+"> "+listeOptions[option]["name"]+"</option>"
+            typeRel = nodePer+"."+node+".host"
+            label1 = nodes[node]['nodeBase']['name']
+            label2 = 'Hosted on'
+            formulaire += genFormRel(label1,label2,typeRel,options)
+    return formulaire
         
-def saveData(templateSpecification,path):
+def saveData(templateSpecification,path,relationships):
     #saving data
     templateDB = Template()
     templateDB.path = path
@@ -287,73 +503,88 @@ topology_template:
 
 node_templates:
         '''
-
+    dictInst = dict() # sous la forme {typeNode:{cleDansLaSession:idInstance}}
     templateName = templateSpecification['templateName']
     del templateSpecification['templateName']
     for nodes in templateSpecification:
         if(nodes == "Compute"):
-            for node in templateSpecification[nodes].values():
+            aux = dict()
+            for key,node in templateSpecification[nodes].items():
                 instance = Compute(**node)
-                template += instance.definition()
                 instance.save()
+                aux.update({key:[instance.pk,instance.definition()]})
+            dictInst.update({"Compute":aux})
         elif(nodes == "database"):
-            for node in templateSpecification[nodes].values():
+            aux = dict()
+            for key,node in templateSpecification[nodes].items():
                 instance = Database(**node)
-                template += instance.definition()
                 instance.save()
+                aux.update({key:[instance.pk,instance.definition()]})
+            dictInst.update({"database":aux})
         elif (nodes == "dbms"):
-            for node in templateSpecification[nodes].values():
+            aux = dict()
+            for key,node in templateSpecification[nodes].items():
                 instance = Dbms(**node)
-                template += instance.definition()
                 instance.save()
+                aux.update({key:[instance.pk,instance.definition()]})
+            dictInst.update({"dbms":aux})
         elif (nodes == "softwareComponent"):
-            for node in templateSpecification[nodes].values():
+            aux = dict()
+            for key,node in templateSpecification[nodes].items():
                 instance = SoftwareComponent(**node)
-                template += instance.definition()
                 instance.save()
+                aux.update({key:[instance.pk,instance.definition()]})
+            dictInst.update({"softwareComponent":aux})
         elif (nodes == "webApplication"):
-            for node in templateSpecification[nodes].values():
+            aux = dict()
+            for key,node in templateSpecification[nodes].items():
                 instance = WebApplication(**node)
-                template += instance.definition()
                 instance.save()
+                aux.update({key:[instance.pk,instance.definition()]})
+            dictInst.update({"webApplication":aux})
         elif (nodes == "webServer"):
-            for node in templateSpecification[nodes].values():
+            aux = dict()
+            for key,node in templateSpecification[nodes].items():
                 instance = WebServer(**node)
-                template += instance.definition()
                 instance.save()
+                aux.update({key:[instance.pk,instance.definition()]})
+            dictInst.update({"webServer":aux})
         else:
             # partie pour les nodes perso
             perso = NodePersonalised.objects.get(pk = nodes.replace("p",""))
+            typeInst = nodes
             derivedFrom = str(perso.derivedFrom)
-            for persoNodes in templateSpecification[nodes].values():
-                for persoNode in persoNodes:
+            for key,persoNodes in templateSpecification[nodes].items(): 
+                aux = dict()
+                for persoNode in persoNodes: #parcourir pour nodeBase et persoAtt
                     if(derivedFrom == "database"):
-                        print(persoNodes[persoNode])
                         if persoNode == "nodeBase":
                             instance = Database(**persoNodes[persoNode])
-                            template += instance.definition(perso=perso.name)
+                            instance.save()
+                            aux.update({key:[instance.pk,instance.definition(perso=perso.name)]})
                     if(derivedFrom == "dbms"):
-                        print(persoNodes[persoNode])
                         if persoNode == "nodeBase":
                             instance = Dbms(**persoNodes[persoNode])
-                            template += instance.definition(perso=perso.name)
+                            instance.save()
+                            aux.update({key:[instance.pk,instance.definition(perso=perso.name)]})
                             #instance.save()
                     if(derivedFrom == "softwareComponent"):
-                        print(persoNodes[persoNode])
                         if persoNode == "nodeBase":
                             instance = SoftwareComponent(**persoNodes[persoNode])
-                            template += instance.definition(perso=perso.name)
+                            instance.save()
+                            aux.update({key:[instance.pk,instance.definition(perso=perso.name)]})
                     if(derivedFrom == "webApplication"):
-                        print(persoNodes[persoNode])
                         if persoNode == "nodeBase":
                             instance = WebApplication(**persoNodes[persoNode])
-                            template += instance.definition(perso=perso.name)
+                            instance.save()
+                            aux.update({key:[instance.pk,instance.definition(perso=perso.name)]})
                     if(derivedFrom == "webServer"):
-                        print(persoNodes[persoNode])
                         if persoNode == "nodeBase":
                             instance = WebServer(**persoNodes[persoNode])
-                            template += instance.definition(perso=perso.name)
+                            instance.save()
+                            aux.update({key:[instance.pk,instance.definition(perso=perso.name)]})
                     if persoNode == "persoAtt":
+                        attTxt = ""
                         for perso in persoNodes[persoNode].values():
                             id = perso['id']
                             persoAtt = PersoAttribute.objects.get(pk= id )
@@ -362,7 +593,96 @@ node_templates:
                             value.template = templateDB
                             value.value = perso[persoAtt.name]
                             value.save()
-                            template += value.definition()
-                                            
+                            attTxt += value.definition()
+                        aux[key][1] += attTxt
+                dictInst.update({typeInst:aux})
+
+    for relation in relationships:
+        list = relation.split('.')
+        valList = relationships[relation].split('.')
+        id = dictInst[list[0]][list[1]][0]
+        txt = dictInst[list[0]][list[1]][1]
+        if list [0] ==  "database":
+            db = Database.objects.get(pk=id)
+            host = ""
+            if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                host =templateSpecification[valList[0]][valList[1]]['name']
+            else:
+                host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+            dictInst[list[0]][list[1]][1] += db.host(host)
+        elif list [0] ==  "dbms":
+            dbms = Dbms.objects.get(pk=id)
+            host = ""
+            if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                host =templateSpecification[valList[0]][valList[1]]['name']
+            else:
+                host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+            dictInst[list[0]][list[1]][1] += dbms.host(host)
+        elif list [0] ==  "softwareComponent":
+            SoftwareComponent = SoftwareComponent.objects.get(pk=id)
+            dictInst[list[0]][list[1]][1] += SoftwareComponent.host()
+        elif list [0] ==  "webApplication":
+            host = ""
+            if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                host =templateSpecification[valList[0]][valList[1]]['name']
+            else:
+                host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+            webApplication = WebApplication.objects.get(pk=id)
+            dictInst[list[0]][list[1]][1] += webApplication.host()
+        elif list [0] ==  "webServer":
+            host = ""
+            if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                host =templateSpecification[valList[0]][valList[1]]['name']
+            else:
+                host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+            webServer = WebServer.objects.get(pk=id)
+            dictInst[list[0]][list[1]][1] += webServer.host()
+        else:    
+            perso = NodePersonalised.objects.get(pk = nodes.replace("p",""))
+            derivedFrom = str(perso.derivedFrom)
+            if derivedFrom ==  "database":
+                host = ""
+                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                    host =templateSpecification[valList[0]][valList[1]]['name']
+                else:
+                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                db = Database.objects.get(pk=id)
+                dictInst[list[0]][list[1]][1] += db.host()
+            if derivedFrom ==  "dbms":
+                host = ""
+                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                    host =templateSpecification[valList[0]][valList[1]]['name']
+                else:
+                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                dbms = Dbms.objects.get(pk=id)
+                dictInst[list[0]][list[1]][1] += dbms.host(host)
+            if derivedFrom ==  "softwareComponent":
+                host = ""
+                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                    host =templateSpecification[valList[0]][valList[1]]['name']
+                else:
+                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                SoftwareComponent = SoftwareComponent.objects.get(pk=id)
+                dictInst[list[0]][list[1]][1] += SoftwareComponent.host()
+            if derivedFrom ==  "webApplication":
+                host = ""
+                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                    host =templateSpecification[valList[0]][valList[1]]['name']
+                else:
+                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                webApplication = WebApplication.objects.get(pk=id)
+                dictInst[list[0]][list[1]][1] += webApplication.host()
+            if derivedFrom ==  "webServer":
+                host = ""
+                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                    host =templateSpecification[valList[0]][valList[1]]['name']
+                else:
+                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                webServer = WebServer.objects.get(pk=id)
+                dictInst[list[0]][list[1]][1] += webServer.host()
+
+    for insts in dictInst.values():
+        for inst in insts.values():
+            template += inst[1]
 
     return template

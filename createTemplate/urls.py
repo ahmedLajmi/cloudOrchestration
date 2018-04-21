@@ -26,6 +26,7 @@ urlpatterns = [
     #url(r'^validateForm/$', views.validateForm, name='validateForm'),
     url(r'^loadDist/$', views.loadDist, name='loadDist'),
     url(r'^validateForm/$', views.formGen, name='formGen'),
+    url(r'^validateFormRel/$', views.formRel, name='formRel'),
 
 ]
 

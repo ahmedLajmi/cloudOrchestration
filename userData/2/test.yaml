@@ -5,24 +5,33 @@ topology_template:
 
 node_templates:
          
-		test1:
+		ser:
 			type: tosca.nodes.Compute	
 			capabilities:
 				host:
 					properties:  
-						num_cpus: 4 
-						disk_size: 4
-						mem_size: 4
+						num_cpus: 1 
+						disk_size: 1
+						mem_size: 1
 				os:
 					properties: 
 						architecture: x64
 						os_type: windows
 						distribution: windowsXp
-						version: 4.0
-		test2:
-			type: test3
+						version: 1.0
+		db:
+			type: tosca.nodes.Database
 			properties:
-				component_version: 10.0
-				a2: a
-				a1: b
-				a3: 20
+				name: 5
+				user: 5
+				port: 5
+				port: 5
+			requirements:
+	        	- host: dbms
+		dbms:
+			type: test4
+			properties:
+				root_password: 2
+				port: 2
+			requirements:
+	        	- host: ser
