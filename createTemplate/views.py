@@ -177,12 +177,13 @@ def formRel(request):
     del relationships['csrfmiddlewaretoken']
     relationships = relationships.dict()
     templateSpecification = request.session['templateSpecification']
-    path = os.path.join(BASE_DIR, "userData\\")+str(request.user.pk)
+    path = os.path.join(BASE_DIR, "userData")+str(request.user.pk)
     template = saveData(templateSpecification,path,relationships)
     if not os.path.exists(path):
         os.makedirs(path)
     with open(path+'\\test.yaml', 'w') as source:
         source.write(template)
+    #return render(request, 'graphGenerator/att.html', {'path': str(request.user.pk)+'\\test.yaml'})
     raise Http404("Page does exist")
 
 def genFormset(current,templateSpecification):
@@ -268,7 +269,7 @@ def relationForm(nodeType,request):
             
             listeOptions = request.session['templateSpecification']['Compute']
             for option in listeOptions:
-                options += "<option value=compute."+option+"> "+listeOptions[option]["name"]+"</option>"
+                options += "<option value=Compute."+option+"> "+listeOptions[option]["name"]+"</option>"
             typeRel = "dbms."+node+".host"
             label1 = nodes[node]['name']
             label2 = 'Hosted on'
@@ -313,7 +314,7 @@ def relationForm(nodeType,request):
                 for option in listeOptions:
                     options += "<option value=webServer."+node+"> "+listeOptions[option]["name"]+"</option>"
             if options != "":
-                typeRel = "softwareComponent."+node+".host"
+                typeRel = "webApplication."+node+".host"
                 label1 = nodes[node]['name']
                 label2 = 'Hosted on'
                 formulaire += genFormRel(label1,label2,typeRel,options)
@@ -333,7 +334,7 @@ def relationForm(nodeType,request):
                 for option in listeOptions:
                     options += "<option value=database."+node+"> "+listeOptions[option]["nameInst"]+"</option>"
             if options != "":        
-                typeRel = "softwareComponent."+node+".ConnectsTo"
+                typeRel = "webApplication."+node+".ConnectsTo"
                 label1 = nodes[node]['name']
                 label2 = 'Connects To'
                 formulaire += genFormRel(label1,label2,typeRel,options)
@@ -354,7 +355,7 @@ def relationForm(nodeType,request):
             listeOptions = request.session['templateSpecification']['Compute']
             for option in listeOptions:
                 options += "<option value=Compute."+option+"> "+listeOptions[option]["name"]+"</option>"
-            typeRel = "softwareComponent."+node+".host"
+            typeRel = "webServer."+node+".host"
             label1 = nodes[node]['name']
             label2 = 'Hosted on'
             formulaire += genFormRel(label1,label2,typeRel,options)
@@ -501,7 +502,7 @@ tosca_definitions_version: tosca_simple_yaml_1_0
 
 topology_template:   
 
-node_templates:
+  node_templates:
         '''
     dictInst = dict() # sous la forme {typeNode:{cleDansLaSession:idInstance}}
     templateName = templateSpecification['templateName']
@@ -597,6 +598,8 @@ node_templates:
                         aux[key][1] += attTxt
                 dictInst.update({typeInst:aux})
 
+    print(dictInst)
+
     for relation in relationships:
         list = relation.split('.')
         valList = relationships[relation].split('.')
@@ -605,7 +608,7 @@ node_templates:
         if list [0] ==  "database":
             db = Database.objects.get(pk=id)
             host = ""
-            if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+            if valList[0] in ['dbms']:
                 host =templateSpecification[valList[0]][valList[1]]['name']
             else:
                 host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
@@ -613,7 +616,7 @@ node_templates:
         elif list [0] ==  "dbms":
             dbms = Dbms.objects.get(pk=id)
             host = ""
-            if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+            if valList[0] in ['Compute']:
                 host =templateSpecification[valList[0]][valList[1]]['name']
             else:
                 host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
@@ -623,20 +626,33 @@ node_templates:
             dictInst[list[0]][list[1]][1] += SoftwareComponent.host()
         elif list [0] ==  "webApplication":
             host = ""
-            if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
-                host =templateSpecification[valList[0]][valList[1]]['name']
-            else:
-                host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+            connect = ""
+            if valList[0] in ['webServer']:
+                try:
+                    host =templateSpecification[valList[0]][valList[1]]['name']
+                except:
+                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+            elif valList[0] in ['database']:
+                try:
+                    connect =templateSpecification[valList[0]][valList[1]]['nameInst']
+                except:
+                    connect =templateSpecification[valList[0]][valList[1]]['nodeBase']['nameInst']
             webApplication = WebApplication.objects.get(pk=id)
-            dictInst[list[0]][list[1]][1] += webApplication.host()
+            if host != "":
+                dictInst[list[0]][list[1]][1] += webApplication.host(host)
+            if connect != "":
+                dictInst[list[0]][list[1]][1] += webApplication.connectTo(connect)
+                print("test ="+connect)
         elif list [0] ==  "webServer":
             host = ""
-            if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+            if valList[0] in ['Compute']:
                 host =templateSpecification[valList[0]][valList[1]]['name']
             else:
                 host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
             webServer = WebServer.objects.get(pk=id)
-            dictInst[list[0]][list[1]][1] += webServer.host()
+            dictInst[list[0]][list[1]][1] += webServer.host(host)
+        
+
         else:    
             perso = NodePersonalised.objects.get(pk = nodes.replace("p",""))
             derivedFrom = str(perso.derivedFrom)

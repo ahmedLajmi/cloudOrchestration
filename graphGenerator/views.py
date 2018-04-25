@@ -63,16 +63,16 @@ def renv(request):
 	#if not DISP:
 		originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
 		secureToscaDefPath = BASE_DIR + "\\toscaparser\\secure\\TOSCA_definition_1_0.yaml"
-		try:
-			temp = ToscaTemplate(path+request.POST["path"])
-		except:
+		#try:
+		temp = ToscaTemplate(path+request.POST["path"])
+		#except:
 			# restaurer le tosca definition original
-			with open(secureToscaDefPath, 'rb') as definition:
-				with open(originalToscaDefPath, 'wb+') as destination:
-					destination.write(definition.read())
-			with open(path+'access.txt', 'w') as source:
-				source.write("True")
-			raise Http404("Erreur type node")
+		#	with open(secureToscaDefPath, 'rb') as definition:
+		#		with open(originalToscaDefPath, 'wb+') as destination:
+		#			destination.write(definition.read())
+		#	with open(path+'access.txt', 'w') as source:
+		#		source.write("True")
+		#	raise Http404("Erreur type node")
 		graphe = temp.graph
 
 		nodes = graphe.nodetemplates
