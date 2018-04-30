@@ -1,10 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-	{% load staticfiles %}
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Material Bootstrap Wizard by Creative Tim</title>
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block mytitle %} Create Template {% endblock %}
+
+{% block mylink %}
+
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -30,17 +30,24 @@
 
 	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 	<script src="{% static 'template/assets/js/jquery.validate.min.js' %}"></script>
-
 	<style type="text/css">
+		.errorlist{
+			color: red;
+		}
 		label{
 			margin-top: 10px;
 		}
+		.test{
+			background-image: url("{% static 'media/images/test2.jpg' %}");
+		}
+		.card{
+			margin-bottom: 50px;
+		}
 	</style>
+{% endblock %}
 
-</head>
-
-<body>
-	<div class="image-container set-full-height" style="background-image: url('assets/img/wizard-book.jpg')">
+{% block mybody%}
+	<div class="test" style="background-color:#FFFFCC">
 	    
 	    <!--   Big container   -->
 	    <div class="container">
@@ -57,7 +64,6 @@
 		                        	<h3 class="wizard-title">
 		                        		Relations
 		                        	</h3>
-									<h5>test</h5>
 		                    	</div>
 								<div class="wizard-navigation">
 									<ul>
@@ -89,7 +95,6 @@
 		        </div>
 	    	</div> <!-- row -->
 		</div> <!--  big container -->
-	</div>
 
-</body>
-</html>
+
+{% endblock %}

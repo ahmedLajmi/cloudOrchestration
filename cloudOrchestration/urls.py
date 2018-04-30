@@ -28,6 +28,7 @@ urlpatterns = [
     path('graph/', include('graphGenerator.urls')),
     path('node/', include('nodePerso.urls')),
     path('template/', include('createTemplate.urls')),
+    path('qos/', include('qos.urls')),
      # logout default function
     url(r'^logout/', auth_views.logout, {'next_page': 'launchApp:home'}, name='logout'),
 ]

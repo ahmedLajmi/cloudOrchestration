@@ -16,11 +16,33 @@
 		<link rel="stylesheet" href="{% static 'css/style_base.css' %}">
 		<link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
 		<link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="{% static 'js/wow.min.js' %}"></script>
 		<script> new WOW().init();</script>
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/myScript.js' %}"></script>
+		<style type="text/css">
+		.nav-item{
+			margin-right: 10px;
+		}
+		.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus{
+		  color: black;
+		  background-color: white;
+		}
+		.lang1 ul {
+			color : white;
+		}
+		.navbar-default .navbar-nav>li>a {
+			color : white;
+			height: 3%;
+		}
+		.navbar-default .navbar-nav>li>a:hover {
+			color: white ;
+			background-color: #FF3300 ;
+			opacity: 1;
+		}
+		</style>
 	</head>
 	<body data-spy="scroll" data-target=".navbar-fixed-top"  >
 		<!-- NAvigation -->
@@ -43,8 +65,8 @@
 									&nbsp;{{ request.user.get_username }} <span  id="lanBtnSel" class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu">
-									<li>
-										<a id="btnEng" href="indexEn.html" class="language">  <span id="lanBtnEng">Modifier Compte</span></a>
+									<li class="language">
+										<a id="btnEng" href="{% url 'authentification:user-update' request.user.pk %}" >Update profile</a>
 									</li>
 									{% if request.user.is_authenticated %}
 										<li>
@@ -62,15 +84,19 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item">
 								<a class="nav-link js-scroll-trigger"  href="#"  onClick="location.href = '{% url 'launchApp:home' %}';">
-									<span class="fa fa-home" aria-hidden="true"></span> &nbsp; Home
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link js-scroll-trigger"  href="#"  onClick="location.href = '{% url 'launchApp:home' %}';">
-									<span class="fa fa-user" aria-hidden="true"></span> &nbsp; Workspace
+									<span id="btnEng" class="fa fa-user" aria-hidden="true"></span> &nbsp; Workspace
 								</a>
 							</li>
 						</ul>
+						{% if request.user.is_staff %}
+							<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item">
+								<a class="nav-link js-scroll-trigger"  href="#"  onClick="location.href = '/admin'">
+									<span id="btnEng" class="fa fa-user" aria-hidden="true"></span> &nbsp; Administration
+								</a>
+							</li>
+						</ul>	
+						{% endif %}
 					{% else %}
 						<ul class="nav lang navbar-nav navbar-right pull-right">
 							<li class="dropdown">
@@ -97,10 +123,9 @@
 		</nav>
 		<!-- End Navigation -->
 		{% block mybody%}{% endblock %}
-		<div class="container"></div>
 		<!-- Footer -->
 		<div id="footer" class="footer">
-			<div class="container">
+			
 				<div class="row">
 					<div class="col-lg-4 col-md-4">
 						<h4>Contact Us</h4>
@@ -109,8 +134,8 @@
 						<p><i class="fa fa-phone" aria-hidden="true"></i> +216 71 600 444</p>
 						<p><i class="fa fa-globe" aria-hidden="true"></i> www.ensi-uma.tn/</p>
 					</div>
-					<div class="col-lg-4 col-md-4">	</div>
-					<div class="col-lg-4 col-md-4">
+					
+					<div class="col-lg-4 col-md-4 pull-right" style="text-align:right">
 						<h4>About</h4>
 						<a href="https://www.facebook.com/ENSI.tunisie/" title="Facebook">  <i class="social fa fa-facebook" aria-hidden="true"></i> </a>
 						<a href="https://twitter.com/ensitn?lang=ar" title="Twitter">  <i class="social fa fa-twitter" aria-hidden="true"></i> </a>
@@ -127,7 +152,7 @@
 						<p>Copyright © 2018 National School of Computer Sciences. All rights reserved. </p>
 					</div>
 				</div>
-			</div>
+			
 		</div>
 		<!--  End Footer -->
 		<!-- Modal ENSI -->

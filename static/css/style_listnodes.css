@@ -1,11 +1,11 @@
 
-.header {
+.head {
 
     padding: 30px 0 30px;
     margin-top: 50px;
-    background-color: #FFFFCC;
+    background-color: #F5F5F5;
 }
-.header h1 {
+.head h1 {
 
     font-size: 40px;
     font-weight: 700;
@@ -14,35 +14,35 @@
     color: #610B38 ;}
 
 
-.header .btn-primary {
+.head .btn-primary {
   color: white;
   border-color: #FF3300;
   background-color: #FF3300; 
   } 
 
-.header .btn-primary:hover {
+.head .btn-primary:hover {
   background-color: #ffffff !important;
   color: #FF3300  !important;
   border-color: #FF3300 !important;}
 
- .header .btn-primary:focus {
+ .head .btn-primary:focus {
     color: white;
     border-color: #a4270d;
     background-color: #eb3812; }
 
  
 
-.header .btn-default {
+.head .btn-default {
   background-color: #ffffff !important;
   color: #FF3300  !important;
   border-color: #FF3300 !important;
   margin-top: 10px;
 }
 
-.header .upd {
+.head .upd {
     margin-right: 5px;}
 
-.header .btn-default:hover {
+.head .btn-default:hover {
   color: white !important;
   border-color: #FF3300  !important;
   background-color: #FF3300 !important;
@@ -86,12 +86,12 @@
 
 .modal-content {
 
-    background-color: #FFFFCC;
+    background-color: #F5F5F5;
 }
 .modal-content img {
     height:250px;
-    width:80%;
     margin-bottom: 20px;
+    border-radius: 50%;
 }
 
 .modal-content h2 {

@@ -46,3 +46,20 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
+class UserUpdateForm(forms.ModelForm):
+
+    #my_model=forms.ModelChoiceField(queryset=BaseNode.objects.all(), widget=Select(attrs={'style':'background_color:#F5F8EC'}))
+
+
+    class Meta:
+        model = User
+        fields = [ 'username' , 'email' , 'password' ]  
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                                'placeholder': ''}),
+            'email': forms.EmailInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                                'placeholder': 'Please specify your email '}),
+            'password': forms.PasswordInput(attrs={'class': 'input form-control', 'autofocus': True,
+                                                'placeholder': 'Please enter your password'}),
+        }

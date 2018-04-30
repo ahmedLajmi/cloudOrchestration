@@ -3,7 +3,7 @@
 
 .header {
 
-    height: 600px;
+    height: 800px;
     width: 100%;
     padding: 30px 0 30px;
     margin-top: 50px;
@@ -33,7 +33,7 @@
 .header p,
 .header button {
 
-    margin-top: 20px;
+    margin-top: 60px;
 
 }
 
@@ -42,7 +42,7 @@
   font-size: 20px;
   font-weight:500;
   text-align: left;
-  color: #000000 ;
+  color: white ;
 }
 .header .pg {
 
@@ -106,8 +106,9 @@
   border: none;
   border-radius: 300px;
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-      text-align: center;
-  margin: 40px 20px; }
+  text-align: center;
+  
+}
 
 .header .btn-xl {
   padding: 15px 30px; }
@@ -162,7 +163,7 @@
 
 .services {
 
-    padding: 80px 0 80px;
+    padding: 20px 0 20px;
     text-align: center;
     background-color: #FFFFCC;
 

@@ -153,6 +153,12 @@ class SoftwareComponent(models.Model):
       requirements:
         - host: '''+host
 		return relation
+	def connectTo(self,connect):
+		relation = '''
+        - database_endpoint:
+            node: ''' + connect +'''
+            relationship: tosca.relationships.ConnectsTo'''
+		return relation
 
 class WebApplication(models.Model): 
 

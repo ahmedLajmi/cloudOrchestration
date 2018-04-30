@@ -1,24 +1,47 @@
 <!--It should be named modelName_form so it can be recognised without template_name in view CreateUser-->
 {% extends 'base.html' %}
-{% block mytitle %}Add a New User{% endblock %}
+{% block mytitle %}Add a New {% endblock %}
+{% load staticfiles %}
+{% block mylink %}
+<link rel="stylesheet" href="{% static 'css/style_listnodes.css' %}">
+	<style type="text/css">
+		.head{
+			background-image: url("/static/media/images/test2.jpg");
+			height: 600px;
+		}
+		.panel{
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		}
+		.perso{
+			margin-top: 80px;
+		}
+		.head h1{
+			padding-top: 0px;
+		}
+	</style>
+{% endblock %}
 
 {% block mybody %}
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-12 col-md-7">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<h3>Add a New User</h3>
-					   	<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data"> <!-- to upload many files -->
-							<!-- action nothing because it is redirected to the same view , handle behind the scenes --> 
-							{% csrf_token %}   <!--  for common security practises-->
-							{% include 'authentification/form_template.html' %}  <!-- how we want our labels shown -->
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10"> <!-- im pass 2 fields -->
-									<button type="submit" class="btn btn-success">Submit</button>
+	<div class="head">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-5 col-md-4 col-md-offset-4 perso">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<center><h1>Update Profile</h1></center>
+							<center> <hr class="separator"> </center>
+
+						   	<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data"> <!-- to upload many files -->
+								<!-- action nothing because it is redirected to the same view , handle behind the scenes --> 
+								{% csrf_token %}   <!--  for common security practises-->
+								{% include 'authentification/form_template.html' %}  <!-- how we want our labels shown -->
+								<div class="form-group">
+									<div class="col-sm-12"> <!-- im pass 2 fields -->
+										<center><button type="submit" class="btn btn-success">Submit</button></center>
+									</div>
 								</div>
-							</div>
-						</form>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>

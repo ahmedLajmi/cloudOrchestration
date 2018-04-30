@@ -14,6 +14,7 @@ from django.views import generic
 from django.http import Http404
 from django.views.generic.edit import CreateView , UpdateView , DeleteView #when i want to make a form form maj
 from django.urls import reverse_lazy
+from .forms import *
 
 # Create your views here.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -148,8 +149,9 @@ class userCreate (CreateView):
 
 
 class userUpdate (UpdateView):
-     model = User  
-     fields = [ 'username' , 'email' , 'password' ]   
+     model = User 
+     form_class = UserUpdateForm 
+      
      success_url = reverse_lazy('authentification:users')
 
 

@@ -1,0 +1,46 @@
+
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+topology_template:   
+
+  node_templates:
+         
+    serv:
+      type: tosca.nodes.Compute
+      capabilities: 
+        host:
+          properties: 
+            num_cpus: 1
+            disk_size: 1 GB
+            mem_size: 1 MB
+        os:
+          properties: 
+            architecture: x64
+            type: windows
+            distribution: windowsXp
+            version: 1.0
+    db:
+      type: tosca.nodes.Database
+      properties:
+        name: 4
+        user: 4
+        password: 4
+        port: 4
+      requirements:
+        - host: dbms
+    dbms:
+      type: tosca.nodes.DBMS
+      properties:
+        root_password: 3
+        port: 3
+      requirements:
+        - host: serv
+    soft:
+      type: tosca.nodes.SoftwareComponent
+      properties:
+        component_version: 2.0
+      requirements:
+        - host: serv
+        - database_endpoint:
+            node: db
+            relationship: tosca.relationships.ConnectsTo

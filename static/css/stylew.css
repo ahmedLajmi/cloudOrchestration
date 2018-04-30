@@ -1,47 +1,47 @@
  
-.modal-content  .btn-primary {
+.modal-content  .-primary {
   margin-right: 30px;
 }
 
-.modal-content  .btn-default {
+.modal-content  .-default {
  color: #FF3300;
   border-color: #FF3300;
   background-color: white; 
 }
 
-.modal-content  .btn-default:focus {
+.modal-content  .-default:focus {
  color: white !important;
   border-color: #FF3300 !important;
   background-color: #FF3300 !important; 
 }
 
-.modal-content  .btn-default:hover {
+.modal-content  .-default: {
  color: white !important;
   border-color: #FF3300 !important;
   background-color: #FF3300 !important; 
 }
 
-.modal-content .btn-primary:hover {
+.modal-content .-primary: {
   background-color: white !important;
   color: blue  !important;
   border-color: blue !important;
 }
 
 
-.modal-content  .btn-primary:focus {
+.modal-content  .-primary:focus {
   background-color: white !important;
   color: blue  !important;
   border-color: blue !important; }
 
 
-.modal-content .btn-danger:hover {
+.modal-content .-danger: {
   background-color: #ffffff !important;
   color: red  !important;
   border-color: red !important;
 }
 
 
-.modal-content .btn-danger:focus {
+.modal-content .-danger:focus {
   background-color: #ffffff !important;
   color: red  !important;
   border-color: red !important;
@@ -52,117 +52,101 @@
  }
 
 
-/*HEADER*/
+/*HEAD*/
 
-.header {
-
-    height: 600px;
+.head {
     width: 100%;
     padding: 30px 0 30px;
     margin-top: 50px;
     background-image: url(../media/images/header.jpg);
     background-position: top ;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     color: #4A1A2C;
+    min-height: 800px; 
 }
 
 
-.header h1 {
+
+.head h1 {
 
     font-size: 40px;
     font-weight: 700;
     padding-top: 100px;
     text-shadow: 1px 1px 20px #000000 ;
     color: #ffffff;
-
 }
 
 .ban
  {
      text-align: center;
 }
-.header h1,
-.header p,
-.header button {
 
+
+.head p,
+.head button {
     margin-top: 20px;
-
 }
 
-.header p {
+.head p {
 
   font-size: 20px;
   font-weight:500;
   text-align: left;
   color: #000000 ;
 }
-.header .pg {
+.head .pg {
 
   padding-top: 20px;
 }
 
-.header .btn-primary:hover {
+.head .-primary: {
   background-color: #ffffff !important;
   color: #FF3300  !important;
   border-color: #FF3300 !important;
 }
 
 
-.header .btn-success:hover {
+.head .-success: {
   background-color: #ffffff !important;
   color: #149414  !important;
   border-color: #149414 !important;
 }
 
 
-.header .btn-primary {
+.head .-primary {
   color: white;
   border-color: #FF3300;
   background-color: #FF3300; }
-.header   .btn-primary.focus, .header .btn-primary:focus {
+.head   .-primary.focus, .head .-primary:focus {
     color: white;
     border-color: #a4270d;
     background-color: #eb3812; }
-  .header .btn-primary:hover {
+  .head .-primary: {
     color: white;
     border-color: #e13612;
     background-color: #eb3812; }
-.header   .btn-primary.active,.header  .btn-primary:active,
-  .open >.header  .btn-primary.dropdown-toggle {
-    color: white;
-    border-color: #e13612;
-    background-color: #eb3812; }
-  .header   .btn-primary.active.focus, .header .btn-primary.active:focus,.header  .btn-primary.active:hover, .header .btn-primary:active.focus,.header  .btn-primary:active:focus,.header  .btn-primary:active:hover,
-    .open >.header  .btn-primary.dropdown-toggle.focus,
-    .open >.header  .btn-primary.dropdown-toggle:focus,
-    .open >.header  .btn-primary.dropdown-toggle:hover {
-      color: white;
-      border-color: #a4270d;
-      background-color: #c93110; }
-  .header .btn-primary.active,.header  .btn-primary:active,
-  .open > .header  .btn-primary.dropdown-toggle {
-    background-image: none; }
-  .btn-primary.disabled.focus,.header  .btn-primary.disabled:focus,.header  .btn-primary.disabled:hover,.header  .btn-primary[disabled].focus,.header  .btn-primary[disabled]:focus,.header  .btn-primary[disabled]:hover,
-  fieldset[disabled] .header  .btn-primary.focus,
-  fieldset[disabled] .header  .btn-primary:focus,
-  fieldset[disabled] .header  .btn-primary:hover {
+
+  .-primary.disabled.focus,.head  .-primary.disabled:focus,.head  .-primary.disabled:,.head  .-primary[disabled].focus,.head  .-primary[disabled]:focus,.head  .-primary[disabled]:,
+  fieldset[disabled] .head  .-primary.focus,
+  fieldset[disabled] .head  .-primary:focus,
+  fieldset[disabled] .head  .-primary: {
     border-color: #FF3300;
     background-color: #FF3300; }
-  .header  .btn-primary .badge {
+  .head  .-primary .badge {
     color: #FF3300;
     background-color: white; }
 
-.header .btn {
+.head . {
   font-weight: 700;
   text-transform: uppercase;
   border: none;
   border-radius: 300px;
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-      text-align: center;
-  margin: 40px 20px; }
+  text-align: center;
+ }
 
-.header .btn-xl {
+.head .-xl {
   padding: 15px 30px; }
 
 
@@ -187,24 +171,24 @@
 
 @media(max-width:768px) {
 
-    .header {
+    .head {
 
         padding: 30px;
         height: 750px;
     }
 
-    .header .btn {
+    .head . {
 
         font-size: 10px;
         margin-left: 20px;
     }
 
-    .header h1 {
+    .head h1 {
 
         font-size: 20px;
     }
 
-    .header p {
+    .head p {
 
         font-size: 10px;
     }
@@ -216,7 +200,7 @@
   .select .modal-content {
     margin-top: 100px;
     height: 400px;
-    background-color: #FFFFCC;
+    background-color: #F5F5F5;
 }
 
 

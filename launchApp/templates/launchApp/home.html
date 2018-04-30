@@ -4,6 +4,22 @@
 
 {% block mylink %}
 	<link rel="stylesheet" href="{% static 'css/style_home.css' %}">
+	<style type="text/css">
+		.txt{
+			margin-bottom: 100px;
+		}
+		.bt1{
+			float: left;
+    		margin-left: 300px;
+		}
+		.bt2{
+			float: right;
+    		margin-right: 300px;
+		}
+		.header button{
+			margin-top: 100px;
+		}
+	</style>
 {% endblock %}
 
 {% block myitems%}
@@ -20,40 +36,51 @@
 {% endblock %}
 
 {% block mybody%}
-	<!--- Header ---->
+	<!--- Header -->
 	<div id="header" class="header">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 ban  wow zoomIn"  data-wow-delay="1s">
-					<div class="">
+					<div class="txt">
 						<h1>Orchestration of cloud services</h1>
-						<p class="pg">
-							Given its rapid growth, cloud computing is the new form of 21st century data storage. 
-							It provides networked access to a shared pool of configurable computing resources. 
-							These resources are characterized by elasticity, high availability, and reduced costs through the pay-per-use model. 
-							This allows business processes to be run at a high level of performance and low cost of operation.
-						</p>
-						<p>
-							Operationalization of business processes on the cloud requires consistent coordination and precise understanding of a set of interacting cloud services. 
-							These services are said orchestrated to satisfy the business process.
-						</p>
-						<p>
-							Cloud resource orchestration is about managing interactions between resources and automating business processes.
-						</p>
 					</div>
-					<button class="btn btn-lg btn-primary"  onclick="location.href = '{% url 'authentification:login' %}';">
+					<button class="btn btn-lg btn-primary bt1"  onclick="location.href = '{% url 'authentification:login' %}';">
 						<i class="fa fa-sign-in" ></i>Sign in  
 					</button>
-					<button class="btn btn-lg btn-success"  onclick="location.href = '{% url 'authentification:register' %}';">
+					<button class="btn btn-lg btn-success bt2"  onclick="location.href = '{% url 'authentification:register' %}';">
 						<i class="fa fa-user-plus"></i>Join Now
 					</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!---- End Header ---->
+	<!-- End Header -->
 
-	<!--- Services ---->
+	<!--- Description -->
+	<section id="description" class="services">
+		<div class="container">
+			<div class="col-lg-12 tat">
+				<h2 class="wow fadeInUp">Description</h2>
+				<center> <hr class="separator"> </center>
+			</div>
+			<div class="row wow fadeInUp ">
+				<p class="pg">
+					Given its rapid growth, cloud computing is the new form of 21st century data storage. 
+					It provides networked access to a shared pool of configurable computing resources. 
+					These resources are characterized by elasticity, high availability, and reduced costs through the pay-per-use model. 
+					This allows business processes to be run at a high level of performance and low cost of operation.
+					<br>
+					Operationalization of business processes on the cloud requires consistent coordination and precise understanding of a set of interacting cloud services. 
+					These services are said orchestrated to satisfy the business process.
+					<br>
+					Cloud resource orchestration is about managing interactions between resources and automating business processes.
+				</p>
+			</div>
+		</div>
+	</section>
+	<!-- End Description -->
+
+	<!--- Services -->
 	<section id="services" class="services">
 		<div class="container">
 			<div class="col-lg-12 tat">
@@ -89,9 +116,9 @@
 			</div>
 		</div>
 	</section>
-	<!---- End Services ---->
+	<!-- End Services -->
 
-	<!--- Portfolio ---->
+	<!--- Portfolio -->
 	<section id="portfolio" class="bg-light-gray">
 		<div class="container">
 			<div class="row">

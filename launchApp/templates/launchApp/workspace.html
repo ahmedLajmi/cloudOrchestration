@@ -3,61 +3,110 @@
 {% block mytitle %} MyWorkspace {% endblock %}
 {% block mylink %}
 	<link rel="stylesheet" href="{% static 'css/stylew.css' %}">
+	<style type="text/css">
+		.liMenu{
+			width:100%;
+		}
+		.ulMenu{
+			width: 100%;
+		}
+		.desc{
+			color: white;
+			font: 30px 'Cormorant Garamond';
+		}
+		.model-content{
+			background-color: #F5F5F5;
+		}
+		.btPers{
+			border-radius: 0px 10px 10px 0px;
+		}
+		.test{
+			min-height: 400px;
+		}
+		.name{
+			margin-top: 0px;
+			padding-top: 0px;
+		}
+		.option{
+			margin-top: 100px;
+			padding-bottom: 100px;
+			text-align: center;
+		}
+		.cloud{
+			background-image: url(../media/images/cloud.png);
+		    background-position: top;
+		    background-repeat: no-repeat;
+		    background-size: 100% 100%;
+		    height: 150px;
+		    width: 200px;
+		    padding-top: 80px;
+		}
+		.option1{
+			padding-right: 200px;
+		}
+		.option2{
+			padding-left: 200px;
+		}
+	</style>
 {% endblock %}
 
 {% block mybody%}
 	{% if request.user.get_username %}
-		<div id="header" class="header">
+		<div class="head">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 ban  wow zoomIn"  data-wow-delay="1s">
-						<div class="">
-							<h1>Welcome {{ request.user.get_username }} </h1>
+						<div>
+							<h1 class="name" >Welcome {{ request.user.get_username }} </h1>
 							<br><br><br>
 						</div>	
-						<div>
-							<div class="col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="1.4s">
-								<button class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#myselectionModal"><i class="fa fa-file-archive-o" aria-hidden="true"></i> <span > &nbsp; Insert file &nbsp; </span> </button>
-								<p> You can insert a yaml file and generate its graph containing its nodes and relationships </p>
-							</div>
-							<div class="col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="1.4s">
-								<a href="{% url 'nodePerso:list' %}">
-									<button class="btn btn-lg btn-primary" ><i class="fa fa-file-archive-o" aria-hidden="true"></i> <span > &nbsp; Nodes personalised  &nbsp; </span> </button>
-								</a>
-								<p>  </p>
-							</div>
-							<div class="col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0.8s">
-								<button class="btn btn-lg btn-success" data-toggle="modal" data-target="#createTemplate"><i class="fa fa-sitemap" aria-hidden="true"></i>  Create template </button>
-								<p>You can create your own template with new services and cutsomized nodes. </p>
-							</div>
-						</div>
+						
 					</div>
 				</div>
+				<div class="row option">
+					<div class="col-lg-6 col-md-6 wow fadeInLeft option1" data-wow-delay="0.2s">
+						<li class="dropdown">
+							<button href="#" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-sitemap" aria-hidden="true"></i>
+								Model orchestration plan<span  id="lanBtnSel" class="caret"></span>
+							</button>
+							<ul class="dropdown-menu ulMenu" role="menu">
+								<li class="liMenu">
+									<a data-toggle="modal" data-target="#createTemplate">With manually template creation</a>
+								</li>
+								<li class="liMenu">
+									<a data-toggle="modal" data-target="#myselectionModal">With prepared template </a>
+								</li>
+							</ul>
+						</li>
+					</div>
+						<div class="col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="0.2s">
+								<div class="row option2">
+									
+										<a href="{% url 'nodePerso:list' %}" class="" >
+											<button href="#" class="btn btn-lg btn-info" aria-expanded="false"><i class="fa fa-sitemap" aria-hidden="true"></i>
+												Manage your cutom node types
+											</button>
+										</a>
+								</div>							
+						</div>
+				</div>	
 			</div>
 		</div>
 		
+		
+		
 		<!-- Modal Selection fichier -->
-		<div class="modal fade select" id="myselectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					</div>
-					<div class="modal-body"> 
-						<div id="fileselection"   class="col-md-8 col-md-offset-2">
-							<form method="POST" action="{% url 'grapheGenerator:postForm' %}" enctype="multipart/form-data">
-								{% csrf_token %}
-								<!-- COMPONENT START -->
-								<h3>TOSCA Definition File Selection</h3>
-								<div class="form-group">
-									<div class="input-group input-file" name="toscaDefinition">
-										<input type="text" class="form-control" placeholder='Choose a TOSCA Definition file...' />
-										<span class="input-group-btn">
-											<button class="btn btn-default btn-choose" type="button">Choose</button>
-										</span>
-									</div>
-								</div>
-								<h3>Template File Selection</h3>
+		<div class="modal fade" id="myselectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                        <center><h2 class="modal-title" >Create template</h2></center>
+                    </div>
+                    <form method="post" action="{% url 'grapheGenerator:postForm' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <div class="modal-body" id="detailTemplate">
+                        <h4>Template File Selection</h4>
 								<div class="form-group">
 									<div class="input-group input-file" name="toscaTemplate">
 										<input type="text" class="form-control" placeholder='Choose a Template file...' />      
@@ -66,21 +115,28 @@
 										</span>
 									</div>
 								</div>
-								<!-- COMPONENT END -->
-								<center> 
-									<div class="form-group">
-										<button type="submit" class="btn btn-primary " >Submit</button>
-										<button type="reset" class="btn btn-danger ">Reset</button>
-									</div> 
-								</center>
-								<br><br><br>
-							</form>
-						</div>
-					</div>
-					<div class="modal-footer"> </div>
-				</div>
-			</div>
-		</div>
+								<h4>TOSCA Definition File Selection</h4>
+								<div class="form-group">
+									<div class="input-group input-file" name="toscaDefinition">
+										<input type="text" class="form-control" placeholder='Choose a TOSCA Definition file...' />
+										<span class="input-group-btn">
+											<button class="btn btn-default btn-choose" type="button">Choose</button>
+										</span>
+									</div>
+								</div>
+                        
+                    </div>
+                    <div class="modal-footer">
+    	                <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+		
 
         <!-- Modal create Template-->
         <div class="modal fade" id="createTemplate" tabindex="-1" role="dialog" aria-labelledby="nodeDetail">
@@ -88,7 +144,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                        <center><h2 class="modal-title" >Composition du template</h2></center>
+                        <center><h2 class="modal-title" >Create template</h2></center>
                     </div>
                     <form method="post" action="{% url 'createTemplate:templateForm'%}">
                         {% csrf_token %}
@@ -97,7 +153,7 @@
                             <div class="form-group row">
                                 <label for="inputName" style="padding-top: 5px"  class="col-sm-3 col-form-label">Template Name :</label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="templateName" class="form-control" id="inputName" placeholder="Template Name">
+                                  <input required="" type="text" name="templateName" class="form-control" id="inputName" placeholder="Template Name">
                                 </div>
                             </div>
                             <table class="table" id="template">
@@ -115,8 +171,9 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div style="padding-left:0px;" class="col-sm-8">
+                                            <div style="padding-left:0px;" class="col-sm-6 input-group">
                                                 <input name="num1" type="number" min="1" class="form-control" id="computeNumber" value=1 placeholder="1">
+                                                	
                                             </div>
                                         </td>
                                     </tr>
@@ -205,12 +262,15 @@
 		                // Add some text to the new cells:
 		                cell1.innerHTML = select ;
 		                cell2.innerHTML =
-		                    '<div style="padding-left:0px;" class="col-sm-4">\
+		                    '<div style="padding-left:0px;" class="col-sm-6 entry input-group">\
 		                        <input value=1 name="num'+cpt+'" type="number" min="1" class="form-control" id="computeNumber" placeholder="1">\
-		                    </div>\
-		                    <a href="#" onclick="del('+ row.id +')" > \
-									<img src="{% static 'media/img/del.png' %}" width="20" height="20">\
-							</a>';
+										<span class="input-group-btn">\
+				                            <a href="#" onclick="del('+ row.id +')" ><button class="btn btn-danger btn-add btPers" type="button">\
+				                                <span class="glyphicon glyphicon-minus"> \
+				                                </span>\
+				                            </button></a>\
+				                        </span>\
+							</div>';
 	                    cpt++;
 					},
 					error: function(response) {

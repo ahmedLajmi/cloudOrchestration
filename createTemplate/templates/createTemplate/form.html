@@ -1,10 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-	{% load staticfiles %}
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Material Bootstrap Wizard by Creative Tim</title>
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block mytitle %} Create Template {% endblock %}
+
+{% block mylink %}
+
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -30,14 +30,21 @@
 
 	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 	<script src="{% static 'template/assets/js/jquery.validate.min.js' %}"></script>
+	<style type="text/css">
+		.errorlist{
+			color: red;
+		}
+		.test{
+			background-image: url("{% static 'media/images/test2.jpg' %}");
+		}
+	</style>
+{% endblock %}
 
-</head>
 
-<body>
-	<div class="image-container set-full-height" style="background-image: url('assets/img/wizard-book.jpg')">
-	    
+{% block mybody%}
+	<div class="test"style="background-color:#F5F5F5">
 	    <!--   Big container   -->
-	    <div class="container">
+	    <div class="container" >
 	        <div class="row">
 		        <div class="col-sm-8 col-sm-offset-2">
 		            <!--      Wizard container        -->
@@ -60,23 +67,18 @@
 			                            	<li>
 			                            		<a href="#instance{{ forloop.counter }}" data-toggle="tab">
 			                            			Instance {{ forloop.counter }}
-			                            		</a></li>
+			                            		</a>
+			                            	</li>
 			                            {% endfor %}
 
 			                        </ul>
 								</div>
 
 		                        <div class="tab-content">
-	                            	{% for error in form.non_field_errors %}
-							        	<div class="form-group has-errors text-danger small">
-							            	{{error}}
-							       		 </div>
-							        {% endfor %}
 							        {% for field in form %}
 							        	<div class="tab-pane" id="instance{{forloop.counter}}">
                             				<div class="row">
 							       			 	<div class="form-group has-errors text-danger small">
-							            			{{field.errors}}
 							        			</div>
 							        			<div class="form-group row">
 									   				<div class="col-sm-2 col-form-label">
@@ -93,7 +95,7 @@
 	                        	<div class="wizard-footer">
 	                            	<div class="pull-right">
 	                                    <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Next' />
-	                                    <button type='sumbit' class='btn btn-finish btn-fill btn-danger btn-wd'>Sumbit</button>  
+	                                    <button type='sumbit' class='btn btn-finish btn-fill btn-default btn-wd'>Sumbit</button>  
 	                                </div>
 	                                <div class="pull-left">
 	                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
@@ -106,8 +108,8 @@
 		        </div>
 	    	</div> <!-- row -->
 		</div> <!--  big container -->
+		<br><br>
 	</div>
-
 </body>
 
 
@@ -156,4 +158,4 @@
 			});
 		}
     </script>
-</html>
+{% endblock %}

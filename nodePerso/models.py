@@ -19,7 +19,7 @@ class BaseNode(models.Model):
 class NodePersonalised(models.Model):
 
 	BaseNodes = (('compute', 'Compute'),('database', 'Database'),('dbms', 'DBMS'),
-		('softwareComponent', 'Software Component'),('webApplication', 'Web Application'),('webServer', 'WebServer'))
+		('softwareComponent', 'Software Component'),('webApplication', 'Web Application'),('webServer', 'Web Server'))
 	name = models.CharField(max_length=250)
 	date = models.DateField(("Date"), default=date.today)
 	photo = models.FileField(default="img/serveur.jpg")
@@ -32,6 +32,39 @@ class NodePersonalised(models.Model):
 														#keyWordargs
 	def __str__(self):
 		return self.name
+
+	def definition(self):
+		derived =""
+		if self.derivedFrom == "compute":
+			derived = "tosca.nodes.Compute"
+		elif self.derivedFrom == "database":
+			derived = "tosca.nodes.Database"
+		elif self.derivedFrom == "dbms":
+			derived = "tosca.nodes.DBMS"
+		elif self.derivedFrom == "softwareComponent":
+			derived = "tosca.nodes.SoftwarComponent"
+		elif self.derivedFrom == "webApplication":
+			derived = "tosca.nodes.WebApplication"
+		elif self.derivedFrom == "webServer":
+			derived = "tosca.nodes.WebServer"
+
+		definition = '''
+  '''+self.name+''':
+    derived_from: '''+derived
+
+		if len(self.persoattribute_set.all())>0:
+			definition += '''
+    properties:'''
+		typep= ''
+		for perso in self.persoattribute_set.all():
+			if perso.type == 'text':
+				typep = 'string'
+			else:
+				typep = 'integer'
+			definition += '''
+      '''+perso.name+''':
+        type: '''+typep
+		return definition
 
 
 
@@ -50,5 +83,5 @@ class PersoAttributeValue(models.Model):
 
 	def definition(self):
 		definition = '''
-				'''+self.persoAtt.name+''': '''+str(self.value)
+        '''+self.persoAtt.name+''': '''+str(self.value)
 		return definition

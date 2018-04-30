@@ -5,11 +5,18 @@
 
 {% block mylink %}
 <link rel="stylesheet" href="{% static 'css/style_listnodes.css' %}">
+<style type="text/css">
+	.thumbnail{
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	.head{
+		background-image: url("{% static 'media/images/test2.jpg' %}");
+	}
 </style>
 {% endblock %}
 
 {% block mybody%}
-	<div id="header" class="header">
+	<div class="head">
 		<div class="container"  id="container-of-boxes">
 			<button class="btn btn-lg btn-primary pull-right"  onclick="location.href = '{% url 'nodePerso:node-add' %}';">
 				<i class="fa fa-plus-circle" ></i>
@@ -25,7 +32,7 @@
 						<div class="col-sm-12"></div>
 						{% if all_nodes %}
 							{% for node in all_nodes %}
-								<div class="col-sm-4 col-lg-2"  id="box">
+								<div class="col-sm-2 col-lg-2"  id="box">
 									<div class="thumbnail">
 										<a href="" data-toggle="modal" data-target="#nodeDetail" onclick="loadNode({{ node.id }})">
 											<img src="{{ node.photo.url }}" class="img-responsive  center-block">  <!-- {{ user.photo.url }} -->

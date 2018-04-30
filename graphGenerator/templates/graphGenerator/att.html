@@ -7,17 +7,32 @@
 	<script src="{% static 'cytoscape.js-master/dist/cytoscape.js' %}"></script>
 	<script src="{% static 'ace-builds-master/src/ace.js' %}" type="text/javascript" charset="utf-8"></script>
 	<script src="{% static 'ace-builds-master/src/mode-yaml.js' %}" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		.head{
+			min-height: 600px;
+			padding-top: 150px;
+		}
+		.img{
+		    padding-top: 50px;
+		}
+		h3{
+			font-size: 40px;
+		    font-weight: 700;
+		    text-shadow: 1px 1px 5px #610B38 ;
+		    color: black;
+		}
+	</style>
 {% endblock %}
 
 {% block mybody%}
 	{% if request.user.get_username %}
-		<div id="header" class="header">
+		<div class="head">
 			<div class="container">
 				<div class="row">
-					<center><h3>Veuillez patienter SVP, vos fichiers sont en cours de traitement</h3></center>
+					<center><h3>Please wait, your data is being processed</h3></center>
 				</div>
-				<div class="row">
-					<center><img src="{% static '/media/img/load.gif' %}" alt="Wait a moment please"></center>
+				<div class="row ">
+					<center class="img"><img src="{% static '/media/img/load.gif' %}" alt="Wait a moment please"></center>
 				</div>
 			</div>
 		</div>
@@ -26,7 +41,7 @@
 			<input type="hidden" name="path" value="{{ path }}">
 		</form>
 		<script>
-			window.setTimeout(function(){document.getElementById("form").submit();}, 5000);
+			window.setTimeout(function(){document.getElementById("form").submit();}, 8000);
 		</script>
 	{% endif %}
 {% endblock %}

@@ -4,16 +4,30 @@
 {% block mytitle %} Add a new Node {% endblock %}
 
 {% block mylink %}
-<link rel="stylesheet" href="{% static 'css/style_node.css' %}">
-
+<link rel="stylesheet" href="{% static 'css/style_listnodes.css' %}">
+<style type="text/css">
+  .head h1{
+    padding-top: 0px;
+  }
+  .panel{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .head{
+    background-image: url("{% static 'media/images/test2.jpg' %}");
+  }
+  .btPers{
+    border-radius: 0px 10px 10px 0px;
+  }
+</style>
 {% endblock %}
 
 {% block mybody%}
+      <div class="head">
        <div class="container"  style="margin-left: 400px;margin-top: 50px;">
           <div class="row">
              <div class="container-fluid">
                 <div class="row">
-                   <div class="col-sm-12 col-md-7">
+                   <div class="col-sm-12 col-md-6 col-md-offset-1">
                       <div class="panel panel-default">
                          <div class="panel-body">
                              <center><h1>Add a New Node</h1></center>
@@ -22,12 +36,13 @@
                             <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                                {% csrf_token %}   <!--  for common security practises-->
                                {% include 'nodePerso/form_template.html' %}  <!-- how we want our labels shown -->
-                               <div id="attribut"></div>
+                               <div id="attribut" class="row">
                                 <a href="#" data-toggle="modal" data-target="#myModal" class=" pull-right"><span class="fa fa-plus" aria-hidden="true"> Add Attribute  </span></a>
+                                </div>
                                 <div class="form-group">
-                                  <div class="col-sm-offset-2 col-sm-10">
+                                  <div class="col-sm-12">
                                      <!-- im pass 2 fields -->
-                                     <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Submit</button>
+                                     <center><button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Submit</button></center>
                                   </div>
                                </div>
                             </form>
@@ -37,7 +52,8 @@
                 </div>
              </div>
           </div>
-       </div>
+       </div><br>
+      </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -99,14 +115,17 @@
 			div.id = cpt ;
 			div.innerHTML =
 							'<label class="control-label col-sm-2" for='+document.getElementById("nameAtt").value +'>'+document.getElementById("nameAtt").value +': </label>\
-							<div class="col-sm-4">\
+							<div class="col-sm-4 input-group">\
                                 <select class="form-control" id="'+document.getElementById("nameAtt").value +'" name="'+document.getElementById("nameAtt").value +'">\
                                     <option value="text">Text</option>\
                                     <option value="number">Number</option>\
                                 </select>\
-							</div>\
-							<div class="col-sm-2">\
-								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
+              <span class="input-group-btn">\
+                  <a href="#" onclick="del('+cpt+')" ><button class="btn btn-danger btn-add btPers" type="button">\
+                      <span class="glyphicon glyphicon-minus"> \
+                      </span>\
+                  </button></a>\
+              </span>\
 							</div>';
 			cpt = cpt + 1 ;
 			document.getElementById('attribut').appendChild(div);

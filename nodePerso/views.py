@@ -34,7 +34,6 @@ def detailNode(request):
         data.update({str(attribute): ast.literal_eval(serializers.serialize('json', [attribute]))[0]})
     json_data.update({'attributes': data})
     json_data = json.dumps(json_data)
-    print(json_data)
     return HttpResponse(json_data, content_type="application/json")
 
 

@@ -15,8 +15,7 @@
  
  
 body {
-  background-color: #E5E5E5;
-  color: #3C4858;
+
 }
 body.inverse {
   background: #333333;
@@ -1447,7 +1446,7 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
   min-width: 130px;
 }
 
-.footer {
+.footter {
   position: relative;
   bottom: 20px;
   right: 0px;

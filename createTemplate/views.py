@@ -154,6 +154,14 @@ def formGen(request):
                             formulaire += relationFormPerso(base,request,nodeType)
                 #del templateSpecification['current']
                 #del templateSpecification['previous'] 
+                if formulaire == "":
+                    path = os.path.join(BASE_DIR, "userData\\")+str(request.user.pk)
+                    template = saveData(templateSpecification,path,None)
+                    if not os.path.exists(path):
+                        os.makedirs(path)
+                    with open(path+'\\test.yaml', 'w') as source:
+                        source.write(template)
+                    return render(request, 'graphGenerator/att.html', {'path': str(request.user.pk)+'\\test.yaml'})
                 request.session['templateSpecification'] = request.session['templateSpecification']
                 return render(request, 'createTemplate/formRel.html', {'form': formulaire})
             #sinon dans le cas ou il existe plus de nodes
@@ -177,18 +185,20 @@ def formRel(request):
     del relationships['csrfmiddlewaretoken']
     relationships = relationships.dict()
     templateSpecification = request.session['templateSpecification']
-    path = os.path.join(BASE_DIR, "userData")+str(request.user.pk)
+    path = os.path.join(BASE_DIR, "userData\\")+str(request.user.pk)
     template = saveData(templateSpecification,path,relationships)
     if not os.path.exists(path):
         os.makedirs(path)
     with open(path+'\\test.yaml', 'w') as source:
         source.write(template)
-    #return render(request, 'graphGenerator/att.html', {'path': str(request.user.pk)+'\\test.yaml'})
-    raise Http404("Page does exist")
+    return render(request, 'graphGenerator/att.html', {'path': str(request.user.pk)+'\\test.yaml'})
+    #raise Http404("Page does exist")
 
 def genFormset(current,templateSpecification):
     #controle data
     typeNodeP = current
+    print('curr: '+current)
+    print('val: '+str(templateSpecification))
     if(current == "Compute"):
         formset = formset_factory(ComputeForm,extra= int(templateSpecification[current]))
     elif(current == "database"):
@@ -281,20 +291,41 @@ def relationForm(nodeType,request):
             options = ""
             for nodePersos in request.session['templateSpecification']:
                 if nodePersos[0] == "p":
-                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
-                        derivedFrom = str(perso.derivedFrom)
-                        if derivedFrom == 'compute':
-                            for nodePerso in request.session['templateSpecification'][nodePersos]:
-                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
-                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+                    perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                    derivedFrom = str(perso.derivedFrom)
+                    if derivedFrom == 'compute':
+                        for nodePerso in request.session['templateSpecification'][nodePersos]:
+                            #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                            options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
             
             listeOptions = request.session['templateSpecification']['Compute']
             for option in listeOptions:
-                options += "<option value=Compute."+node+"> "+listeOptions[option]["name"]+"</option>"
+                options += "<option value=Compute."+option+"> "+listeOptions[option]["name"]+"</option>"
             typeRel = "softwareComponent."+node+".host"
             label1 = nodes[node]['name']
             label2 = 'Hosted on'
             formulaire += genFormRel(label1,label2,typeRel,options)
+        for node in nodes:
+            options = ""
+            for nodePersos in request.session['templateSpecification']:
+                if nodePersos[0] == "p":
+                        perso = NodePersonalised.objects.get(pk = nodePersos.replace("p",""))
+                        derivedFrom = str(perso.derivedFrom)
+                        if derivedFrom == 'database':
+                            for nodePerso in request.session['templateSpecification'][nodePersos]:
+                                #print (request.session['templateSpecification'][nodePersos][nodePerso])
+                                options += "<option value="+nodePersos+"."+nodePerso+" > "+request.session['templateSpecification'][nodePersos][nodePerso]["nodeBase"]["name"]+"</option>"   
+            
+            if 'database' in request.session['templateSpecification']:
+                listeOptions = request.session['templateSpecification']['database']
+                for option in listeOptions:
+                    options += "<option value=database."+node+"> "+listeOptions[option]["nameInst"]+"</option>"
+            if options != "":        
+                typeRel = "softwareComponent."+node+".ConnectsTo"
+                label1 = nodes[node]['name']
+                label2 = 'Connects To'
+                formulaire += genFormRel(label1,label2,typeRel,options)
+    
     
     elif(nodeType == 'webApplication'):
         nodes = request.session['templateSpecification'][nodeType]
@@ -504,6 +535,7 @@ topology_template:
 
   node_templates:
         '''
+    persoDef = ''
     dictInst = dict() # sous la forme {typeNode:{cleDansLaSession:idInstance}}
     templateName = templateSpecification['templateName']
     del templateSpecification['templateName']
@@ -553,6 +585,7 @@ topology_template:
         else:
             # partie pour les nodes perso
             perso = NodePersonalised.objects.get(pk = nodes.replace("p",""))
+            persoDef += perso.definition()
             typeInst = nodes
             derivedFrom = str(perso.derivedFrom)
             for key,persoNodes in templateSpecification[nodes].items(): 
@@ -600,105 +633,139 @@ topology_template:
 
     print(dictInst)
 
-    for relation in relationships:
-        list = relation.split('.')
-        valList = relationships[relation].split('.')
-        id = dictInst[list[0]][list[1]][0]
-        txt = dictInst[list[0]][list[1]][1]
-        if list [0] ==  "database":
-            db = Database.objects.get(pk=id)
-            host = ""
-            if valList[0] in ['dbms']:
-                host =templateSpecification[valList[0]][valList[1]]['name']
-            else:
-                host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
-            dictInst[list[0]][list[1]][1] += db.host(host)
-        elif list [0] ==  "dbms":
-            dbms = Dbms.objects.get(pk=id)
-            host = ""
-            if valList[0] in ['Compute']:
-                host =templateSpecification[valList[0]][valList[1]]['name']
-            else:
-                host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
-            dictInst[list[0]][list[1]][1] += dbms.host(host)
-        elif list [0] ==  "softwareComponent":
-            SoftwareComponent = SoftwareComponent.objects.get(pk=id)
-            dictInst[list[0]][list[1]][1] += SoftwareComponent.host()
-        elif list [0] ==  "webApplication":
-            host = ""
-            connect = ""
-            if valList[0] in ['webServer']:
-                try:
-                    host =templateSpecification[valList[0]][valList[1]]['name']
-                except:
-                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
-            elif valList[0] in ['database']:
-                try:
-                    connect =templateSpecification[valList[0]][valList[1]]['nameInst']
-                except:
-                    connect =templateSpecification[valList[0]][valList[1]]['nodeBase']['nameInst']
-            webApplication = WebApplication.objects.get(pk=id)
-            if host != "":
-                dictInst[list[0]][list[1]][1] += webApplication.host(host)
-            if connect != "":
-                dictInst[list[0]][list[1]][1] += webApplication.connectTo(connect)
-                print("test ="+connect)
-        elif list [0] ==  "webServer":
-            host = ""
-            if valList[0] in ['Compute']:
-                host =templateSpecification[valList[0]][valList[1]]['name']
-            else:
-                host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
-            webServer = WebServer.objects.get(pk=id)
-            dictInst[list[0]][list[1]][1] += webServer.host(host)
-        
+    if relationships is not None:
+        print(relationships)
+        for relation in relationships:
+            list = relation.split('.')
+            valList = relationships[relation].split('.')
+            id = dictInst[list[0]][list[1]][0]
+            txt = dictInst[list[0]][list[1]][1]
 
-        else:    
-            perso = NodePersonalised.objects.get(pk = nodes.replace("p",""))
-            derivedFrom = str(perso.derivedFrom)
-            if derivedFrom ==  "database":
-                host = ""
-                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
-                    host =templateSpecification[valList[0]][valList[1]]['name']
-                else:
-                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+            if list [0] ==  "database":
                 db = Database.objects.get(pk=id)
-                dictInst[list[0]][list[1]][1] += db.host()
-            if derivedFrom ==  "dbms":
                 host = ""
-                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                if valList[0] in ['dbms']:
                     host =templateSpecification[valList[0]][valList[1]]['name']
                 else:
                     host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                dictInst[list[0]][list[1]][1] += db.host(host)
+            elif list [0] ==  "dbms":
                 dbms = Dbms.objects.get(pk=id)
+                host = ""
+                if valList[0] in ['Compute']:
+                    host =templateSpecification[valList[0]][valList[1]]['name']
+                else:
+                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
                 dictInst[list[0]][list[1]][1] += dbms.host(host)
-            if derivedFrom ==  "softwareComponent":
+            elif list [0] ==  "softwareComponent":
+                softwareComponent = SoftwareComponent.objects.get(pk=id)
                 host = ""
-                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
-                    host =templateSpecification[valList[0]][valList[1]]['name']
-                else:
-                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
-                SoftwareComponent = SoftwareComponent.objects.get(pk=id)
-                dictInst[list[0]][list[1]][1] += SoftwareComponent.host()
-            if derivedFrom ==  "webApplication":
+                connect = ""
+                if valList[0] in ['Compute']:
+                    try:
+                        host =templateSpecification[valList[0]][valList[1]]['name']
+                    except:
+                        host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                elif valList[0] in ['database']:
+                    try:
+                        connect =templateSpecification[valList[0]][valList[1]]['nameInst']
+                    except:
+                        connect =templateSpecification[valList[0]][valList[1]]['nodeBase']['nameInst']
+
+                if host != "":
+                    dictInst[list[0]][list[1]][1] += softwareComponent.host(host)
+                if connect != "":
+                    dictInst[list[0]][list[1]][1] += softwareComponent.connectTo(connect)
+                
+            elif list [0] ==  "webApplication":
                 host = ""
-                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
-                    host =templateSpecification[valList[0]][valList[1]]['name']
-                else:
-                    host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                connect = ""
+                if valList[0] in ['webServer']:
+                    try:
+                        host =templateSpecification[valList[0]][valList[1]]['name']
+                    except:
+                        host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                elif valList[0] in ['database']:
+                    try:
+                        connect =templateSpecification[valList[0]][valList[1]]['nameInst']
+                    except:
+                        connect =templateSpecification[valList[0]][valList[1]]['nodeBase']['nameInst']
                 webApplication = WebApplication.objects.get(pk=id)
-                dictInst[list[0]][list[1]][1] += webApplication.host()
-            if derivedFrom ==  "webServer":
+                if host != "":
+                    dictInst[list[0]][list[1]][1] += webApplication.host(host)
+                if connect != "":
+                    dictInst[list[0]][list[1]][1] += webApplication.connectTo(connect)
+            elif list [0] ==  "webServer":
                 host = ""
-                if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                if valList[0] in ['Compute']:
                     host =templateSpecification[valList[0]][valList[1]]['name']
                 else:
                     host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
                 webServer = WebServer.objects.get(pk=id)
-                dictInst[list[0]][list[1]][1] += webServer.host()
+                dictInst[list[0]][list[1]][1] += webServer.host(host)
+
+            else:    
+                print("nodes:"+nodes)
+                print("l:"+list [0])
+                perso = NodePersonalised.objects.get(pk = list [0].replace("p",""))
+                print( dictInst[list[0]][list[1]])
+                derivedFrom = str(perso.derivedFrom)
+                if derivedFrom ==  "database":
+                    host = ""
+                    if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                        host =templateSpecification[valList[0]][valList[1]]['name']
+                    else:
+                        host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                    db = Database.objects.get(pk=id)
+                    dictInst[list[0]][list[1]][1] += db.host(host)
+                if derivedFrom ==  "dbms":
+                    host = ""
+                    if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                        host =templateSpecification[valList[0]][valList[1]]['name']
+                    else:
+                        host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                    print(id)
+                    dbms = Dbms.objects.get(pk=id)
+                    dictInst[list[0]][list[1]][1] += dbms.host(host)
+                if derivedFrom ==  "softwareComponent":
+                    host = ""
+                    if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                        host =templateSpecification[valList[0]][valList[1]]['name']
+                    else:
+                        host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                    softwareComponent = SoftwareComponent.objects.get(pk=id)
+                    dictInst[list[0]][list[1]][1] += softwareComponent.host(host)
+                if derivedFrom ==  "webApplication":
+                    host = ""
+                    if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                        host =templateSpecification[valList[0]][valList[1]]['name']
+                    else:
+                        host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                    webApplication = WebApplication.objects.get(pk=id)
+                    dictInst[list[0]][list[1]][1] += webApplication.host(host)
+                if derivedFrom ==  "webServer":
+                    host = ""
+                    if valList[0] in ['Compute','compute','dbms','softwareComponent','webApplication','webServer']:
+                        host =templateSpecification[valList[0]][valList[1]]['name']
+                    else:
+                        host = templateSpecification[valList[0]][valList[1]]['nodeBase']['name']
+                    webServer = WebServer.objects.get(pk=id)
+                    dictInst[list[0]][list[1]][1] += webServer.host(host)
+
+
 
     for insts in dictInst.values():
         for inst in insts.values():
             template += inst[1]
+
+    if persoDef != '':
+        originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
+        secureToscaDefPath = BASE_DIR + "\\toscaparser\\secure\\TOSCA_definition_1_0.yaml"
+        with open(secureToscaDefPath, 'rb') as definition:
+            with open(originalToscaDefPath, 'wb+') as destination:
+                aux = definition.read().decode("utf-8")
+                aux += persoDef
+                print(aux)
+                destination.write(bytearray(aux, "utf-8"))
 
     return template

@@ -974,3 +974,13 @@ group_types:
 
 
 
+
+  najoua:
+    derived_from: tosca.nodes.Database
+  med:
+    derived_from: tosca.nodes.DBMS
+    properties:
+      df:
+        type: integer
+      cc:
+        type: string

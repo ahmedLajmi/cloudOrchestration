@@ -17,17 +17,8 @@ li {
     display: inline-block
 }
 
-a {
 
-    text-decoration: none;
-    transition: all 500ms ease-in-out;
-}
 
-a:hover,
-a:active {
-
-    text-decoration: none;
-}
 
 h1,
 h2,
@@ -42,19 +33,14 @@ p {
     line-height: 21px;
 }
 
-.btn {
+. {
 
     transition: all 300ms ease-in-out;
     font-weight: 500 !important;
     text-transform: uppercase;
 }
 
-.btn:hover {
 
-    background-color: #ededed !important;
-    color: #3c3c3c !important;
-    border: 1px solid #fff !important;
-}
 
 
 /*NAVIGATION*/
@@ -74,30 +60,24 @@ p {
 }
 
 
-.navbar a {
 
-    color: #fff !important;
-    opacity: 0.7;
-}
-
-
-.navbar a:hover {
+.navbar .navbar-brand:  {
 
     opacity: 1;
-    background-color:  #f05f40 !important;  /* #111111  */
-}
-
-
-.navbar .navbar-brand:hover  {
-
-    opacity: 1;
-    background-color:  #111111  !important;
 }
 .navbar .navbar-brand  {
 
   margin-left: 0px  !important;
+  color: white;
 }
 
+.navbar .navbar-brand:hover {
+
+  margin-left: 0px  !important;
+  color: white ;
+  background-color: #FF3300 ;
+  opacity: 1;
+}
 
 .navbar-brand {
     font-family: 'Satisfy', cursive  !important;  /*  if font csatify can't be loaded we give cursive by default */
@@ -105,17 +85,9 @@ p {
 
 
 .navbar-default .navbar-nav > .active{
-   color: white ;
+  color: white ;
   background-color: #FF3300 ;
   opacity: 1;
-}
-
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-     color:  white;
-     background-color: #FF3300 ;
-     opacity: 1;
 }
 
 
@@ -134,41 +106,9 @@ p {
     padding:0;
   }
 
-  .navbar .lang a:focus {
 
-      opacity: 1;
-      background-color:  #f05f40 !important;  /* #111111  */
-  }
+  
 
-
-  .navbar .lang .dropdown-menu a{
-
-      opacity: 1;
-      color:  #f05f40 !important;  /* #111111  */
-  }
-  .navbar .lang .dropdown-menu a:hover{
-
-      opacity: 1;
-      background-color:  #FF3300 !important;  /* #111111  */
-      color: #fff !important;
-  }
-
-  .navbar .lang .dropdown-menu a:focus{
-
-      opacity: 1;
-      background-color:  #FF3300 !important;  /* #111111  */
-      color: #fff !important;
-
-  }
-
-  .navbar .lang .dropdown-menu {
-
-      opacity: 1;
-      background-color:  #fff !important;  /* #111111  */
-      margin-right: 0px !important;
-      padding-left: 0px;
-
-  }
 
   .navbar .lang .dropdown-menu li {
 
@@ -195,45 +135,10 @@ p {
   width:100%;
 }
 
-.navbar .lang1 a:focus {
-
-      opacity: 1;
-      background-color:  #f05f40 !important;  /* #111111  */
-  }
 
 
-  .navbar .lang1 .dropdown-menu a{
 
-      opacity: 1;
-      color:  black !important;  /* #111111  */
-      text-transform: capitalize !important;
 
-    font-size: 20px;
-  }
-
-  .navbar .lang1 .dropdown-menu a:hover{
-
-      opacity: 1;
-      background-color:   grey !important;  /* #111111  */
-      color: #fff !important;
-  }
-
-  .navbar .lang1 .dropdown-menu a:focus{
-
-      opacity: 1;
-      background-color:  grey !important;  /* #111111  */
-      color: #fff !important;
-
-  }
-
-  .navbar .lang1 .dropdown-menu {
-
-      opacity: 1;
-      background-color:  #FFFFCC !important;  /* #111111  */
-      margin-right: 0px !important;
-      padding-left: 0px !important;
-
-  }
 
   .navbar .lang1 .dropdown-menu li {
 
@@ -243,42 +148,22 @@ p {
 
   }
 
-  .navbar .lang1 .dropdown-menu {
-    min-width: 107px !important;
-  }
-
-   .navbar .lang1 .dropdown-menu  .btn-primary {
-  color: white !important;
-  border-color: #FF3300 !important;
-  background-color: #FF3300 !important;
-  margin-top: 10px !important; }
-       
-  .navbar .lang1 .dropdown-menu .btn-primary:focus {
-    color: red !important;
-    border-color: #a4270d !important;
-    background-color: white !important; }
-
-  .navbar .lang1 .dropdown-menu .btn-primary:hover {
-    color: red !important;
-    border-color: #e13612 !important;
-    background-color: white !important; }
-
- .navbar .lang1 .dropdown-menu  .btn-primary:active,
-   {
-    color: red !important;
-    border-color: #e13612 !important;
-    background-color: white !important; } 
-
-
 /*FOOTER*/
 
 .footer {
 
     padding-top: 30px;
     color: #cccccc;
-    background-color: #222222;
+    background-color: black;
+    border-top-style: solid;
+    border-color: white;
+    border-width: 1px;
 }
 
+.footer>.row{
+  margin-left: 30px;
+  margin-right: 30px;
+}
 
 .footer .social {
 
@@ -303,7 +188,7 @@ p {
     color: #000;
 }
 
-.footer .btn {
+.footer . {
 
     padding: 10px 5px 10px;
     margin: -3px 0 0 5px;

@@ -9,58 +9,132 @@
 	<script src="{% static 'cytoscape.js-master/dist/cytoscape.js' %}"></script>
 	<script src="{% static 'ace-builds-master/src/ace.js' %}" type="text/javascript" charset="utf-8"></script>
 	<script src="{% static 'ace-builds-master/src/mode-yaml.js' %}" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<style>
 		#editor {
 			width: 100%;
 			min-height: 400px;
+			border-radius: 15px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 		}
 		#cy {
-			width: 70%;
+			width: 100%;
 			min-height: 600px;
-			display: inline-block;
-			border-style: dotted dashed solid double;
-			float: left;
+			border-radius: 15px;			
 		}
-		#services {
-			width: 30%;
-			min-height: 600px;
-			display: inline-block;
-			padding-top: 10%;
-			border-style: dotted dashed solid double;
-			float: right;
+		.cont{
+			background-image: url("{% static 'media/images/tab.png' %}");
+		    background-repeat: no-repeat;
+		    background-size: cover;
+			padding-top: 30px;
+			padding-right: 30px;
+			padding-left: 30px;
+
 		}
 		.container{
-			margin-top: 60px;
+			margin-top: 40px;
 		}
+		#text{
+			color: white;
+    		text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+		}
+		.qos{
+			color: white;
+		}
+		.aQos{
+			color: white;
+		}
+		.aQos:hover{
+			color: white;
+		}
+		.head{
+			background-image: url("{% static 'media/images/test2.jpg' %}");
+		}
+		.chart{
+			background-color: white ;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 15px;
+    		display: none;   
+    		height: 600px;
+    		background-repeat: no-repeat;
+    		background-size: contain; 	
+    		padding-left: 40px;	
+		}
+		.qosDetails{
+		    font-size: 40px;
+		    font-weight: 700;
+		    text-shadow: 1px 1px 5px #610B38 ;
+		    color: #610B38 ;
+		}
+		.separator {
+			height: 3px;
+			width: 30%;
+			border: none ;
+			box-shadow: none;
+			background-color: #FF3300 ;
+			margin-bottom: 30px;
+		}
+		
 	</style>
 {% endblock %}
 
 {% block mybody%}
 	{% if request.user.get_username %}
+		<div class="head">
 		<div class="container">
 			<!--- Graph -->
-			<div class="row ">
-				<div id="cy" ></div>
-				<div id="services" >
-					{% for key,val in noeuds.items %}
-						<form>
-							<div class="form-group row">
-								<label for="inputEmail3" class="col-sm-5 col-form-label"> {{ val.name}} </label>
-								<div class="col-sm-7">
-									<select name="node" class="form-control">
-										<option>1</option>
-										<option>2</option>
-									</select>
-								</div>
-							</div>
-						</form>
-					{% endfor %}
+			<br><br><div class="row">
+				<center><span id="text"><h4>Your Template as a Graph</h4></span></center>
+			</div><br>
+			<div class="row">
+				<div class="cont">
+				<div class="shadow-lg p-3 mb-5 bg-white rounded" id="cy" ></div>
 				</div>
-			</div>
+			</div><br>
+			<div class="row">
+				<center>
+					<div class="qos">
+					<a class="aQos" onclick="lister(dict)" data-toggle="modal" data-target="#myselectionModal"> 
+						Calculate QoS 
+					</a>
+				</div>
+				</center>
+			</div><br>
 			<!-- End Graph -->
 			<!-- File -->
 			<div class="row">
+				<center><span id="text"><h4>Your Template as a File</h4></span></center>
+			</div><br>
+			<div class="row">
 				<div id="editor" class="col-lg-12 col-md-12" >{{ file }}</div>
+			</div><br><br>
+			<div id="chart" class="row chart">
+				<div class="row">
+					<center><h1 class="qosDetails">Qos Details</h1></center>
+					<center> <hr class="separator"> </center>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-4" >
+						<div id="cost_chart" class="cost_chart"></div>
+					</div>
+					<div class="col-lg-4 col-md-4" >
+						<div id="time_chart" class="time_chart"></div>
+					</div>
+					<div class="col-lg-4 col-md-4" >
+						<div id="disp_chart" class="disp_chart"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-4" >
+						<div id="cost_tab" class="cost_tab"></div>
+					</div>
+					<div class="col-lg-4 col-md-4" >
+						<div id="time_tab" class="time_tab"></div>
+					</div>
+					<div class="col-lg-4 col-md-4" >
+						<div id="disp_tab" class="disp_tab"></div>
+					</div>
+				</div>
 			</div>
 			<!-- End File -->
 			<br><br>
@@ -72,50 +146,74 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<center><h4 class="modal-title">Calculate QoS</h4></center>
 					</div>
 					<div class="modal-body">
-						<div id="fileselection"   class="col-md-8 col-md-offset-2">
-							<form method="POST" action="#" enctype="multipart/form-data">
-								<!-- COMPONENT START -->
-								<h3>TOSCA Definition File Selection</h3>
-								<div class="form-group">
-									<div class="input-group input-file" name="Fichier1">
-										<input type="text" class="form-control" placeholder='Choose a TOSCA Definition file...' />
-										<span class="input-group-btn">
-											<button class="btn btn-default btn-choose" type="button">Choose</button>
-										</span>
+						<div id="services" >
+							<form name="qos" id="qos" >
+								{% csrf_token %}
+								<fieldset>
+									<legend>Your expectations</legend>
+									<div class="form-group row">
+												<label for="cost" class="col-sm-5 col-form-label"> Cost ($): </label>
+												<div class="col-sm-7">
+													<input required type="text" name="cost" id="cost" class="form-control">
+												</div>
 									</div>
-								</div>
-								<h3>Template File Selection</h3>
-								<div class="form-group">
-									<div class="input-group input-file" name="Fichier1">
-										<input type="text" class="form-control" placeholder='Choose a Template file...' />      
-										<span class="input-group-btn">
-											<button class="btn btn-default btn-choose" type="button">Choose</button>
-										</span>
+									<div class="form-group row">
+												<label for="availability" class="col-sm-5 col-form-label"> Availability (%): </label>
+												<div class="col-sm-7">
+													<input required type="text" name="availability" id="availability" class="form-control">
+												</div>
 									</div>
-								</div>
-								<!-- COMPONENT END -->
-								<center> 
-									<div class="form-group">
-										<button type="submit" class="btn btn-success " disabled>Submit</button>
-										<button type="reset" class="btn btn-danger ">Reset</button>
-									</div> 
-								</center>
-								<br><br><br><br><br><br>
-							</form>
+									<div class="form-group row">
+												<label for="time" class="col-sm-5 col-form-label"> Response Time (ms): </label>
+												<div class="col-sm-7">
+													<input required type="text" name="time" id="time" class="form-control">
+												</div>
+									</div>
+								</fieldset>
+								<fieldset>
+									<legend>Choose your services</legend>
+										<script type="text/javascript"> 
+											var dict = new Map(); // create an empty array
+										</script>
+										{% for key,val in noeuds.items %}
+											{% if val.type == "Compute" or val.type == "Database" or val.type == "DBMS" or val.type == "WebServer" or val.type == "SoftwareComponent" %}	
+											<div class="form-group row">
+												<label for="inputEmail3" class="col-sm-5 col-form-label"> {{ val.name}} : </label>
+												<div class="col-sm-7">
+													<select id="{{ forloop.counter }}" name="{{ forloop.counter }}" class="form-control">
+													</select>
+												</div>
+											</div>
+											<script type="text/javascript">
+												dict.set(
+											    	"{{ forloop.counter }}",
+											    	"{{ val.type }}"
+												);
+											</script>
+											{% endif %}
+										{% endfor %}
+								</fieldset>
+								
 						</div>
-						<div class="modal-footer"></div>
+					</div>
+						<div class="modal-footer">
+	    	                <button type="button" class="btn btn-success" onclick="calculer()">Submit</button>
+	                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+	                    </div>
+	                    </form>
 					</div>
 				</div>
 			</div>
 		</div>
-
+		</div>
 		<script type="text/javascript">
 			var editor = ace.edit("editor");
 			var yamlMode = ace.require("ace/mode/yaml").Mode;
 			editor.session.setMode(new yamlMode());
-			editor.setTheme("ace/theme/twilight");
+			editor.setTheme("ace/theme/kuroir");
 			editor.setReadOnly(true); 
 			var cy = cytoscape({
 				container: document.getElementById('cy'), // container to render in
@@ -153,14 +251,14 @@
 						style: {
 							'background-color': '#666',
 							'label': 'data(name)',
-							'width': 120,
-							'height': 120,
+							'width': 50,
+							'height': 50,
 						}
 					},
 					{
 						selector: 'edge',
 						style: {
-							'width': 3,
+							'width': 1,
 							'line-color': '#ccc',
 							'target-arrow-color': '#ccc',
 							'target-arrow-shape': 'triangle',
@@ -168,15 +266,160 @@
 						}
 					}
 				],
-				layout: {
-					name: 'breadthfirst'
-				},
+				
 			});
 			cy.on('tap', 'node', function(evt){
 				var node = evt.target;
 				document.getElementById('menu-deroulant').style.display='inline-block';
 			});
+			var layout = cy.layout({
+				name: 'circle'
+			});
+			layout.run();
+			function lister(dict)
+            {
+				$.ajax({
+					type: "POST",
+					url: "{% url 'qos:list'%}",
+					dataType: "json",
+					traditional: true,
+					data: {},
+					success: function(response) {
+						
+						for (var [cle, valeur] of dict) {
+							var select = document.getElementById(cle);
+							select.length = 0;
+							var values = Object.values(response[valeur]);
+								for (var key in values) {
+									select.options[select.options.length] = new Option (values[key]["name"], values[key]["id"]);
+								}
+						}
+						
+					},
+					error: function(response) {
+						console.log(response);
+					}
+				});
+			}
+			function calculer()
+            {
+				$.ajax({
+					type: "POST",
+					url: "{% url 'qos:calcul'%}",
+					dataType: "json",
+					traditional: true,
+					data: $("#qos").serialize() ,
+					success: function(response) {
+						document.getElementById("chart").style.visibility='visible';
+						document.getElementById("chart").style.display = "block";
+						console.log(response["cost"]);	
+
+					google.charts.load("current", {packages:["corechart"]});
+				    google.charts.setOnLoadCallback(drawChart);
+				    function drawChart() {
+				      var dataCost = google.visualization.arrayToDataTable([
+				        ["Element", "Cost", { role: "style" } ],
+				        ["Estimated Cost", Number(response['rcost']), "#0066FF"],
+				        ["Real Cost", Number(response['cost']), "silver"],
+				        
+				      ]);
+				      var optionsCost = {
+				        title: "Cost",
+				        width: 150,
+				        height: 300,
+				        bar: {groupWidth: "90%"},
+				        legend: { position: "none" },
+				      };
+				      var dataTime = google.visualization.arrayToDataTable([
+				        ["Element", "Response Time", { role: "style" } ],
+				        ["Estimated Time", Number(response['rtime']), "#0066FF"],
+				        ["Real Time", Number(response['time']), "silver"],
+				        
+				      ]);
+				      var optionsTime = {
+				        title: "Response Time",
+				        width: 200,
+				        height: 300,
+				        bar: {groupWidth: "90%"},
+				        legend: { position: "none" },
+				      };
+				      var dataDisp = google.visualization.arrayToDataTable([
+				        ["Element", "Availability", { role: "style" } ],
+				        ["Estimated availability", Number(response['ravab']), "#0066FF"],
+				        ["Real availability", Number(response['disp']), "silver"],
+				        
+				      ]);
+				      var optionsDisp = {
+				        title: "Availability",
+				        width: 200,
+				        height: 300,
+				        bar: {groupWidth: "90%"},
+				        legend: { position: "none" },
+				      };
+
+
+				      var chart = new google.visualization.ColumnChart(document.getElementById("cost_chart"));
+				      chart.draw(dataCost, optionsCost);
+				      var chart = new google.visualization.ColumnChart(document.getElementById("time_chart"));
+				      chart.draw(dataTime, optionsTime);
+				      var chart = new google.visualization.ColumnChart(document.getElementById("disp_chart"));
+				      chart.draw(dataDisp, optionsDisp);
+				  	}
+
+
+				  	var costTab = document.getElementById('cost_tab');
+				  	costTab.innerHTML = '<table class="table">\
+											<thead>\
+												<tr>\
+													<th>Estimated cost</th>\
+													<th>Real cost</th>\
+												</tr>\
+											</thead>\
+											<tbody>\
+												<tr>\
+													<td class="active">'+response['rcost']+'</td>\
+													<td class="warning">'+response['cost']+'</td>\
+												</tr>      \
+											</tbody>\
+										</table>';
+					var timeTab = document.getElementById('time_tab');
+				  	timeTab.innerHTML = '<table class="table">\
+											<thead>\
+												<tr>\
+													<th>Estimated time</th>\
+													<th>Real time</th>\
+												</tr>\
+											</thead>\
+											<tbody>\
+												<tr>\
+													<td class="active">'+response['rtime']+'</td>\
+													<td class="warning">'+response['time']+'</td>\
+												</tr>      \
+											</tbody>\
+										</table>';
+					var dispTab = document.getElementById('disp_tab');
+				  	dispTab.innerHTML = '<table class="table">\
+											<thead>\
+												<tr>\
+													<th>Estimated availability</th>\
+													<th>Real availability</th>\
+												</tr>\
+											</thead>\
+											<tbody>\
+												<tr>\
+													<td class="active">'+response['ravab']+'</td>\
+													<td class="warning">'+response['disp']+'</td>\
+												</tr>      \
+											</tbody>\
+										</table>';
+					},
+					error: function(response) {
+						console.log(response);
+					}
+				});
+			}
 		</script>
+
 	{% endif %}
 {% endblock %}
 
