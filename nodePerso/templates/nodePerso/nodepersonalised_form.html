@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-
-{% block mytitle %} Add a new Node {% endblock %}
+{% block mytitle %}
+{% if object %}
+  Update Node 
+{% else %}
+  Add a new Node 
+{% endif %}
+{% endblock %}
 
 {% block mylink %}
 <link rel="stylesheet" href="{% static 'css/style_listnodes.css' %}">
@@ -18,6 +23,9 @@
   .btPers{
     border-radius: 0px 10px 10px 0px;
   }
+  .select{
+    padding-right: 0px;
+  }
 </style>
 {% endblock %}
 
@@ -30,7 +38,12 @@
                    <div class="col-sm-12 col-md-6 col-md-offset-1">
                       <div class="panel panel-default">
                          <div class="panel-body">
-                             <center><h1>Add a New Node</h1></center>
+                            {% if object %}
+                              <center><h1>Update Node</h1></center>
+                            {% else %}
+                              <center><h1>Add a New Node</h1></center>
+                            {% endif %}
+                             
                              <center> <hr class="separator"> </center>
                             
                             <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
@@ -90,7 +103,7 @@
 			    div.innerHTML +=
 							'<label class="control-label col-sm-2" for=""{{ attribute.pk }}"">{{ attribute.name }} : </label>\
 							<div class="col-sm-4">\
-							<select class="form-control" id="{{ attribute.pk }}"  name="{{ attribute.pk }}">\
+							<select class="form-control select" id="{{ attribute.pk }}"  name="{{ attribute.pk }}">\
                                 {% if attribute.type == "text" %}\
                                     <option value="text" selected >Text</option>\
                                     <option value="number" >Number</option>\
@@ -99,10 +112,15 @@
                                     <option value="text" >Text</option>\
                                 {% endif %}\
                             </select>\
-							</div>\
-							<div class="col-sm-4" style="margin-top: 50px;">\
-								<a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
-							</div>';
+							</div>'
+              {% if object %}
+              {% else %}
+                div.innerHTML += 
+                '<div class="col-sm-4" style="margin-top: 50px;">\
+                <a href="#" onclick="del('+ cpt +')" ><img src="{% static 'media/img/del.png' %}" width="20" height="20"></a>\
+              </div>';
+              {% endif %}
+							
 			    cpt = cpt + 1 ;
 			document.getElementById('attribut').appendChild(div);
             {% endfor %}
@@ -116,17 +134,21 @@
 			div.innerHTML =
 							'<label class="control-label col-sm-2" for='+document.getElementById("nameAtt").value +'>'+document.getElementById("nameAtt").value +': </label>\
 							<div class="col-sm-4 input-group">\
-                                <select class="form-control" id="'+document.getElementById("nameAtt").value +'" name="'+document.getElementById("nameAtt").value +'">\
+                                <select class="form-control select" id="'+document.getElementById("nameAtt").value +'" name="'+document.getElementById("nameAtt").value +'">\
                                     <option value="text">Text</option>\
                                     <option value="number">Number</option>\
-                                </select>\
-              <span class="input-group-btn">\
+                                </select>';
+              {% if object %}
+              {% else %}
+                div.innerHTML += 
+                '<span class="input-group-btn">\
                   <a href="#" onclick="del('+cpt+')" ><button class="btn btn-danger btn-add btPers" type="button">\
                       <span class="glyphicon glyphicon-minus"> \
                       </span>\
                   </button></a>\
               </span>\
-							</div>';
+              </div>';
+              {% endif %}
 			cpt = cpt + 1 ;
 			document.getElementById('attribut').appendChild(div);
 		}

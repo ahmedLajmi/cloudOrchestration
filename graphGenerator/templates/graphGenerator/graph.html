@@ -85,21 +85,17 @@
 			<!--- Graph -->
 			<br><br><div class="row">
 				<center><span id="text"><h4>Your Template as a Graph</h4></span></center>
+				<button class="btn btn-lg btn-success pull-right"  onclick="lister(dict)" data-toggle="modal" data-target="#myselectionModal">
+				<i class="fa fa-calculator" ></i>
+				Calculate QoS 
+			</button>
 			</div><br>
 			<div class="row">
 				<div class="cont">
 				<div class="shadow-lg p-3 mb-5 bg-white rounded" id="cy" ></div>
 				</div>
 			</div><br>
-			<div class="row">
-				<center>
-					<div class="qos">
-					<a class="aQos" onclick="lister(dict)" data-toggle="modal" data-target="#myselectionModal"> 
-						Calculate QoS 
-					</a>
-				</div>
-				</center>
-			</div><br>
+			<br>
 			<!-- End Graph -->
 			<!-- File -->
 			<div class="row">
@@ -155,18 +151,27 @@
 								<fieldset>
 									<legend>Your expectations</legend>
 									<div class="form-group row">
+												<div class="col-sm-offset-5 col-sm-7">
+										            <span class="text-danger small" id="erreur1"></span>
+										        </div>
 												<label for="cost" class="col-sm-5 col-form-label"> Cost ($): </label>
 												<div class="col-sm-7">
 													<input required type="text" name="cost" id="cost" class="form-control">
 												</div>
 									</div>
 									<div class="form-group row">
+												<div class="col-sm-offset-5 col-sm-7">
+										            <span class="text-danger small" id="erreur2"></span>
+										        </div>
 												<label for="availability" class="col-sm-5 col-form-label"> Availability (%): </label>
 												<div class="col-sm-7">
-													<input required type="text" name="availability" id="availability" class="form-control">
+													<input min=1 max=100 required type="text" name="availability" id="availability" class="form-control">
 												</div>
 									</div>
 									<div class="form-group row">
+												<div class="col-sm-offset-5 col-sm-7">
+										            <span class="text-danger small" id="erreur3"></span>
+										        </div>
 												<label for="time" class="col-sm-5 col-form-label"> Response Time (ms): </label>
 												<div class="col-sm-7">
 													<input required type="text" name="time" id="time" class="form-control">
@@ -201,7 +206,7 @@
 					</div>
 						<div class="modal-footer">
 	    	                <button type="button" class="btn btn-success" onclick="calculer()">Submit</button>
-	                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+	                        <button id="fermer" type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
 	                    </div>
 	                    </form>
 					</div>
@@ -303,7 +308,37 @@
 			}
 			function calculer()
             {
-				$.ajax({
+            	var err1 = false ;
+            	var err2 = false ;
+            	var err3 = false ;
+            	var val = document.getElementById("cost").value;
+            	if (val < 1){
+            		document.getElementById("erreur1").innerHTML = "Error, please enter a valid value";
+            		err1 = true ;
+            	}else{
+            		document.getElementById("erreur1").innerHTML = "";
+            		err1 = false ;
+            	}
+            	var val = document.getElementById("availability").value;
+            	if (val > 100 || val < 1){
+            		document.getElementById("erreur2").innerHTML = "Error, please enter a value between 1 and 100";
+            		err2 = true ;
+            	}else{
+            		document.getElementById("erreur2").innerHTML = "";
+            		err2 = false ;
+            	}
+
+            	var val = document.getElementById("time").value;
+            	if (val < 1){
+            		document.getElementById("erreur3").innerHTML = "Error, please enter a valid value";
+            		err3 = true ;
+            	}else{
+            		document.getElementById("erreur3").innerHTML = "";
+            		err3 = false ;
+            	}
+				
+				if (err1 == false && err2 == false && err3 == false){
+					$.ajax({
 					type: "POST",
 					url: "{% url 'qos:calcul'%}",
 					dataType: "json",
@@ -319,8 +354,8 @@
 				    function drawChart() {
 				      var dataCost = google.visualization.arrayToDataTable([
 				        ["Element", "Cost", { role: "style" } ],
-				        ["Estimated Cost", Number(response['rcost']), "#0066FF"],
-				        ["Real Cost", Number(response['cost']), "silver"],
+				        ["Desired Cost", Number(response['rcost']), "#0066FF"],
+				        ["Estimated Cost", Number(response['cost']), "silver"],
 				        
 				      ]);
 				      var optionsCost = {
@@ -332,8 +367,8 @@
 				      };
 				      var dataTime = google.visualization.arrayToDataTable([
 				        ["Element", "Response Time", { role: "style" } ],
-				        ["Estimated Time", Number(response['rtime']), "#0066FF"],
-				        ["Real Time", Number(response['time']), "silver"],
+				        ["Desired Time", Number(response['rtime']), "#0066FF"],
+				        ["Estimated Time", Number(response['time']), "silver"],
 				        
 				      ]);
 				      var optionsTime = {
@@ -345,8 +380,8 @@
 				      };
 				      var dataDisp = google.visualization.arrayToDataTable([
 				        ["Element", "Availability", { role: "style" } ],
-				        ["Estimated availability", Number(response['ravab']), "#0066FF"],
-				        ["Real availability", Number(response['disp']), "silver"],
+				        ["Desired availability", Number(response['ravab']), "#0066FF"],
+				        ["Estimated availability", Number(response['disp']), "silver"],
 				        
 				      ]);
 				      var optionsDisp = {
@@ -371,8 +406,8 @@
 				  	costTab.innerHTML = '<table class="table">\
 											<thead>\
 												<tr>\
+													<th>Desired cost</th>\
 													<th>Estimated cost</th>\
-													<th>Real cost</th>\
 												</tr>\
 											</thead>\
 											<tbody>\
@@ -386,8 +421,8 @@
 				  	timeTab.innerHTML = '<table class="table">\
 											<thead>\
 												<tr>\
+													<th>Desired time</th>\
 													<th>Estimated time</th>\
-													<th>Real time</th>\
 												</tr>\
 											</thead>\
 											<tbody>\
@@ -401,8 +436,8 @@
 				  	dispTab.innerHTML = '<table class="table">\
 											<thead>\
 												<tr>\
+													<th>Desired availability</th>\
 													<th>Estimated availability</th>\
-													<th>Real availability</th>\
 												</tr>\
 											</thead>\
 											<tbody>\
@@ -412,11 +447,14 @@
 												</tr>      \
 											</tbody>\
 										</table>';
+					$("#fermer").click();
 					},
 					error: function(response) {
 						console.log(response);
 					}
 				});
+				}		
+				
 			}
 		</script>
 

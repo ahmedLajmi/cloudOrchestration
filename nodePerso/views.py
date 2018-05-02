@@ -17,7 +17,7 @@ class IndexView(generic.ListView):
     context_object_name = 'all_nodes'
 
     def get_queryset(self):  # get objects
-        return NodePersonalised.objects.all()
+        return self.request.user.nodepersonalised_set.all()
 
 @csrf_exempt
 def detailNode(request):

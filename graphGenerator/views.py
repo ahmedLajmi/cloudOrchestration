@@ -11,8 +11,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def formu(request):
-	path = os.path.join(BASE_DIR, "userData\\")
-	with open(os.path.join(BASE_DIR, "access.txt"), 'r') as source:
+	path = os.path.join(BASE_DIR, "userData")
+	with open(os.path.join(path, "access.txt"), 'r') as source:
 		DISP = (source.read() == "True")
 	if not DISP :
 		now = datetime.datetime.now()
@@ -57,8 +57,8 @@ def formu(request):
 
 def renv(request):
 	  
-	path = os.path.join(BASE_DIR, "userData\\")
-	with open(path+'access.txt', 'r') as source:
+	path = os.path.join(BASE_DIR, "userData")
+	with open(os.path.join(path, "access.txt"), 'r') as source:
 		DISP = (source.read() == "True")
 	#if not DISP:
 		originalToscaDefPath = os.path.join(BASE_DIR, "toscaparser/elements/TOSCA_definition_1_0.yaml")

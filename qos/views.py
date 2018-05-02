@@ -44,7 +44,7 @@ def calcul(request):
 	rtime = req['time']
 	del req['time']
 	cout=0
-	disp = 0.99
+	disp = 99
 	temps = 0
 	cpt = 0
 	for key,service in req.items():
