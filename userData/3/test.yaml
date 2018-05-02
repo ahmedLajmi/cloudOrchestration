@@ -5,42 +5,33 @@ topology_template:
 
   node_templates:
          
-    serv:
+    serveur:
       type: tosca.nodes.Compute
       capabilities: 
         host:
           properties: 
-            num_cpus: 1
-            disk_size: 1 GB
-            mem_size: 1 MB
+            num_cpus: 4
+            disk_size: 500 GB
+            mem_size: 3000 MB
         os:
           properties: 
             architecture: x64
-            type: windows
-            distribution: windowsXp
-            version: 1.0
-    db:
+            type: linux
+            distribution: ubuntu
+            version: 14.03
+    myDatabase:
       type: tosca.nodes.Database
       properties:
-        name: 4
-        user: 4
-        password: 4
-        port: 4
+        name: db
+        user: root
+        password: 12345678
+        port: 20
       requirements:
-        - host: dbms
-    dbms:
+        - host: oracle
+    oracle:
       type: tosca.nodes.DBMS
       properties:
-        root_password: 3
-        port: 3
+        root_password: 123456
+        port: 80
       requirements:
-        - host: serv
-    soft:
-      type: tosca.nodes.SoftwareComponent
-      properties:
-        component_version: 2.0
-      requirements:
-        - host: serv
-        - database_endpoint:
-            node: db
-            relationship: tosca.relationships.ConnectsTo
+        - host: serveur

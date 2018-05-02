@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def formu(request):
 	path = os.path.join(BASE_DIR, "userData\\")
-	with open(path+'access.txt', 'r') as source:
+	with open(os.path.join(BASE_DIR, "access.txt"), 'r') as source:
 		DISP = (source.read() == "True")
 	if not DISP :
 		now = datetime.datetime.now()
@@ -27,7 +27,7 @@ def formu(request):
 				break
 	with open(path+'access.txt', 'w') as source:
 		source.write("False")
-	os.utime(BASE_DIR+"\\toscaparser\\tosca_template.py", (time.time(),time.time()))
+	os.utime(os.path.join(BASE_DIR, "toscaparser/tosca_template.py"), (time.time(),time.time()))
 	if len(request.POST) == 0:
 		raise Http404("No MyModel matches the given query.")
 	date = time.strftime('%d-%m-%y_%H-%M-%S',time.localtime())
@@ -37,7 +37,7 @@ def formu(request):
 	path = path + idUser +"{}"+date+".yaml"
 	toscaDefinition = request.FILES['toscaDefinition']
 	toscaTemplat = request.FILES['toscaTemplate']
-	originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
+	originalToscaDefPath = os.path.join(BASE_DIR, "toscaparser/elements/TOSCA_definition_1_0.yaml")
 	# sauvegarder le tosca definition introduit par le client
 	with open(path.format("toscaDef_"), 'wb+') as destination:
 		for chunk in toscaDefinition.chunks():
@@ -61,8 +61,8 @@ def renv(request):
 	with open(path+'access.txt', 'r') as source:
 		DISP = (source.read() == "True")
 	#if not DISP:
-		originalToscaDefPath = BASE_DIR + "\\toscaparser\\elements\\TOSCA_definition_1_0.yaml"
-		secureToscaDefPath = BASE_DIR + "\\toscaparser\\secure\\TOSCA_definition_1_0.yaml"
+		originalToscaDefPath = os.path.join(BASE_DIR, "toscaparser/elements/TOSCA_definition_1_0.yaml")
+		secureToscaDefPath = os.path.join(BASE_DIR, "toscaparser/secure/TOSCA_definition_1_0.yaml")
 		#try:
 		temp = ToscaTemplate(path+request.POST["path"])
 		#except:
