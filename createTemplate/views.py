@@ -155,13 +155,13 @@ def formGen(request):
                 #del templateSpecification['current']
                 #del templateSpecification['previous'] 
                 if formulaire == "":
-                    path = os.path.join(BASE_DIR, "userData\\")+str(request.user.pk)
+                    path = os.path.join(BASE_DIR, "userData/"+str(request.user.pk))
                     template = saveData(templateSpecification,path,None)
                     if not os.path.exists(path):
                         os.makedirs(path)
-                    with open(path+'\\test.yaml', 'w') as source:
+                    with open(os.path.join(path, "test.yaml"), 'w') as source:
                         source.write(template)
-                    return render(request, 'graphGenerator/att.html', {'path': str(request.user.pk)+'\\test.yaml'})
+                    return render(request, 'graphGenerator/att.html', {'path': str(request.user.pk)+'/test.yaml'})
                 request.session['templateSpecification'] = request.session['templateSpecification']
                 return render(request, 'createTemplate/formRel.html', {'form': formulaire})
             #sinon dans le cas ou il existe plus de nodes
@@ -174,7 +174,6 @@ def formGen(request):
                 #typeNodeP = NodePersonalised.objects.get(pk = suiv.replace("p",""))
                 return render(request, 'createTemplate/form.html', {'form': forms,'type':typeNodeP})
         else:
-            print('ccc')
             return render(request, 'createTemplate/form.html', {'form': forms})
             
     else:
@@ -185,13 +184,13 @@ def formRel(request):
     del relationships['csrfmiddlewaretoken']
     relationships = relationships.dict()
     templateSpecification = request.session['templateSpecification']
-    path = os.path.join(BASE_DIR, "userData\\")+str(request.user.pk)
+    path = os.path.join(BASE_DIR, "userData/"+str(request.user.pk))
     template = saveData(templateSpecification,path,relationships)
     if not os.path.exists(path):
         os.makedirs(path)
-    with open(path+'\\test.yaml', 'w') as source:
+    with open(os.path.join(path, "test.yaml"), 'w') as source:
         source.write(template)
-    return render(request, 'graphGenerator/att.html', {'path': str(request.user.pk)+'\\test.yaml'})
+    return render(request, 'graphGenerator/att.html', {'path': str(request.user.pk)+'/test.yaml'})
     #raise Http404("Page does exist")
 
 def genFormset(current,templateSpecification):

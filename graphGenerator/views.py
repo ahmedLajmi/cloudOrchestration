@@ -64,7 +64,7 @@ def renv(request):
 		originalToscaDefPath = os.path.join(BASE_DIR, "toscaparser/elements/TOSCA_definition_1_0.yaml")
 		secureToscaDefPath = os.path.join(BASE_DIR, "toscaparser/secure/TOSCA_definition_1_0.yaml")
 		#try:
-		temp = ToscaTemplate(path+request.POST["path"])
+		temp = ToscaTemplate(os.path.join(path, request.POST["path"]))
 		#except:
 			# restaurer le tosca definition original
 		#	with open(secureToscaDefPath, 'rb') as definition:
@@ -76,7 +76,7 @@ def renv(request):
 		graphe = temp.graph
 
 		nodes = graphe.nodetemplates
-		mon_fichier = open(path+request.POST["path"], "r")
+		mon_fichier = open(os.path.join(path, request.POST["path"]), "r")
 		file = mon_fichier.read()
 		cpt = 0
 		id_node = 0

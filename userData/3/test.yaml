@@ -5,12 +5,12 @@ topology_template:
 
   node_templates:
          
-    serveur:
+    MonServeur:
       type: tosca.nodes.Compute
       capabilities: 
         host:
           properties: 
-            num_cpus: 4
+            num_cpus: 8
             disk_size: 500 GB
             mem_size: 3000 MB
         os:
@@ -19,19 +19,34 @@ topology_template:
             type: linux
             distribution: ubuntu
             version: 14.03
-    myDatabase:
+    DB:
       type: tosca.nodes.Database
       properties:
-        name: db
+        name: myDB
         user: root
-        password: 12345678
-        port: 20
+        password: 123456
+        port: 123
       requirements:
-        - host: oracle
-    oracle:
+        - host: SGBD
+    SGBD:
       type: tosca.nodes.DBMS
       properties:
-        root_password: 123456
+        root_password: 12345678
         port: 80
       requirements:
-        - host: serveur
+        - host: MonServeur
+    MonAppWeb:
+      type: tosca.nodes.WebApplication
+      properties:
+        context_root: 10
+      requirements:
+        - host: MonServeurWeb
+        - database_endpoint:
+            node: DB
+            relationship: tosca.relationships.ConnectsTo
+    MonServeurWeb:
+      type: tosca.nodes.WebServer
+      properties:
+        component_version: 2.0
+      requirements:
+        - host: MonServeur
